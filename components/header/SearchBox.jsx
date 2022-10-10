@@ -1,7 +1,8 @@
 import { Close, Search } from '@mui/icons-material';
-import {Box, InputAdornment, InputBase, styled } from '@mui/material'
+import {Box, Fade, InputAdornment, InputBase, styled } from '@mui/material'
 import { green, grey } from '@mui/material/colors';
 import React, { useState } from 'react'
+import SearchDrawer from './SearchDrawer';
 
 const SearchArea = styled(Box);
 
@@ -58,51 +59,60 @@ const SearchIcon = (props)=> {
 
 const SearchBox=() =>{
     const [searchText, setSearchText] = useState("");
+    const [showSearchDrawer, setShowSearchDrawer] = useState(false);
     const placeHolder = "Smartphones, TVs, Shirts, Watches..."
   return (
-    <Box
-    sx={{
-        height : "100%",
-        display : "flex",
-        alignItem : "center",
-    }}
-    >
+    <Box>
         <Box
-            sx={{
-                flexGrow : 1,
-                display: "flex",
-                alignItem: "center",
-                margin : "0px 10px",
-                py:"15px",
-            }}
+        sx={{
+            height : "100%",
+            display : "flex",
+            alignItem : "center",
+        }}
         >
-            <InputBase
+            <Box
                 sx={{
                     flexGrow : 1,
-                    outlineColor: "black",
-                    
-                    "& .MuiInputBase-input" : {
-                        bgcolor : grey[200],
-                        borderRadius: "4px",
-                        borderTopRightRadius : "0",
-                        borderBottomRightRadius : "0",
-                        padding : "5px",
-                        fontSize : "22px",
-                        pl: "10px",
-                        outline : "black",
-                        "&:focus" : {
-                            boxShadow : "1px 1px 10px 1px darkgreen",
-                        },
-                    }
+                    display: "flex",
+                    alignItem: "center",
+                    margin : "0px 10px",
+                    py:"15px",
+                    position: "relative"
                 }}
-                inputProps = {{
-                    "placeHolder" : placeHolder,
-                }}
-                value= {searchText}
-                onChange={(e)=>{setSearchText(e.target.value)}}
-                endAdornment = {searchText !=="" && <CustomCloseIcon setSearchText={setSearchText}/>}
-            />
-            <SearchIcon/>
+            >
+                <InputBase
+                    sx={{
+                        flexGrow : 1,
+                        outlineColor: "black",
+                        
+                        "& .MuiInputBase-input" : {
+                            bgcolor : grey[200],
+                            borderRadius: "4px",
+                            borderTopRightRadius : "0",
+                            borderBottomRightRadius : "0",
+                            padding : "5px",
+                            fontSize : "22px",
+                            pl: "10px",
+                            outline : "black",
+                            "&:focus" : {
+                                boxShadow : "1px 1px 10px 1px darkgreen",
+                            },
+                        }
+                    }}
+                    inputProps = {{
+                        "placeholder" : placeHolder,
+                    }}
+                    value= {searchText}
+                    onChange={(e)=>{setSearchText(e.target.value)}}
+                    endAdornment = {searchText !=="" && <CustomCloseIcon setSearchText={setSearchText}/>}
+                    autoFocus={false} 
+                    onClick={()=>setShowSearchDrawer(true)}
+                />
+                <SearchIcon/>
+                { showSearchDrawer && <SearchDrawer showSearchDrawer={showSearchDrawer} setShowSearchDrawer={setShowSearchDrawer}/>}
+                
+            </Box>
+            
         </Box>
         
     </Box>

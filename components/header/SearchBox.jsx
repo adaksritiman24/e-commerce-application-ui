@@ -1,6 +1,7 @@
 import { Close, Search } from '@mui/icons-material';
 import {Box, Fade, InputAdornment, InputBase, styled } from '@mui/material'
 import { green, grey } from '@mui/material/colors';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import SearchDrawer from './SearchDrawer';
 
@@ -8,6 +9,11 @@ const SearchArea = styled(Box);
 
 
 const CustomCloseIcon = (props)=> {
+    const handleSearchClose = ()=>{
+        props.setSearchBoxFocussed(true);
+        props.setSearchText("");
+    }
+
     return (
         <Box
             sx= {{
@@ -19,7 +25,7 @@ const CustomCloseIcon = (props)=> {
                 alignItems : "center",
                 cursor: "pointer"
             }}
-            onClick = {()=>props.setSearchText("")}
+            onClick = {handleSearchClose}
         >
             <Close sx={{
                 fontSize : "26px"
@@ -30,10 +36,13 @@ const CustomCloseIcon = (props)=> {
 }
 
 const SearchIcon = (props)=> {
+
+    const focussed = props.searchBoxFocussed;
+
     return (
         <Box
             sx={{
-                bgcolor: green[900],
+                bgcolor: focussed ? green[900] : grey[800],
                 display: "flex",
                 alignItems: "center",
                 width: "45px",
@@ -41,7 +50,7 @@ const SearchIcon = (props)=> {
                 borderBottomRightRadius : "2px",
                 cursor: "pointer"
             }}
-            onClick = {props.setSearchText}
+            onClick = {props.handleSearch}
         >
             <Search sx={{
                     color : "white",
@@ -55,9 +64,23 @@ const SearchIcon = (props)=> {
 }
 
 const SearchBox=() =>{
+
+    const router = useRouter();
     const [searchText, setSearchText] = useState("");
+    const [searchFocussed, setSearchFocussed] = useState(false);
+    const [searchBoxFocussed, setSearchBoxFocussed] = useState(false);
     const [showSearchDrawer, setShowSearchDrawer] = useState(false);
-    const placeHolder = "Smartphones, TVs, Shirts, Watches..."
+    const placeHolder = "Smartphones, TVs, Shirts, Watches...";
+
+    const handleSearch = ()=> {
+        if(searchText.trim() !== "")
+            router.push(`/search?text=${searchText.trim()}`);
+    }
+
+    const listenForEnter = (e)=> {
+        if(e.key === "Enter")
+            handleSearch();
+    }
   return (
     <Box>
         <Box
@@ -103,11 +126,20 @@ const SearchBox=() =>{
                     }}
                     value= {searchText}
                     onChange={(e)=>{setSearchText(e.target.value)}}
-                    endAdornment = {searchText !=="" && <CustomCloseIcon setSearchText={setSearchText}/>}
-                    autoFocus={false} 
+                    onKeyDown={listenForEnter}
+                    endAdornment = {searchText !=="" && <CustomCloseIcon 
+                                                            setSearchText={setSearchText} 
+                                                            setSearchBoxFocussed={setSearchBoxFocussed}
+                                                            />}
+                    autoFocus={searchBoxFocussed} 
                     onClick={()=>setShowSearchDrawer(true)}
+                    onFocus={()=>setSearchBoxFocussed(true)}
+                    onBlur={()=>setSearchBoxFocussed(false)}
                 />
-                <SearchIcon/>
+                <SearchIcon 
+                    handleSearch={handleSearch}
+                    searchBoxFocussed={searchBoxFocussed}
+                    />
                 { showSearchDrawer && <SearchDrawer showSearchDrawer={showSearchDrawer} setShowSearchDrawer={setShowSearchDrawer}/>}
                 
             </Box>

@@ -2,6 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import { grey} from '@mui/material/colors';
 import React from 'react'
 import Logo from '../common/Logo';
+import MoreNavigation from './MoreNavigation';
 import SearchBox from './SearchBox';
 
 
@@ -11,16 +12,16 @@ const Header=()=> {
       bgcolor : grey[400],
     }}>
       <Grid container>
-        <Grid item md={2}
+        <Grid item md={2} xs={12}
           sx= {{display : "flex"}}
         >
           <Logo/>
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={6} xs={11}>
           <SearchBox />
         </Grid>
-        <Grid item md={4}>
-      
+        <Grid item md={4} xs={1}>
+          <MoreNavigation/>
         </Grid>
       </Grid>
      

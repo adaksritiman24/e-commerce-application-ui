@@ -7,7 +7,6 @@ import classes from "./SearchDrawer.module.css";
 const SearchDrawer=(props)=> {
 
     const searchDrawerRef = useRef(null);
-
     const showSearchDrawer = props.showSearchDrawer;
     const setShowSearchDrawer = props.setShowSearchDrawer;
 
@@ -17,7 +16,6 @@ const SearchDrawer=(props)=> {
 
     useEffect(()=>{
         const removeComponentOnOutsideClick=(event)=>{
-            console.log("Here");
             if(searchDrawerRef.current && !searchDrawerRef.current.contains(event.target))
                 setShowSearchDrawer(false);
         }
@@ -27,8 +25,6 @@ const SearchDrawer=(props)=> {
             document.removeEventListener("mousedown",removeComponentOnOutsideClick)
         }
     },[])
-    
-    console.log(showSearchDrawer);
 
   return (
     <Paper

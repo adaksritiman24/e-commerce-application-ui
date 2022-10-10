@@ -4,4 +4,6 @@ fileignoreconfig:
   checksum: a28436f0dfbceeeef899ab49806e8cd3791a4bd87ddf4ec9cdd13d2e51f1f252
 - filename: package-lock.json
   checksum: a00c8af22c42632d3c554dae943a553d26c2ba1eb9a83a3fd69b399656d50035
+- filename: components/header/SearchBox.jsx
+  checksum: 0f2e5879a228fdc9a919a6b33f9499cbfd5da00638f6c392d539112e340982e9  
 version: 

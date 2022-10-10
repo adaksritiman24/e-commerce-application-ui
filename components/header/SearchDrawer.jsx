@@ -38,7 +38,7 @@ const SearchDrawer=(props)=> {
             position: "absolute",
             background : "white",
             width: "100%",
-            borderRadius : "4px",
+            borderRadius : "2px",
             top: "57px",
             
         }}

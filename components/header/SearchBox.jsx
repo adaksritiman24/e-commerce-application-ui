@@ -30,9 +30,6 @@ const CustomCloseIcon = (props)=> {
 }
 
 const SearchIcon = (props)=> {
-
-
-
     return (
         <Box
             sx={{
@@ -40,8 +37,8 @@ const SearchIcon = (props)=> {
                 display: "flex",
                 alignItems: "center",
                 width: "45px",
-                borderTopRightRadius : "4px",
-                borderBottomRightRadius : "4px",
+                borderTopRightRadius : "2px",
+                borderBottomRightRadius : "2px",
                 cursor: "pointer"
             }}
             onClick = {props.setSearchText}
@@ -77,7 +74,8 @@ const SearchBox=() =>{
                     alignItem: "center",
                     margin : "0px 10px",
                     py:"15px",
-                    position: "relative"
+                    position: "relative",
+                    
                 }}
             >
                 <InputBase
@@ -87,7 +85,7 @@ const SearchBox=() =>{
                         
                         "& .MuiInputBase-input" : {
                             bgcolor : grey[200],
-                            borderRadius: "4px",
+                            borderRadius: "2px",
                             borderTopRightRadius : "0",
                             borderBottomRightRadius : "0",
                             padding : "5px",
@@ -97,6 +95,7 @@ const SearchBox=() =>{
                             "&:focus" : {
                                 boxShadow : "1px 1px 10px 1px darkgreen",
                             },
+                            border:"0.5px solid green",
                         }
                     }}
                     inputProps = {{

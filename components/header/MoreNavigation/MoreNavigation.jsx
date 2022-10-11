@@ -4,16 +4,17 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { color, display, margin } from '@mui/system';
 import { grey } from '@mui/material/colors';
+import MobileMoreNavigation from './MobileMoreNavigation';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
 
 const MoreNavigation=()=> {
   return (
     <Box
         sx={{
-            py:"10px",
+            py:"13px",
             "& svg": {
-                fontSize: "38px"
+                fontSize: "30px"
             },
             display: "flex",
             alignItems: "center",
@@ -27,7 +28,14 @@ const MoreNavigation=()=> {
                 display : "flex"
             }}
         >
-            <LocationOnIcon/>
+            <Box 
+                sx={{
+                    display : "flex",
+                    alignItems : "center"
+                }}
+            >
+                <LocationOnIcon/>
+            </Box>
             <Box>
                 <Box>Ship To</Box>
                 <Box>
@@ -36,7 +44,22 @@ const MoreNavigation=()=> {
             </Box>
         </Box>
 
-        <Box>
+        <Box
+            sx={{
+                display : "flex"
+            }}
+        > 
+            <Box
+                display="flex"
+                alignItems="center"
+                
+            >
+                <PersonPinIcon/>
+                <Typography variant='p'>
+                    Sritiman
+                </Typography>
+            </Box>
+
             <Tooltip title="Your Orders">
                 <IconButton 
                     sx={{
@@ -70,6 +93,7 @@ const MoreNavigation=()=> {
                 </IconButton>
             </Tooltip>
         </Box>
+        {/* <MobileMoreNavigation/> */}
     </Box>
   )
 }

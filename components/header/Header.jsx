@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import { grey} from '@mui/material/colors';
 import React from 'react'
 import Logo from '../common/Logo';
-import MoreNavigation from './MoreNavigation';
+import MoreNavigation from './MoreNavigation/MoreNavigation';
 import SearchBox from './SearchBox';
 
 
@@ -17,10 +17,10 @@ const Header=()=> {
         >
           <Logo/>
         </Grid>
-        <Grid item md={6} xs={11}>
+        <Grid item md={5} xs={11}>
           <SearchBox />
         </Grid>
-        <Grid item md={4} xs={1}>
+        <Grid item md={5} xs={1}>
           <MoreNavigation/>
         </Grid>
       </Grid>

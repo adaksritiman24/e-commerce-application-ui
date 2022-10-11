@@ -9,6 +9,7 @@ const SearchDrawer=(props)=> {
     const searchDrawerRef = useRef(null);
     const showSearchDrawer = props.showSearchDrawer;
     const setShowSearchDrawer = props.setShowSearchDrawer;
+    const recentSearchList = props.recentSearchList;
 
     const handleChipClick = (e)=> {
         console.log("Chip is clicked!");
@@ -41,11 +42,13 @@ const SearchDrawer=(props)=> {
         className={classes.animatedDrawer}
     >
         <Box>
-            <Chip 
-                label="smartphone under 10k" 
+            {recentSearchList.map((recentSearch, index)=>
+                <Chip 
+                label={recentSearch}
+                key={index}
                 variant='outlined'
                 sx={{
-                    m: "10px",
+                    m: "7px",
                     "&:hover": {
                         background: grey[200],
                     },
@@ -55,6 +58,7 @@ const SearchDrawer=(props)=> {
                 onClick={handleChipClick}
                 
                 />
+            )}
         </Box>
     </Paper>
   )

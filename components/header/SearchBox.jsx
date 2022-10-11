@@ -2,10 +2,9 @@ import { Close, Search } from '@mui/icons-material';
 import {Box, Fade, InputAdornment, InputBase, styled } from '@mui/material'
 import { green, grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import useSearchBox from './hooks/useSearchBox';
 import SearchDrawer from './SearchDrawer';
-
-const SearchArea = styled(Box);
 
 
 const CustomCloseIcon = (props)=> {
@@ -72,15 +71,29 @@ const SearchBox=() =>{
     const [showSearchDrawer, setShowSearchDrawer] = useState(false);
     const placeHolder = "Smartphones, TVs, Shirts, Watches...";
 
+    const { recentSearchList, setRecentSearches} = useSearchBox();
+
+    
+
     const handleSearch = ()=> {
-        if(searchText.trim() !== "")
-            router.push(`/search?text=${searchText.trim()}`);
+        if(searchText.trim() !== ""){
+            location.href =`/search?text=${searchText.trim()}`;
+            setRecentSearches(searchText);
+            document.activeElement.blur();
+        }
     }
 
     const listenForEnter = (e)=> {
         if(e.key === "Enter")
             handleSearch();
     }
+
+    useEffect(()=>{
+        const {text} = router.query;
+        if(text !== undefined)
+            setSearchText(text);
+    },[router.query])
+
   return (
     <Box>
         <Box
@@ -140,7 +153,12 @@ const SearchBox=() =>{
                     handleSearch={handleSearch}
                     searchBoxFocussed={searchBoxFocussed}
                     />
-                { showSearchDrawer && <SearchDrawer showSearchDrawer={showSearchDrawer} setShowSearchDrawer={setShowSearchDrawer}/>}
+                { showSearchDrawer && recentSearchList.length > 0 &&
+                    <SearchDrawer 
+                        showSearchDrawer={showSearchDrawer} 
+                        setShowSearchDrawer={setShowSearchDrawer}
+                        recentSearchList={recentSearchList}
+                    />}
                 
             </Box>
             

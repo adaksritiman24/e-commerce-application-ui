@@ -77,13 +77,16 @@ const SearchBox=() =>{
 
     const handleSearch = ()=> {
         if(searchText.trim() !== ""){
-            location.href =`/search?text=${searchText.trim()}`;
+            setShowSearchDrawer(false);
+            // location.href =`/search?text=${searchText.trim()}`;
+            router.push(`/search?text=${searchText.trim()}`);
             setRecentSearches(searchText);
             document.activeElement.blur();
         }
     }
 
     const listenForEnter = (e)=> {
+        setShowSearchDrawer(true);
         if(e.key === "Enter")
             handleSearch();
     }
@@ -95,7 +98,11 @@ const SearchBox=() =>{
     },[router.query])
 
   return (
-    <Box>
+    <Box
+        sx={{
+            flexGrow : 1
+        }}
+    >
         <Box
         sx={{
             height : "100%",
@@ -108,7 +115,6 @@ const SearchBox=() =>{
                     flexGrow : 1,
                     display: "flex",
                     alignItem: "center",
-                    margin : "0px 10px",
                     py:"15px",
                     position: "relative",
                     

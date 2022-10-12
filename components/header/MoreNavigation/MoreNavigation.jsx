@@ -20,6 +20,7 @@ const MoreNavigation=()=> {
             alignItems: "center",
             justifyContent: "space-between",
             mx : "10px",
+            width : "100%"
         }}
     >
         <Box 

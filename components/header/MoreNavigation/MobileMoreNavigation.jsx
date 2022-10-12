@@ -1,12 +1,22 @@
-import { Drawer, IconButton } from '@mui/material'
+import { Box, Drawer, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import { grey } from '@mui/material/colors';
 
 const MobileMoreNavigation=()=> {
-    const [drawerOpen, setDrawerOpen] = useState(true);
+    const [drawerOpen, setDrawerOpen] = useState(false);
   return (
-    <>
+    <Box 
+        sx={{
+            "& svg": {
+                fontSize: "30px"
+            },
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            width : "100%"
+        }}
+    >
         <IconButton
             sx={{
                 ml : 1,
@@ -23,7 +33,7 @@ const MobileMoreNavigation=()=> {
         >
             hello
         </Drawer>
-    </>
+    </Box>
   )
 }
 

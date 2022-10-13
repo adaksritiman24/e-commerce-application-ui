@@ -29,9 +29,8 @@ const Logo=()=> {
           p : 0
         }}
         > 
-          <span className={classes["brand"]}><b>M</b></span>
-          <span className={classes["brand-sub"]}><b>FIX</b></span>
-          <span className={classes["brand-sub-arrow"]}><b> &#11000;</b></span>
+          <span className={classes["brand"]}><b>B</b></span>
+          <span className={classes["brand-sub"]}><b>UZZ</b></span>
         </Typography>
     </Box>
   )

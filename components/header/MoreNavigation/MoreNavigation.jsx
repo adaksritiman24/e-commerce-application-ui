@@ -5,7 +5,6 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { grey } from '@mui/material/colors';
-import MobileMoreNavigation from './MobileMoreNavigation';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 
 const MoreNavigation=()=> {

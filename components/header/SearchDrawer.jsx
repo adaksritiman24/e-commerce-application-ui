@@ -37,7 +37,7 @@ const SearchDrawer=(props)=> {
             width: "100%",
             borderRadius : "2px",
             top: "57px",
-            
+            py: "8px",
         }}
         className={classes.animatedDrawer}
     >
@@ -48,7 +48,7 @@ const SearchDrawer=(props)=> {
                 key={index}
                 variant='outlined'
                 sx={{
-                    m: "7px",
+                    m: "8px",
                     "&:hover": {
                         background: grey[200],
                     },

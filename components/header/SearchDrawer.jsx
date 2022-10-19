@@ -34,7 +34,7 @@ const SearchDrawer=(props)=> {
         elevation={6}
         sx= {{
             position: "absolute",
-            background : "white",
+            background : grey[100],
             width: "100%",
             borderRadius : "2px",
             top: "57px",

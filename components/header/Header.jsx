@@ -2,6 +2,7 @@ import { Box, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { grey} from '@mui/material/colors';
 import React from 'react'
 import Logo from '../common/Logo';
+import CategoriesSection from './CategoriesSection';
 import MobileMoreNavigation from './MoreNavigation/MobileMoreNavigation';
 import MoreNavigation from './MoreNavigation/MoreNavigation';
 import SearchBox from './SearchBox';
@@ -43,7 +44,7 @@ const Header=()=> {
           {isDesktop ?<MoreNavigation/> : <MobileMoreNavigation/>}
         </Grid>
       </Grid>
-     
+      <CategoriesSection/>
     </Box>
   )
 }

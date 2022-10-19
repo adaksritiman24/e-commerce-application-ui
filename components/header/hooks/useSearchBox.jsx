@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
 
 
 const useSearchBox = ()=> {
 
     const [recentSearchList, setRecentSearchList] = useState([]);
+    const [searchText, setSearchText] = useState("");
+    const [showSearchDrawer, setShowSearchDrawer] = useState(false);
+
+    const router = useRouter();
 
 
     const getRecentSearches =() => {
@@ -26,7 +31,9 @@ const useSearchBox = ()=> {
         }
         else {
             const recentSearchlistJSON = JSON.parse(recentSearch);
+            //remove duplicates
             recentSearchlistJSON.unshift(newSearch)
+            recentSearchlistJSON = [...new Set(recentSearchlistJSON)]
             recentSearchlistJSON = recentSearchlistJSON.splice(0,15);
 
             setRecentSearchList(recentSearchlistJSON);
@@ -38,13 +45,38 @@ const useSearchBox = ()=> {
         }
     }
 
+    const handleSearch = useCallback(()=> {
+        if(searchText.trim() !== ""){
+            setShowSearchDrawer(false);
+            // location.href =`/search?text=${searchText.trim()}`;
+            router.push(`/search?text=${searchText.trim()}`);
+            setRecentSearches(searchText);
+            document.activeElement.blur();
+        }
+    },[searchText])
+
+    const handleRecentSearch = (recentSearchTerm)=> {
+        setShowSearchDrawer(false);
+        // location.href =`/search?text=${searchText.trim()}`;
+        router.push(`/search?text=${recentSearchTerm}`);
+        setRecentSearches(recentSearchTerm);
+        document.activeElement.blur();
+
+    }
+
     useEffect(()=> {
         getRecentSearches();
     },[])
 
     return {
         recentSearchList,
-        setRecentSearches
+        setRecentSearches,
+        handleRecentSearch,
+        handleSearch,
+        searchText,
+        setSearchText,
+        showSearchDrawer,
+        setShowSearchDrawer
     }
 }
 export default useSearchBox;

@@ -10,6 +10,7 @@ const SearchDrawer=(props)=> {
     const showSearchDrawer = props.showSearchDrawer;
     const setShowSearchDrawer = props.setShowSearchDrawer;
     const recentSearchList = props.recentSearchList;
+    const handleRecentSearch = props.handleRecentSearch;
 
     const handleChipClick = (e)=> {
         console.log("Chip is clicked!");
@@ -45,6 +46,9 @@ const SearchDrawer=(props)=> {
             {recentSearchList.map((recentSearch, index)=>
                 <Chip 
                 label={recentSearch}
+                onClick = {()=>{
+                    handleRecentSearch(recentSearch);
+                }}
                 key={index}
                 variant='outlined'
                 sx={{
@@ -55,8 +59,6 @@ const SearchDrawer=(props)=> {
                     cursor: "pointer"
                     
                 }}
-                onClick={handleChipClick}
-                
                 />
             )}
         </Box>

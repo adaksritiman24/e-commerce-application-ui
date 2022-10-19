@@ -65,25 +65,21 @@ const SearchIcon = (props)=> {
 const SearchBox=() =>{
 
     const router = useRouter();
-    const [searchText, setSearchText] = useState("");
     const [searchFocussed, setSearchFocussed] = useState(false);
     const [searchBoxFocussed, setSearchBoxFocussed] = useState(false);
-    const [showSearchDrawer, setShowSearchDrawer] = useState(false);
     const placeHolder = "Smartphones, TVs, Shirts, Watches...";
 
-    const { recentSearchList, setRecentSearches} = useSearchBox();
+    const { 
+        recentSearchList, 
+        handleRecentSearch,
+        showSearchDrawer,
+        setShowSearchDrawer,
+        handleSearch,
+        setSearchText,
+        searchText
+    } = useSearchBox();
 
     
-
-    const handleSearch = ()=> {
-        if(searchText.trim() !== ""){
-            setShowSearchDrawer(false);
-            // location.href =`/search?text=${searchText.trim()}`;
-            router.push(`/search?text=${searchText.trim()}`);
-            setRecentSearches(searchText);
-            document.activeElement.blur();
-        }
-    }
 
     const listenForEnter = (e)=> {
         setShowSearchDrawer(true);
@@ -164,6 +160,7 @@ const SearchBox=() =>{
                         showSearchDrawer={showSearchDrawer} 
                         setShowSearchDrawer={setShowSearchDrawer}
                         recentSearchList={recentSearchList}
+                        handleRecentSearch={handleRecentSearch}
                     />}
                 
             </Box>

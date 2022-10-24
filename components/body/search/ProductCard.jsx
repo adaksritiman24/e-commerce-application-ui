@@ -2,7 +2,7 @@ import { Box, Card, CardContent, Rating, Typography } from "@mui/material";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import React from "react";
 import { grey } from "@mui/material/colors";
-import { color, height } from "@mui/system";
+import ProductCardPricing from "./ProductCardPricing";
 
 const ProductCard = ({ product }) => {
   return (
@@ -44,7 +44,7 @@ const ProductCard = ({ product }) => {
       <CardContent>
         <Typography
           gutterBottom
-          variant="h5"
+          variant="h6"
           component="div"
           sx={{
             fontWeight: "600",
@@ -53,9 +53,10 @@ const ProductCard = ({ product }) => {
         >
           {product.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {product.productDetails.splice(0, 79)}
-        </Typography>
+        <ProductCardPricing
+          normalPrice={product.normalPrice}
+          discountedPrice={product.discountedPrice}
+        />
         {product.rating ? (
           <Box
             sx={{
@@ -71,7 +72,13 @@ const ProductCard = ({ product }) => {
               readOnly
               size="large"
             />
-            <p style={{ margin: "0px 8px" }}> {product.rating}</p>
+            <p 
+            style={{ 
+              margin: "0px 8px", 
+              fontFamily : "Trebuchet Ms",
+              fontSize : "16px"
+            }}
+            > {product.rating}</p>
           </Box>
         ) : (
           <Typography

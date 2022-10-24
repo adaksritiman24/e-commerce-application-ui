@@ -1,4 +1,4 @@
-import { Box, IconButton, Tooltip, Typography } from '@mui/material'
+import { Box, IconButton, Tooltip, Typography, useMediaQuery } from '@mui/material'
 import React from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -8,12 +8,13 @@ import { grey } from '@mui/material/colors';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 
 const MoreNavigation=()=> {
+    const isDesktop  = useMediaQuery('(min-width:1200px)');
   return (
     <Box
         sx={{
             py:"13px",
             "& svg": {
-                fontSize: "30px"
+                fontSize: isDesktop ? "30px" : "23px"
             },
             display: "flex",
             alignItems: "center",
@@ -36,10 +37,15 @@ const MoreNavigation=()=> {
             >
                 <LocationOnIcon/>
             </Box>
-            <Box>
-                <Box>Ship To</Box>
+            <Box fontFamily="arial">
+                <Box
+                    sx={{
+                        fontSize : isDesktop ? "17px" : "14px"
+                    }}
+                >Ship To</Box>
                 <Box>
-                    <b style={{ fontSize: "22px"}}>Kolkata</b>, India
+                    <b style={{ fontSize: isDesktop ? "22px" : "18px"}}>Kolkata</b>, 
+                    <span style={{ fontSize : isDesktop ? "18px" : "14px"}}> India</span>
                 </Box>
             </Box>
         </Box>

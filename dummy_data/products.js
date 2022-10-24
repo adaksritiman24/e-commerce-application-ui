@@ -16,7 +16,7 @@ export const products = [
             "16.72 centimeters (6.6-inch) FHD+ LCD - infinity O Display, FHD+ resolution with 1080 x 2408 pixels resolution, 401 PPI with 16M color"
         ],
         reviews : [],
-        rating : undefined,
+        rating : 3.4,
         seller : "ASIN Electronics"
     },
     
@@ -37,7 +37,7 @@ export const products = [
             "16.72 centimeters (6.6-inch) FHD+ LCD - infinity O Display, FHD+ resolution with 1080 x 2408 pixels resolution, 401 PPI with 16M color"
         ],
         reviews : [],
-        rating : undefined,
+        rating : 4.2,
         seller : "ASIN Electronics"
     },
     {
@@ -57,7 +57,7 @@ export const products = [
             "16.72 centimeters (6.6-inch) FHD+ LCD - infinity O Display, FHD+ resolution with 1080 x 2408 pixels resolution, 401 PPI with 16M color"
         ],
         reviews : [],
-        rating : undefined,
+        rating : 4.5,
         seller : "ASIN Electronics"
     },
     {
@@ -77,7 +77,7 @@ export const products = [
             "16.72 centimeters (6.6-inch) FHD+ LCD - infinity O Display, FHD+ resolution with 1080 x 2408 pixels resolution, 401 PPI with 16M color"
         ],
         reviews : [],
-        rating : undefined,
+        rating : 4.6,
         seller : "ASIN Electronics"
     },
     {
@@ -117,7 +117,7 @@ export const products = [
             "16.72 centimeters (6.6-inch) FHD+ LCD - infinity O Display, FHD+ resolution with 1080 x 2408 pixels resolution, 401 PPI with 16M color"
         ],
         reviews : [],
-        rating : undefined,
+        rating : 5,
         seller : "ASIN Electronics"
     },
     {
@@ -137,7 +137,7 @@ export const products = [
             "16.72 centimeters (6.6-inch) FHD+ LCD - infinity O Display, FHD+ resolution with 1080 x 2408 pixels resolution, 401 PPI with 16M color"
         ],
         reviews : [],
-        rating : undefined,
+        rating : 4.4,
         seller : "ASIN Electronics"
     },
     {
@@ -157,7 +157,7 @@ export const products = [
             "16.72 centimeters (6.6-inch) FHD+ LCD - infinity O Display, FHD+ resolution with 1080 x 2408 pixels resolution, 401 PPI with 16M color"
         ],
         reviews : [],
-        rating : undefined,
+        rating : 2.2,
         seller : "ASIN Electronics"
     },
     {

@@ -4,10 +4,10 @@ fileignoreconfig:
   checksum: a28436f0dfbceeeef899ab49806e8cd3791a4bd87ddf4ec9cdd13d2e51f1f252
 - filename: package-lock.json
   checksum: a00c8af22c42632d3c554dae943a553d26c2ba1eb9a83a3fd69b399656d50035
-- filename: components/header/SearchBox.jsx
-  checksum: 0f2e5879a228fdc9a919a6b33f9499cbfd5da00638f6c392d539112e340982e9
 - filename: components/body/search/SearchedProducts.jsx
   checksum: 91129788ae8d4acfb0af808d6e12ccac9b1844cc4706d1291f7470b17bff7a4a
 - filename: dummy_data/products.js
   checksum: e92f45de8faf3444f71ca2c35711f348cd1cdbdd28bf2e8fe9edbc60e7208a84    
+- filename: components/header/SearchBox.jsx
+  checksum: d57c4fd1f7ca1e36f9e5ee1dc514c30c4f7997f34e3f205687a8725251d0ca6d  
 version: 

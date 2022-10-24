@@ -1,10 +1,13 @@
-import { Box, Chip } from '@mui/material'
+import { Box, Chip, useMediaQuery, useTheme } from '@mui/material'
 import { green, grey } from '@mui/material/colors';
 import React from 'react'
 import useCategories from './hooks/useCategories'
 
 const CategoriesSection =()=> {
     const {categories} = useCategories();
+    const themes = useTheme();
+
+    const isDesktop = useMediaQuery(themes.breakpoints.up("lg"));
   return (
     <Box
         sx={{
@@ -20,7 +23,7 @@ const CategoriesSection =()=> {
                     sx={{
                         background : grey[700],
                         color : grey[200],
-                        fontSize : "18px",
+                        fontSize : isDesktop ? "18px" : "14px",
                         m : "5px",
                         p : "4px",
                         cursor : "pointer",

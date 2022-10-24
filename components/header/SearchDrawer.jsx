@@ -39,6 +39,7 @@ const SearchDrawer=(props)=> {
             borderRadius : "2px",
             top: "57px",
             py: "8px",
+            zIndex : "+100"
         }}
         className={classes.animatedDrawer}
     >

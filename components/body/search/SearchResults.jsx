@@ -5,6 +5,7 @@ import useSearchResults from "../hooks/useSearchResults";
 import FilterForMobile from "./FilterForMobile";
 import Filters from "./Filters";
 import SearchedProducts from "./SearchedProducts";
+import SearchFilters from "./SearchFilters";
 
 const SearchResults = () => {
   const theme = useTheme();
@@ -38,12 +39,17 @@ const SearchResults = () => {
               top: "12px",
               height: "97vh",
               background: grey[100],
-              zIndex: -1,
+              mt : "5px"
             }}
           >
-            <Typography variant="h4" fontWeight={500} p={2}>
+            <Typography variant="h4" fontWeight={500} p={2}
+              sx={{
+                background : grey[300]
+              }}
+            >
               Filters
             </Typography>
+            <SearchFilters/>
           </Grid>
         )}
         <Grid item lg={9} xs={12}>

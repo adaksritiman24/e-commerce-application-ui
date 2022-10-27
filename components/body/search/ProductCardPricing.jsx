@@ -50,11 +50,14 @@ const ProductCardPricing = ({ normalPrice, discountedPrice }) => {
       </Box>
       <Chip
         label={`${calculateTotalDiscountPercentage()}% off`}
-        variant="filled"
+        variant="outline"
+
         sx={{
           fontWeight: "600",
-          background: green[700],
+          background: grey[800],
           color: grey[300],
+          borderRadius : "4px",
+          px : "5px"
         }}
       />
     </Box>

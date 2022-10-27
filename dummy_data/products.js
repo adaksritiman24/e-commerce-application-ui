@@ -8,6 +8,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -29,6 +30,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -49,6 +51,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -69,6 +72,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -89,6 +93,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -109,6 +114,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -129,6 +135,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -149,6 +156,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",
@@ -169,6 +177,7 @@ export const products = [
         variants : [],
         keywords : "samsung, smartphone, mobile, galaxy M13, phone",
         cateory : 3,
+        brand : "Samsung",
         productDetails : [
             "6000mAh lithium-ion battery, 1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
             "Upto 12GB RAM with RAM Plus | 64GB internal memory expandable up to 1TB| Dual Sim (Nano)",

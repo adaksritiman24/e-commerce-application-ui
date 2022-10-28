@@ -49,6 +49,11 @@ const ProductCard = ({ product }) => {
           sx={{
             fontWeight: "600",
             color: grey[700],
+            display : "-webkit-box",
+            WebkitLineClamp : 2,
+            WebkitBoxOrient : "vertical",
+            overflow : "hidden",
+            height : "64px",
           }}
         >
           {product.name}

@@ -15,7 +15,11 @@ const SearchResults = () => {
   const isMobile = useMediaQuery(mobileMedia);
   const [openFilterForMobile, setOpenFilterForMobile] = useState(false);
 
-  const { searchResults } = useSearchResults();
+  const { 
+    searchResults ,
+    brands,
+    price,
+  } = useSearchResults();
 
   return (
     <Box px={isMobile ? 3 : 5}>
@@ -49,7 +53,7 @@ const SearchResults = () => {
             >
               Filters
             </Typography>
-            <SearchFilters/>
+            <SearchFilters brands={brands} priceBracket={price}/>
           </Grid>
         )}
         <Grid item lg={9} xs={12}>

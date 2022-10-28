@@ -2,8 +2,9 @@ import { Box, Divider, Rating, styled, Typography } from '@mui/material'
 import {Slider} from '@mui/material'
 import { grey } from '@mui/material/colors';
 import { Stack } from '@mui/system';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useSearchFilters from '../hooks/useSearchFilters';
+import BrandSelectComponent from './BrandSelectComponent';
 
 const StyledFilterBox = styled(Box)({
     width : "90%",
@@ -13,11 +14,12 @@ const StyledFilterBox = styled(Box)({
     borderRadius : "4px",
 });
 
-const SearchFilters =()=> {
-    const minPrice = 10000;
-    const maxPrice = 50000;
+const SearchFilters =({
+    brands,
+    priceBracket
+})=> {
     const {price, setPrice} = useSearchFilters(
-        minPrice, maxPrice
+        priceBracket
     );
 
     const handlePrice = (event, newPrice)=> {
@@ -44,6 +46,10 @@ const SearchFilters =()=> {
     </Box>
     }
 
+    useEffect(()=>{
+            setPrice(priceBracket);
+    },[priceBracket])
+
   return (
     <Box
         sx={{
@@ -69,8 +75,8 @@ const SearchFilters =()=> {
                 valueLabelDisplay="auto"
                 getAriaValueText={getPriceText}
                 disableSwap
-                min={minPrice}
-                max={maxPrice}
+                min={priceBracket[0]}
+                max={priceBracket[1]}
 
                 sx = {{
                     width : "90%",
@@ -109,8 +115,8 @@ const SearchFilters =()=> {
                     justifyContent : "space-between"
                 }}
             >
-                <Typography>Rs. {price[0]}</Typography>
-                <Typography>Rs. {price[1]}</Typography>
+                <Typography>&#x20B9; {price[0]}</Typography>
+                <Typography>&#x20B9; {price[1]}</Typography>
             </Box>
         </StyledFilterBox>
         
@@ -128,6 +134,21 @@ const SearchFilters =()=> {
             {showRatingOption(3)}
             {showRatingOption(2)}
             {showRatingOption(1)}
+            </Stack> 
+        </StyledFilterBox>
+        
+        <StyledFilterBox>
+             <Typography
+                fontSize="18px"
+                fontWeight="600"
+                fontFamily="helvetica"
+            >
+                Brand
+            </Typography>  
+            <Stack>
+                <BrandSelectComponent 
+                    brands={brands}
+                />
             </Stack> 
         </StyledFilterBox>
 

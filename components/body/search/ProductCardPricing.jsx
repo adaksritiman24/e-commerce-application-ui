@@ -1,6 +1,7 @@
 import { Box, Chip, Typography } from "@mui/material";
-import { green, grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import React from "react";
+import { getFormattedPrice } from "../../common/utils/helpers";
 
 const ProductCardPricing = ({ normalPrice, discountedPrice }) => {
   const calculateTotalDiscountPercentage = () => {
@@ -34,9 +35,9 @@ const ProductCardPricing = ({ normalPrice, discountedPrice }) => {
               fontWeight: 500,
             }}
           >
-            &#x20B9;
+            
           </Typography>
-          {discountedPrice}
+          {getFormattedPrice(discountedPrice)}
         </Typography>
         <Typography
           variant="p"
@@ -45,7 +46,7 @@ const ProductCardPricing = ({ normalPrice, discountedPrice }) => {
             px: 1,
           }}
         >
-          <del>&#x20B9;{normalPrice}</del>
+          <del>{getFormattedPrice(normalPrice)}</del>
         </Typography>
       </Box>
       <Chip

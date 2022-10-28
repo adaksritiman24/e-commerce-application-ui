@@ -1,10 +1,9 @@
 import { useState } from "react";
 
 const useSearchFilters = (
-    minPrice,
-    maxPrice
+    priceBracket
 )=> {
-    const [price , setPrice] = useState([minPrice,maxPrice])
+    const [price , setPrice] = useState(priceBracket)
 
     return {
         price,

@@ -5,7 +5,7 @@ import React from "react";
 import ProductCard from "./ProductCard";
 
 const SearchedProducts = ({ searchResults }) => {
-  console.log(searchResults);
+
   const router = useRouter();
   const keyword = router.query["text"];
 

@@ -17,6 +17,8 @@ const SearchResults = () => {
 
   const { 
     searchResults ,
+    filteredResults,
+    setFilteredResults,
     brands,
     price,
   } = useSearchResults();
@@ -53,11 +55,16 @@ const SearchResults = () => {
             >
               Filters
             </Typography>
-            <SearchFilters brands={brands} priceBracket={price}/>
+            <SearchFilters 
+              brands={brands} 
+              priceBracket={price} 
+              searchResults={searchResults}
+              setFilteredResults={setFilteredResults}  
+            />
           </Grid>
         )}
         <Grid item lg={9} xs={12}>
-          <SearchedProducts searchResults={searchResults} />
+          <SearchedProducts searchResults={filteredResults} />
         </Grid>
       </Grid>
     </Box>

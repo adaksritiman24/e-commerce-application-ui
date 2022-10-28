@@ -1,6 +1,6 @@
 import { Box, Divider, Rating, styled, Typography } from '@mui/material'
 import {Slider} from '@mui/material'
-import { grey } from '@mui/material/colors';
+import { green, grey } from '@mui/material/colors';
 import { Stack } from '@mui/system';
 import React, { useEffect, useState } from 'react'
 import useSearchFilters from '../hooks/useSearchFilters';
@@ -16,14 +16,30 @@ const StyledFilterBox = styled(Box)({
 
 const SearchFilters =({
     brands,
-    priceBracket
+    priceBracket,
+    searchResults,
+    setFilteredResults,
 })=> {
-    const {price, setPrice} = useSearchFilters(
-        priceBracket
+    const {
+        price, 
+        setPrice, 
+        selectedRating,
+        setSelectedRating,
+        
+    } = useSearchFilters(
+        
+        priceBracket,
+        searchResults,
+        setFilteredResults,
     );
+    const [displayedPrice, setDisplayedPrice] = useState(priceBracket);
 
+    const handlePriceChangeComitted = (_,newComittedPrice)=> {
+        setPrice(newComittedPrice);
+    }
+        
     const handlePrice = (event, newPrice)=> {
-        setPrice(newPrice);
+        setDisplayedPrice(newPrice);
     }
     const getPriceText =(value)=> {
         return `Rs. ${value}`;
@@ -35,12 +51,18 @@ const SearchFilters =({
             sx={{
                 cursor : "pointer"
             }}
+            onClick={()=>{
+                if(selectedRating === value) setSelectedRating(0);
+                else setSelectedRating(value);
+            }}
         >
         <Rating value={value} size="large" readOnly/>
         <Typography ml={1} fontWeight="500" 
             sx={{
                 display : "flex",
-                alignItems : "center"
+                fontWeight : "600",
+                alignItems : "center",
+                color : selectedRating === value ? green[700] : grey[800],
             }}
         >& Up</Typography>
     </Box>
@@ -48,6 +70,7 @@ const SearchFilters =({
 
     useEffect(()=>{
             setPrice(priceBracket);
+            setDisplayedPrice(priceBracket);
     },[priceBracket])
 
   return (
@@ -70,8 +93,9 @@ const SearchFilters =({
             <Slider
                 size='large'
                 getAriaLabel={() => 'Temperature range'}
-                value={price}
+                value={displayedPrice}
                 onChange={handlePrice}
+                onChangeCommitted={handlePriceChangeComitted}
                 valueLabelDisplay="auto"
                 getAriaValueText={getPriceText}
                 disableSwap
@@ -84,7 +108,7 @@ const SearchFilters =({
                     '& .MuiSlider-thumb': {
                         height: 23,
                         width: 23,
-                        backgroundColor: grey[900],
+                        backgroundColor: grey[600],
                         '&:focus, &:hover, &.Mui-active': {
                           boxShadow:
                             '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)',
@@ -93,11 +117,11 @@ const SearchFilters =({
                     '& .MuiSlider-track': {
                         border : "none",
                         height :"10px",
-                        bgcolor: grey[600],
+                        bgcolor: grey[400],
                     },
                     '& .MuiSlider-rail': {
                         opacity : "0.8",
-                        backgroundColor: grey[500],
+                        backgroundColor: grey[300],
                     },
                     '& .MuiSlider-valueLabel': {
                         lineHeight: 1.2,

@@ -3,10 +3,16 @@ import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import React from "react";
 import { grey } from "@mui/material/colors";
 import ProductCardPricing from "./ProductCardPricing";
+import { useRouter } from "next/router";
 
 const ProductCard = ({ product }) => {
+  const router = useRouter();
+  const handleProductCardClick =(productId)=>{
+    router.push(`/product/${productId}`)
+  }
   return (
     <Card
+      onClick={()=>handleProductCardClick(product.id)}
       sx={{
         cursor: "pointer",
         ":hover": {

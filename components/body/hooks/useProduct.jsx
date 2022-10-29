@@ -8,7 +8,56 @@ const useProduct = ()=>{
     const router = useRouter();
     const productId = router.query.productId;
     const [product, setProduct] = useState(null);
+    const [quantityInCart, setQuantityInCart] = useState(0);
 
+
+    const updateCartQuantity=()=>{
+        const cartListJSON = localStorage.getItem(buzzCart);
+        if(!cartListJSON){
+            setQuantityInCart(0);
+            return
+        }
+        const cartList = JSON.parse(cartListJSON);
+        const currentProductData = cartList.find(cartItem=> cartItem.productId == productId);
+ 
+        if(currentProductData !== undefined)
+            setQuantityInCart(currentProductData.quantity);
+        else    
+            setQuantityInCart(0);    
+    }
+
+    const decreaseCartQuantityBy1=()=>{
+        const cartListJSON = localStorage.getItem(buzzCart);
+        if(!cartListJSON){
+            return
+        }
+        const cartList = JSON.parse(cartListJSON);
+        const currentProductData = cartList.find(cartItem=> cartItem.productId == productId);
+
+        if(currentProductData !== undefined){
+            const newCartList = cartList.map((cartItem)=>{
+                if(cartItem.productId == productId) return {
+                    ...cartItem, quantity : cartItem.quantity - 1
+                }
+                else return cartItem;
+            })
+            localStorage.setItem(buzzCart,JSON.stringify(newCartList));
+        }
+        updateCartQuantity();
+    }
+
+    const removeFromCart = ()=>{
+        try{
+            const cartListJSON = localStorage.getItem(buzzCart);
+            const cartList = JSON.parse(cartListJSON);
+            const updatedCartList = cartList.filter((cartItem)=>cartItem.productId != productId);
+            localStorage.setItem(buzzCart,JSON.stringify(updatedCartList));
+            updateCartQuantity();
+        }
+        catch(e) {
+            console.log("Item not in cart");
+        }
+    }
 
     const addToCartWithQuantity1=()=>{
         const cartListJSON = localStorage.getItem(buzzCart);
@@ -20,7 +69,7 @@ const useProduct = ()=>{
                     quantity : 1
                 }
             ]
-            localStorage.setItem("buzzCart",JSON.stringify(newCartList));
+            localStorage.setItem(buzzCart,JSON.stringify(newCartList));
         }
         else{
             const cartList = JSON.parse(cartListJSON);
@@ -31,7 +80,7 @@ const useProduct = ()=>{
                     productId : productId,
                     quantity : 1
                 })
-                localStorage.setItem("buzzCart",JSON.stringify(cartList));
+                localStorage.setItem(buzzCart,JSON.stringify(cartList));
             }
             else{ //increase quantity of the existing item
                 const newCartList = cartList.map((cartItem)=>{
@@ -40,10 +89,11 @@ const useProduct = ()=>{
                     }
                     else return cartItem;
                 })
-                localStorage.setItem("buzzCart",JSON.stringify(newCartList));
+                localStorage.setItem(buzzCart,JSON.stringify(newCartList));
 
             }
         }
+        updateCartQuantity();
         
     }
 
@@ -55,9 +105,16 @@ const useProduct = ()=>{
         }   
     },[productId]);
 
+    useEffect(()=>{
+        updateCartQuantity();
+    },[productId])
+
     return ({
         product,
+        quantityInCart,
         addToCartWithQuantity1,
+        decreaseCartQuantityBy1,
+        removeFromCart
     })
 }
 

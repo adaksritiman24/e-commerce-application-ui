@@ -1,12 +1,9 @@
 import { Box, Chip, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
-import { getFormattedPrice } from "../../common/utils/helpers";
+import { calculateTotalDiscountPercentage, getFormattedPrice } from "../../common/utils/helpers";
 
-const ProductCardPricing = ({ normalPrice, discountedPrice }) => {
-  const calculateTotalDiscountPercentage = () => {
-    return Math.round(((normalPrice - discountedPrice) / normalPrice) * 100);
-  };
+const ProductCardPricing = ({ normalPrice, discountedPrice , offer}) => {
 
   return (
     <Box
@@ -50,7 +47,7 @@ const ProductCardPricing = ({ normalPrice, discountedPrice }) => {
         </Typography>
       </Box>
       <Chip
-        label={`${calculateTotalDiscountPercentage()}% off`}
+        label={`${calculateTotalDiscountPercentage(normalPrice, discountedPrice)}% off`}
         variant="outline"
 
         sx={{

@@ -20,6 +20,7 @@ const CategoriesSection =()=> {
             categories.map((category, index)=> (
                 <Chip 
                     label={category.name}
+                    key={index}
                     sx={{
                         background : grey[700],
                         color : grey[200],

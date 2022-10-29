@@ -6,13 +6,19 @@ import { grey } from "@mui/material/colors";
 
 const Filters = ({ setOpenFilterForMobile }) => {
   return (
-    <Stack direction="row">
+    <Stack direction="row"
+      sx={{
+        background : grey[300],
+        mt:"8px",
+        borderRadius : "4px",
+      }}
+    >
       <Button
         sx={{
           "& svg": {
-            fontSize: "40px",
+            fontSize: "30px",
           },
-          color: grey[700],
+          color: grey[800],
         }}
         onClick={() => setOpenFilterForMobile(true)}
       >

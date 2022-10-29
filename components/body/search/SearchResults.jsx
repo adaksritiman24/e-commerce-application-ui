@@ -23,12 +23,19 @@ const SearchResults = () => {
     price,
   } = useSearchResults();
 
+  const searchFilterProps = {
+    brands,
+    priceBracket: price ,
+    searchResults,
+    setFilteredResults  
+  }
   return (
     <Box px={isMobile ? 3 : 5}>
       {!isDesktop && (
         <>
           <Filters setOpenFilterForMobile={setOpenFilterForMobile} />
           <FilterForMobile
+            searchFilterProps={searchFilterProps}
             openFilterForMobile={openFilterForMobile}
             setOpenFilterForMobile={setOpenFilterForMobile}
           />

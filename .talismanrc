@@ -5,9 +5,12 @@ fileignoreconfig:
 - filename: package-lock.json
   checksum: a00c8af22c42632d3c554dae943a553d26c2ba1eb9a83a3fd69b399656d50035
 - filename: components/body/search/SearchedProducts.jsx
-  checksum: ba4831602df08616f368981e62ab1496608954ff191cc46c9f793167966e58fe
+  checksum: da4f142f567d06a7e6f69e3b9d2eabbbb6439b7b129bdcc87dde0f3170470fa2
 - filename: dummy_data/products.js
   checksum: e92f45de8faf3444f71ca2c35711f348cd1cdbdd28bf2e8fe9edbc60e7208a84    
 - filename: components/header/SearchBox.jsx
   checksum: d57c4fd1f7ca1e36f9e5ee1dc514c30c4f7997f34e3f205687a8725251d0ca6d  
+- filename: components/body/hooks/useSearchFilters.jsx
+  checksum: 53bcd32620f3bd124695c295e5d674342a63f3ba269bccefa1b2a3613d64242a
+
 version: 

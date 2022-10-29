@@ -19,8 +19,8 @@ const SearchedProducts = ({ searchResults }) => {
       </Typography>
       <Grid container spacing={2} padding={isDesktop ? 2 : 0}>
         {searchResults.map((searchResult, index) => (
-          <Grid item xs={12} sm={6} md={6} lg={6} xl={4}>
-            <ProductCard key={index} product={searchResult} />
+          <Grid item xs={12} sm={6} md={6} lg={6} xl={4} key={index}>
+            <ProductCard product={searchResult} />
           </Grid>
         ))}
       </Grid>

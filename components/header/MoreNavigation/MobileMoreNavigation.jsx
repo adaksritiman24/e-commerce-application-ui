@@ -28,17 +28,24 @@ const MobileSideDrawer = (props)=>{
                 },
                 "& .MuiPaper-root" : {
                     bgcolor : grey[400],
+                    width : "250px"
                 },
                 "& .MuiButtonBase-root" : {
                     display : "flex",
                     justifyContent : "flex-start",
                     textTransform : "none"
-                }
+                },
+                
             }}
             
         >
-            <Stack spacing={2} padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={grey[800]} >
-                <Stack direction="row" spacing={4}>
+            <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={grey[800]} >
+                <Stack direction="row"
+                    sx={{
+                        display : "flex",
+                        justifyContent : "space-between"
+                    }}
+                >
                     <Box
                         display="flex"
                         alignItems="center"

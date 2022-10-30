@@ -10,6 +10,10 @@ const ProductCardPricing = ({ normalPrice, discountedPrice , offer}) => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
+        flexDirection : {
+          xs : "column",
+          lg : "row"
+        }
       }}
     >
       <Box
@@ -46,18 +50,25 @@ const ProductCardPricing = ({ normalPrice, discountedPrice , offer}) => {
           <del>{getFormattedPrice(normalPrice)}</del>
         </Typography>
       </Box>
-      <Chip
-        label={`${calculateTotalDiscountPercentage(normalPrice, discountedPrice)}% off`}
-        variant="outline"
+      <Box>
+        <Chip
+          label={`${calculateTotalDiscountPercentage(normalPrice, discountedPrice)}% off`}
+          variant="outline"
 
-        sx={{
-          fontWeight: "600",
-          background: grey[800],
-          color: grey[300],
-          borderRadius : "4px",
-          px : "5px"
-        }}
-      />
+          sx={{
+            fontWeight: "600",
+            background: grey[800],
+            color: grey[300],
+            borderRadius : "4px",
+            px : "5px",
+            my : {
+              md : "5px",
+              xs : "5px",
+              lg : "0"
+            }
+          }}
+        />
+      </Box>
     </Box>
   );
 };

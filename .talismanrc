@@ -12,5 +12,6 @@ fileignoreconfig:
   checksum: d57c4fd1f7ca1e36f9e5ee1dc514c30c4f7997f34e3f205687a8725251d0ca6d  
 - filename: components/body/hooks/useSearchFilters.jsx
   checksum: 53bcd32620f3bd124695c295e5d674342a63f3ba269bccefa1b2a3613d64242a
-
+- filename: components/body/product/ProductImage.jsx
+  checksum: 5f6d77fa74621a306da320fee8536a7a02f4e4ecd603e820680bff483e11a75f
 version: 

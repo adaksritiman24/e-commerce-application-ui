@@ -1,9 +1,9 @@
 import { Box, Card, CardContent, Rating, Typography } from "@mui/material";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import React from "react";
 import { grey } from "@mui/material/colors";
 import ProductCardPricing from "./ProductCardPricing";
 import { useRouter } from "next/router";
+import ProductImageSRP from "./ProductImageSRP";
 
 const ProductCard = ({ product }) => {
   const router = useRouter();
@@ -21,31 +21,14 @@ const ProductCard = ({ product }) => {
         transition: "0.3s",
         border: "1px solid transparent",
       }}
+      elevation={3}
     >
       <Box
         sx={{
           height: "320px",
         }}
       >
-        {product.images.length > 0 ? (
-          <img src="something" alt="NF" height={4} />
-        ) : (
-          <Box
-            sx={{
-              height: "100%",
-              width: "100%",
-              background: grey[300],
-            }}
-          >
-            <InsertPhotoIcon
-              sx={{
-                color: grey[400],
-                height: "320px",
-                width: "100%",
-              }}
-            />
-          </Box>
-        )}
+        <ProductImageSRP images={product.images}/>
       </Box>
       <CardContent>
         <Typography

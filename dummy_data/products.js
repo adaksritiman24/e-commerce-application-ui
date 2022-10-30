@@ -2,7 +2,21 @@ export const products = [
     {
         id : 0,
         name : "Samsung galaxy S10+ (12gb RAM, 256gb ROM)",
-        images : [],
+        images : [
+            {
+                id : 1,
+                url : "/buzz/imgs/products/s10plus.jpg"
+            },
+            {
+                id : 2,
+                url : "/buzz/imgs/products/s10plus-3.jpg"
+            },
+            {
+                id : 3,
+                url : "/buzz/imgs/products/s10plus-2.jpg"
+            },
+
+        ],
         normalPrice : 82000,
         discountedPrice : 71599,
         variants : [],
@@ -24,7 +38,21 @@ export const products = [
     {
         id : 1,
         name : "Samsung S22 Ultra (Midnight Blue, 4GB, 64GB Storage)",
-        images : [],
+        images : [
+            {
+                id : 1,
+                url : "/buzz/imgs/products/s22-ultra.jpg"
+            },
+            {
+                id : 2,
+                url : "/buzz/imgs/products/s22-ultra-2.jpg"
+            },
+            {
+                id : 3,
+                url : "/buzz/imgs/products/s22-ultra-3.jpg"
+            },
+
+        ],
         normalPrice : 133000,
         discountedPrice : 100599,
         variants : [],
@@ -45,7 +73,17 @@ export const products = [
     {
         id : 2,
         name : "Realme narzo 7 (8 gb RAM, 128 gb ROM, pearl blue)",
-        images : [],
+        images : [
+            {
+                id : 1,
+                url : "/buzz/imgs/products/realme-narzo-7.jpg"
+            },
+            {
+                id : 2,
+                url : "/buzz/imgs/products/realme-narzo-7-2.jpg"
+            },
+
+        ],
         normalPrice : 16000,
         discountedPrice : 11599,
         variants : [],
@@ -66,7 +104,12 @@ export const products = [
     {
         id : 3,
         name : "Poco X5 pro (Lunar green)",
-        images : [],
+        images : [
+            {
+                id : 1,
+                url : "/buzz/imgs/products/poco-x5.jpg"
+            },
+        ],
         normalPrice : 22000,
         discountedPrice : 16599,
         variants : [],
@@ -87,7 +130,12 @@ export const products = [
     {
         id : 4,
         name : "Samsung Galaxy M13 (Midnight Blue, 4GB, 64GB Storage)",
-        images : [],
+        images : [
+            {
+                id : 1,
+                url : "/buzz/imgs/products/m13.jpg"
+            },
+        ],
         normalPrice : 12800,
         discountedPrice : 7599,
         variants : [],
@@ -150,7 +198,16 @@ export const products = [
     {
         id : 7,
         name : "Galaxy M13 (Midnight Blue, 4GB, 64GB Storage),Galaxy M13 (Midnight Blue, 4GB, 64GB Storage),Galaxy M13 (Midnight Blue, 4GB, 64GB Storage)",
-        images : [],
+        images : [
+            {
+                id : 1,
+                url : "/buzz/imgs/products/m13-galaxy.jpg"
+            },
+            {
+                id : 2,
+                url : "/buzz/imgs/products/m13-galaxy-2.jpg"
+            },
+        ],
         normalPrice : 10000,
         discountedPrice : 7299,
         variants : [],
@@ -171,7 +228,12 @@ export const products = [
     {
         id : 8,
         name : "Moto edge 70 (Midnight Blue, 4GB, 64GB Storage)",
-        images : [],
+        images : [
+            {
+                id : 1,
+                url : "/buzz/imgs/products/motorola-edge-70.jpeg"
+            },
+        ],
         normalPrice : 52000,
         discountedPrice : 48599,
         variants : [],

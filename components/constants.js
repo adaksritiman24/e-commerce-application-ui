@@ -1,0 +1,1 @@
+export const IMAGE_SERVER_BASE_URL= "http://localhost:3003";

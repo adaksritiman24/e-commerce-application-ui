@@ -28,7 +28,7 @@ function ProductPage() {
       {product && (
         <Grid container>
           <Grid item md={6} xs={12}>
-            <ProductImage />
+            <ProductImage images={product.images}/>
           </Grid>
           <Grid
             item

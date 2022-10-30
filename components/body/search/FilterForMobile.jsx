@@ -13,9 +13,10 @@ const FilterForMobile = ({ openFilterForMobile, setOpenFilterForMobile, searchFi
         sx={{
           "& .MuiPaper-root" : {
             bgcolor : grey[100],
+            left : openFilterForMobile ? "0" : "-400px",
+            transition : "0.4s ease-out",
           },
-          transition : "1s",
-          display : openFilterForMobile ? "visible" : "none"
+      
         }}
       >
         <Stack

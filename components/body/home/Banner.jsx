@@ -40,30 +40,28 @@ const Banner = ({ bannerPromotions }) => {
             md: "450px",
             xs: "250px",
           },
-          overflow: "hidden",
+          background: "black",
+          position : "relative",
+          borderRadius : "12px",
+          overflow : "hidden",
         }}
       >
-        <Box
-          sx={{
-            transition: "2s ease-out",
-            transform: {
-              md: `translateY(${-1 * 450 * divLocation}px)`,
-              xs: `translateY(${-1 * 250 * divLocation}px)`,
-            },
-          }}
-        >
+        <Box>
           {bannerPromotions.map((bannerPromotion, index) => (
             <Box
               key={index}
               sx={{
                 width: "100%",
-                position: "relative",
+                position: "absolute",
+                top :0,
                 height: {
                   md: "450px",
                   xs: "250px",
                 },
                 overflow: "hidden",
+                transition : "1s",
               }}
+              className={index == divLocation ? classes.fadeIn : classes.visibilityNone}
             >
               <img
                 src={`${IMAGE_SERVER_BASE_URL}${bannerPromotion.image}`}

@@ -8,3 +8,38 @@
 .bannerHeading {
     font-family: 'Jost', sans-serif;
 }
+
+
+.clock{
+    transform: rotate(90deg);
+}
+.anticlock{
+    transform: rotate(-90deg);
+}
+.fadeIn{
+    animation: fadein 1s forwards ease-in;
+}
+
+@keyframes fadein {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.visibilityNone{
+    animation: fadeout 1s forwards ease-in;
+}
+
+@keyframes fadeout {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+    }
+}
+

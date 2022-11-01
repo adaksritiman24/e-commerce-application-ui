@@ -50,15 +50,34 @@ const JointPromotion =({
                 sx={{
                     m : 4,
                     p : 4,
+                    px : {
+                        md : 4,
+                        xs : 2,
+                    },
+                    "&: hover .elastic-underline" : {
+                        width : "100%",
+                    }
                 }}
             >
                 <Typography
             sx={{
                 fontWeight : "600",
                 fontSize : "22px",
+                display : "inline-block",
             }}
+            variant = "div"
             >
                 {categoryPromotion.title}
+                <Box sx={{
+                    width : "30%",
+                    height : "3px",
+                    background : "black",
+                    transition : "0.4s ease-out",
+                }}
+                className={"elastic-underline"}
+                >
+
+              </Box>
             </Typography>
             <CategoryPromotionForJointCategory categoryPromotion={categoryPromotion}/>
             </Paper>

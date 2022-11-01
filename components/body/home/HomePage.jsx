@@ -4,6 +4,7 @@ import useHomePage from '../hooks/useHomePage'
 import Banner from './Banner'
 import CategoryPromotion from './CategoryPromotion';
 import JointPromotion from './JointPromotion';
+import classes from "./HomePage.module.css";
 
 const HomePage =()=> {
     const {
@@ -11,12 +12,16 @@ const HomePage =()=> {
     } = useHomePage();
   return (
     <>
+      <div
+        className={classes.bannerHeading}
+      >
+        
         <Banner bannerPromotions={bannerPromotions}/>
         <Box
           sx={{
             mx : {
               xs : "10px",
-              md : "10vw"
+              md : "2vw"
            }
         }}
         >
@@ -32,8 +37,9 @@ const HomePage =()=> {
         }}
         >
         
-        <JointPromotion categoryPromotion1={categoryPromotions[0]} categoryPromotion2={categoryPromotions[1]}/>
+        <JointPromotion categoryPromotion1={categoryPromotions[1]} categoryPromotion2={categoryPromotions[2]}/>
         </Box>
+      </div>
     </>
   )
 }

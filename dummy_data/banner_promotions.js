@@ -1,11 +1,11 @@
 export const bannerPromotions = [
     {
         id : 0,
-        image : "/buzz/imgs/banner/smartphones.jpeg",
+        image : "/buzz/imgs/banner/diwali.webp",
         tagLine : "Special Diwali Offer!",
         subHeading : "Get up to 40% off on smartphones",
         buttonText : "Shop Now",
-        url : ""
+        url : "/category?id=smartphone"
     },
     {
         id : 1,
@@ -13,7 +13,7 @@ export const bannerPromotions = [
         tagLine : "Buzz Super-Bonanza offer",
         subHeading : "Amazing Mens' tshirts starting from only ₹599",
         buttonText : "Grab your deal",
-        url : ""
+        url : "/category?id=fashion-men"
     },
     {
         id : 2,
@@ -21,7 +21,7 @@ export const bannerPromotions = [
         tagLine : "Great Deals on Beauty Products",
         subHeading : "Explore the wide range of beauty products and get exciting offers",
         buttonText : "Explore",
-        url : ""
+        url : "/category?id=beauty"
     },
 
 ]

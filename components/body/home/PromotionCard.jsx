@@ -3,6 +3,7 @@ import { red } from '@mui/material/colors'
 import React from 'react'
 import { IMAGE_SERVER_BASE_URL } from '../../constants'
 import {calculateTotalDiscountPercentage} from "../../common/utils/helpers"
+import { useRouter } from 'next/router'
 
 const BoxContainingImage = styled(Box)({
     width : "100%",
@@ -16,6 +17,11 @@ const BoxContainingImage = styled(Box)({
 const PromotionCard =({
     product
 })=> {
+    const router = useRouter();
+    const handleProductCardClick =(productId)=>{
+        router.push(`/product/${productId}`)
+      }
+
   return (
     <Paper
         elevation={6}
@@ -31,7 +37,12 @@ const PromotionCard =({
             background : "white",
             position : "relative",
             cursor : "pointer",
+            transition : "0.4s",
+            "&: hover": {
+                transform : "translateY(-5px)",
+            }
         }}
+        onClick ={()=>handleProductCardClick(product.id)}
     >
         <BoxContainingImage>
             <img 

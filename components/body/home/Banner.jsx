@@ -5,6 +5,8 @@ import React from "react";
 import { IMAGE_SERVER_BASE_URL } from "../../constants";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import CarousalButton from "./CarousalButton";
 
 const rotateNumbers = (currentNumber, limit) => {
   currentNumber++;
@@ -16,6 +18,12 @@ const Banner = ({ bannerPromotions }) => {
   const animationSpeed = 8;
   const numberOfFrames = bannerPromotions.length;
   const [divLocation, setDivLocation] = useState(0);
+
+  const router = useRouter();
+
+  const handleBannerClick = (url)=>{
+    router.push(url);
+  }
 
   useEffect(() => {
     const interval = setInterval(
@@ -136,6 +144,7 @@ const Banner = ({ bannerPromotions }) => {
                       },
                     }}
                     size="large"
+                    onClick = {()=>handleBannerClick(bannerPromotion.url)}
                   >
                     {bannerPromotion.buttonText}
                   </Typography>
@@ -144,6 +153,7 @@ const Banner = ({ bannerPromotions }) => {
             </Box>
           ))}
         </Box>
+        <CarousalButton numberOfCards={bannerPromotions.length} selectedPosition={divLocation}/>
       </Box>
     </>
   );

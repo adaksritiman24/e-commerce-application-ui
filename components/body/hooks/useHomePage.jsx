@@ -6,7 +6,17 @@ const useHomePage = ()=> {
     const [bannerPromotions, setBannerPromotions] = useState(bp);
     const [categoryPromotions, setCategoryPromotions] = useState([
         {
-            title : "Best smartphone picks for you",
+            title : "This Diwali we got the best smartphones for you",
+            image : "/buzz/imgs/banner/diwali-2.jpg",
+            items : [
+                products[0],
+                products[1],
+                products[2],
+                products[3],
+            ]
+        },
+        {
+            title : "Change you style with cool footwears",
             items : [
                 products[0],
                 products[1],
@@ -16,6 +26,7 @@ const useHomePage = ()=> {
         },
         {
             title : "Most selling fashion clothings",
+            image : null,
             items : [
                 products[3],
                 products[2],

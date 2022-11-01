@@ -30,11 +30,7 @@ const Banner = ({ bannerPromotions }) => {
   return (
     <>
       <Box
-        m={{
-          lg: "30px",
-          md: "15px",
-          xs: "10px",
-        }}
+        mt={1}
         sx={{
           height: {
             md: "450px",
@@ -42,7 +38,6 @@ const Banner = ({ bannerPromotions }) => {
           },
           background: "black",
           position : "relative",
-          borderRadius : "12px",
           overflow : "hidden",
         }}
       >

@@ -1,19 +1,25 @@
 import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSearchResults from "../hooks/useSearchResults";
 import FilterForMobile from "./FilterForMobile";
 import Filters from "./Filters";
+import LoadingSpinner from "./LoadingSpinner";
 import SearchedProducts from "./SearchedProducts";
 import SearchFilters from "./SearchFilters";
 
 const SearchResults = () => {
+  
   const theme = useTheme();
   const desktopMedia = theme.breakpoints.up("lg");
   const mobileMedia = theme.breakpoints.down("sm");
   const isDesktop = useMediaQuery(desktopMedia);
   const isMobile = useMediaQuery(mobileMedia);
   const [openFilterForMobile, setOpenFilterForMobile] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const keyword = router.query["text"];
 
   const { 
     searchResults ,
@@ -21,7 +27,7 @@ const SearchResults = () => {
     setFilteredResults,
     brands,
     price,
-  } = useSearchResults();
+  } = useSearchResults(keyword, setLoading);
 
   const searchFilterProps = {
     brands,
@@ -30,7 +36,12 @@ const SearchResults = () => {
     setFilteredResults  
   }
   return (
-    <Box px={isMobile ? 3 : 5}>
+    <Box px={isMobile ? 3 : 5}
+      sx={{
+        flexGrow : "1",
+      }}
+    >
+      {loading && <LoadingSpinner/>}
       {!isDesktop && (
         <>
           <Filters setOpenFilterForMobile={setOpenFilterForMobile} />

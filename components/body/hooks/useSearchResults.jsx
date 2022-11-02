@@ -1,8 +1,9 @@
+import axios from "axios";
 import { useEffect, useState } from "react"
-import { products } from "../../../dummy_data/products";
+import { SPRING_BOOT_BASE_URL } from "../../constants";
 
 
-const useSearchResults = ()=>{
+const useSearchResults = (searchTerm, setLoading)=>{
     const [searchResults, setSearchResults] = useState([]);
     const [brands, setBrands] = useState([]);
     const [price, setPrice] = useState([0,0]);
@@ -30,12 +31,25 @@ const useSearchResults = ()=>{
     }
 
     useEffect(()=>{
-        const fetchSearchResults =()=> {
-            setSearchResults(products);
-            setFilteredResults(products);
+        const fetchSearchResults = async()=> {
+
+            try{
+                setLoading(true);
+                const response = await axios.get(`${SPRING_BOOT_BASE_URL}/products/search/${searchTerm}`)
+                setTimeout(()=>{
+                    setSearchResults(response.data);
+                    setFilteredResults(response.data);
+                    setLoading(false);
+                },1000);
+                
+            }
+            catch (error){
+                console.log(error);
+            }
+            
         }
         fetchSearchResults();
-    }, [])
+    }, [searchTerm])
 
     useEffect(()=>{
         setPriceBracket();

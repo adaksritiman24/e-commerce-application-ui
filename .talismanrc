@@ -1,13 +1,9 @@
 
 fileignoreconfig:
-- filename: yarn.lock
-  checksum: a28436f0dfbceeeef899ab49806e8cd3791a4bd87ddf4ec9cdd13d2e51f1f252
 - filename: package-lock.json
   checksum: a00c8af22c42632d3c554dae943a553d26c2ba1eb9a83a3fd69b399656d50035
 - filename: components/body/search/SearchedProducts.jsx
   checksum: da4f142f567d06a7e6f69e3b9d2eabbbb6439b7b129bdcc87dde0f3170470fa2
-- filename: dummy_data/products.js
-  checksum: e92f45de8faf3444f71ca2c35711f348cd1cdbdd28bf2e8fe9edbc60e7208a84    
 - filename: components/header/SearchBox.jsx
   checksum: d57c4fd1f7ca1e36f9e5ee1dc514c30c4f7997f34e3f205687a8725251d0ca6d  
 - filename: components/body/hooks/useSearchFilters.jsx
@@ -16,4 +12,10 @@ fileignoreconfig:
   checksum: 5f6d77fa74621a306da320fee8536a7a02f4e4ecd603e820680bff483e11a75f
 - filename: components/body/home/JointPromotion.jsx
   checksum: fe057f4bae5b4b8b35dac5bc38ada9d825de77ee2ffb5098263635c48e8eff73  
+- filename: yarn.lock
+  checksum: acf56fdde8641bc84ec7aca8a12c6c8bd55921e0b285070ec113f0ac07065cdb
+- filename: components/body/search/SearchResults.jsx
+  checksum: 4ed23c8f17d32b85d157484c6467583c327734dc2c1117911cbaa49ee2a94773
+- filename: dummy_data/products.js
+  checksum: a53127e88a07d46c9420964ec21d436d0bf51deb0e8dfd9aa93b5e001f3dd3aa  
 version: 

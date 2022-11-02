@@ -20,7 +20,7 @@ export const products = [
         normalPrice : 82000,
         discountedPrice : 71599,
         variants : [],
-        keywords : "samsung, smartphone, mobile, galaxy M13, phone",
+        keywords : ["samsung", "smartphone", "mobile", "galaxy M13", "phone"],
         cateory : 3,
         brand : "Samsung",
         productDetails : [

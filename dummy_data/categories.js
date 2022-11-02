@@ -32,4 +32,8 @@ export const categories = [
         id : 7,
         name : "footwear"
     },
+    {
+        id : 8,
+        name : "baby"
+    },
 ]

@@ -35,13 +35,16 @@ const SearchResults = () => {
     searchResults,
     setFilteredResults  
   }
+  if(loading)
+    return <LoadingSpinner/>
+
   return (
     <Box px={isMobile ? 3 : 5}
       sx={{
         flexGrow : "1",
       }}
     >
-      {loading && <LoadingSpinner/>}
+  
       {!isDesktop && (
         <>
           <Filters setOpenFilterForMobile={setOpenFilterForMobile} />

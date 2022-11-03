@@ -6,6 +6,7 @@ import { grey } from "@mui/material/colors";
 const ProductDetails = ({
     details
 }) => {
+
   return (
     <>
       <Typography
@@ -59,7 +60,7 @@ const ProductDetails = ({
                 },
               }}
             >
-              {detail}
+              {detail.value}
             </Typography>
           </ListItem>
         ))}

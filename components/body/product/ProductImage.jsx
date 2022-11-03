@@ -120,7 +120,7 @@ const ProductImage = ({ images }) => {
         {images.map((image, index) => (
           <ClickableImageThumbnail
             image={image}
-            key={image.id}
+            key={index}
             index={index}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}

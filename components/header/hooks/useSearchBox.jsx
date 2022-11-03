@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const useSearchBox = ()=> {
 
+    const router = useRouter();
     const [recentSearchList, setRecentSearchList] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [showSearchDrawer, setShowSearchDrawer] = useState(false);
@@ -48,7 +49,8 @@ const useSearchBox = ()=> {
         if(searchText.trim() !== ""){
             setShowSearchDrawer(false);
             // location.href =`/search?text=${searchText.trim()}`;
-            window.location.href =`/search?text=${searchText.trim()}`;
+            // window.location.href =`/search?text=${searchText.trim()}`;
+            router.push(`/search?text=${searchText.trim()}`);
             setRecentSearches(searchText);
             document.activeElement.blur();
         }
@@ -57,7 +59,8 @@ const useSearchBox = ()=> {
     const handleRecentSearch = (recentSearchTerm)=> {
         setShowSearchDrawer(false);
         // location.href =`/search?text=${searchText.trim()}`;
-        window.location.href =`/search?text=${recentSearchTerm}`;
+        // window.location.href =`/search?text=${recentSearchTerm}`;
+        router.push(`/search?text=${recentSearchTerm}`);
         setRecentSearches(recentSearchTerm);
         document.activeElement.blur();
 

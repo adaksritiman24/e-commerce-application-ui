@@ -4,10 +4,9 @@ import { products } from "../../../dummy_data/products";
 
 export const buzzCart = "buzzCart";
 
-const useProduct = ()=>{
+const useProduct = (product)=>{
     const router = useRouter();
-    const productId = router.query.productId;
-    const [product, setProduct] = useState(null);
+    const productId = product.id;
     const [quantityInCart, setQuantityInCart] = useState(0);
 
 
@@ -97,20 +96,12 @@ const useProduct = ()=>{
         
     }
 
-    useEffect(()=>{
-        //backend api calls here
-        if(productId){
-            const currentProduct = products.find(p=>p.id===parseInt(productId));
-            setProduct(currentProduct);
-        }   
-    },[productId]);
 
     useEffect(()=>{
         updateCartQuantity();
     },[productId])
 
     return ({
-        product,
         quantityInCart,
         addToCartWithQuantity1,
         decreaseCartQuantityBy1,

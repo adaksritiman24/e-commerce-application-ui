@@ -15,14 +15,19 @@ const StyledPricingContainer = styled(Box)({
   mt: 1,
 });
 
-function ProductPage() {
+function ProductPage({
+  product
+}) {
   const {
-    product,
     quantityInCart,
     addToCartWithQuantity1,
     decreaseCartQuantityBy1,
     removeFromCart,
-  } = useProduct();
+  } = useProduct(product);
+  // const quantityInCart = 0;
+  // const addToCartWithQuantity1 = ()=>{};
+  // const decreaseCartQuantityBy1 = ()=>{};
+  // const removeFromCart = ()=>{};
   return (
     <Grid px={{ md: 3, lg: 10 }} mt={2}>
       {product && (
@@ -127,7 +132,7 @@ function ProductPage() {
                   {getFormattedPrice(product.discountedPrice)}
                 </Typography>
               </Box>
-              <Typography
+              <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -143,7 +148,7 @@ function ProductPage() {
                   )}
                   %
                 </Box>
-              </Typography>
+              </Box>
             </StyledPricingContainer>
             <Typography py={3}>
               Sold by <b>{product.seller}</b>

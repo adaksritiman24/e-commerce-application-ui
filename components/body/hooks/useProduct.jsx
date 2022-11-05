@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { getTotalCartItems } from "../../../cart/readCartDataFromLocalStorage";
 import { products } from "../../../dummy_data/products";
 
 export const buzzCart = "buzzCart";
 
-const useProduct = (product)=>{
+const useProduct = (product, setNumberOfCartItems)=>{
     const router = useRouter();
     const productId = product.id;
     const [quantityInCart, setQuantityInCart] = useState(0);
@@ -25,9 +26,7 @@ const useProduct = (product)=>{
             setQuantityInCart(0);    
 
         console.log("Dispatching cart event");
-        dispatchEvent(new CustomEvent("cart-update", {
-            bubbles : false,
-        }))    
+        setNumberOfCartItems(getTotalCartItems()); 
     }
 
     const decreaseCartQuantityBy1=()=>{

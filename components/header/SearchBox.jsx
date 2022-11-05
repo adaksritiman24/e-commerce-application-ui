@@ -143,6 +143,7 @@ const SearchBox = () => {
             }}
             inputProps={{
               placeholder: placeHolder,
+              id : "searchBoxMain"
             }}
             value={searchText}
             onChange={(e) => {

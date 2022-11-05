@@ -10,7 +10,7 @@ const CarousalButton =({
     <Box
         sx={{
             display : "flex",
-            zIndex : "2000",
+            zIndex : "2",
             position : "absolute",
             bottom : 18,
             left : "50%",

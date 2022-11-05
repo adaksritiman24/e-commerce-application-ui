@@ -23,6 +23,11 @@ const useProduct = (product)=>{
             setQuantityInCart(currentProductData.quantity);
         else    
             setQuantityInCart(0);    
+
+        console.log("Dispatching cart event");
+        dispatchEvent(new CustomEvent("cart-update", {
+            bubbles : false,
+        }))    
     }
 
     const decreaseCartQuantityBy1=()=>{

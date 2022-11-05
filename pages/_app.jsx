@@ -1,7 +1,15 @@
+import AuthenticationProvider from '../auth/AuthenticationProvider'
+import CartProvider from '../cart/CartProvider'
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function EcommerceApplication({ Component, pageProps }) {
+  return (
+    <AuthenticationProvider>
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
+    </AuthenticationProvider>
+  )
 }
 
-export default MyApp
+export default EcommerceApplication

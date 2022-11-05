@@ -18,4 +18,8 @@ fileignoreconfig:
   checksum: 4ed23c8f17d32b85d157484c6467583c327734dc2c1117911cbaa49ee2a94773
 - filename: dummy_data/products.js
   checksum: a53127e88a07d46c9420964ec21d436d0bf51deb0e8dfd9aa93b5e001f3dd3aa  
+- filename: auth/useAuth.jsx
+  checksum: dc148c43151b982fa6da0b9f8e3162ea511e7668d19d5bb9e9079c0b02734012
+- filename: components/header/authentication-ui/LoginModal.jsx
+  checksum: 3f8d4281e8b7935d19250840638914e5cfc006134b0396888c24a76f11084bea  
 version: 

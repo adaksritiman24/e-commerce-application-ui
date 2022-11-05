@@ -32,7 +32,7 @@ const HomePage =()=> {
           sx={{
             mx : {
               xs : "10px",
-              md : "10vw"
+              md : "2vw"
            }
         }}
         >

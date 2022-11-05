@@ -5,10 +5,14 @@ import {
   calculateTotalDiscountPercentage,
   getFormattedPrice,
 } from "../../common/utils/helpers";
-import useProduct from "../hooks/useProduct";
+import useProduct, { buzzCart } from "../hooks/useProduct";
 import AddToCart from "./AddToCart";
 import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
+import useCartEventListener from "../../../cart/useCartEventListener";
+import { useRef } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../../cart/CartProvider";
 
 const StyledPricingContainer = styled(Box)({
   pl: 0.5,
@@ -24,11 +28,14 @@ function ProductPage({
     decreaseCartQuantityBy1,
     removeFromCart,
   } = useProduct(product);
-  // const quantityInCart = 0;
-  // const addToCartWithQuantity1 = ()=>{};
-  // const decreaseCartQuantityBy1 = ()=>{};
-  // const removeFromCart = ()=>{};
+
+  const productRef = useRef();
+  const {setNumberOfItems} = useContext(CartContext);
+
+  useCartEventListener("cart-update", ()=>{},productRef.current, setNumberOfItems)
   return (
+    <div ref={productRef}>
+
     <Grid px={{ md: 3, lg: 10 }} mt={2}>
       {product && (
         <Grid container>
@@ -166,6 +173,7 @@ function ProductPage({
         </Grid>
       )}
     </Grid>
+    </div>
   );
 }
 

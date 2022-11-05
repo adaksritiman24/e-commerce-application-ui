@@ -11,6 +11,7 @@ import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
 import { useContext } from "react";
 import { CartContext } from "../../../cart/CartProvider";
+import AssociatedProduct from "./AssociatedProducts";
 
 const StyledPricingContainer = styled(Box)({
   pl: 0.5,
@@ -33,6 +34,7 @@ function ProductPage({
 
     <Grid px={{ md: 3, lg: 10 }} mt={2}>
       {product && (
+        <>
         <Grid container>
           <Grid item md={6} xs={12}>
             <ProductImage images={product.images}/>
@@ -166,9 +168,11 @@ function ProductPage({
             </Box>
           </Grid>
         </Grid>
+        <AssociatedProduct productIds={product.associatedProducts}/>
+        </>
       )}
     </Grid>
-
+    
   );
 }
 

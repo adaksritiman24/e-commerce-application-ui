@@ -1,11 +1,19 @@
-import {Box, Paper, Typography} from "@mui/material"
+import { InsertPhoto } from "@mui/icons-material";
+import {Box, Paper, Rating, Typography, useMediaQuery} from "@mui/material"
 import { grey } from "@mui/material/colors";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IMAGE_SERVER_BASE_URL, SPRING_BOOT_BASE_URL } from "../../constants";
 
 
 const AssociatedProductCard = ({product}) =>{
+    const isDesktop  = useMediaQuery('(min-width:1200px)');
+    const router = useRouter();
+    const handleGoToAssociatedProductPage = ()=>{
+        router.push(`/product/${product.id}`);
+    }
+
     return (
         <Paper
             elevation={3}
@@ -19,17 +27,21 @@ const AssociatedProductCard = ({product}) =>{
                 m : {
                     md : "11px",
                     xs : "4px",
-                }
+                },
+                cursor : "pointer"
             }}
+            onClick={handleGoToAssociatedProductPage}
         >
-            {product.images.length >= 1 && 
+            {product.images.length >= 1 ?
             
-                <Box
+                (<Box
                     sx={{
                         height : "60%",
                         display : "flex",
                         justifyContent : "center",
-                        m : "12px",
+                        m : "8px",
+                        padding : "6px",
+                        border : "0.4px solid grey",
                     }}
                 >
                     <img
@@ -38,8 +50,75 @@ const AssociatedProductCard = ({product}) =>{
                         }}
                     src={`${IMAGE_SERVER_BASE_URL}${product.images[0]["url"]}`}/>
                 </Box>
+                ):(
+
+                <Box
+                    sx={{
+                        height : "60%",
+                        display : "flex",
+                        justifyContent : "center",
+                        background: grey[300],
+                        m : "8px",
+                        padding : "6px",
+                    }}
+                >
+                    <InsertPhoto
+                    sx={{
+                        color: grey[400],
+                        height: "85%",
+                        width: "85%",
+                    }}
+                    />
+                </Box>
+                )
             }
-            {product.name}
+            <Box
+                sx={{
+                    
+                    "& .MuiRating-readyOnly": {
+                        fontSize: {
+                          lg: "34px",
+                          md: "30px",
+                          xs: "32px",
+                        },
+                        display : "flex",
+                        justifyContent : "center",
+                      },
+                }}
+            >
+
+            <Rating
+                defaultValue={product.rating}
+                precision={0.5}
+                readOnly
+                sx={{
+                    "& .MuiRating-decimal":{
+                        fontSize : {
+                            md : "32px",
+                            xs : "22px",
+                        }
+                    }
+                }}
+              />
+              <Typography
+                variant="h2"
+                textAlign="center"
+                sx={{
+                fontSize: {
+                    xs: "15px",
+                    md: "18px",
+                },
+                m : {
+                    md : "7px 8px",
+                    xs : "7px 8px",
+                },
+                fontWeight: "600",
+                fontFamily: "Trebuchet Ms",
+                }}
+              >
+                {product.name}
+              </Typography>
+            </Box>
 
         </Paper>
     )
@@ -74,7 +153,7 @@ const AssociatedProduct = ({
     const [products, setProducts]= useState([]);
     useEffect(()=>{
         getAssociatedProductsData(productIds, setProducts);
-    },[])
+    },[productIds])
     return(
         <>
         <Box

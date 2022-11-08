@@ -158,13 +158,14 @@ const AssociatedProduct = ({
         <>
         <Box
             sx={{
-                pt: "10px",
+                p: "10px",
                 px: {
                     lg: "30px",
                     md: "16px",
                     xs: "25px",
                 },
                 mb : "20px",
+                bgcolor : grey[200],
             }}
         >
 
@@ -188,7 +189,7 @@ const AssociatedProduct = ({
             <Box
                 sx={{
                     overflow : "scroll",
-                    bgcolor : grey[200],
+                    
                 }}
             >
                 <Box

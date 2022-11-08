@@ -41,7 +41,7 @@ const Banner = ({ bannerPromotions }) => {
         mt={1}
         sx={{
           height: {
-            md: "450px",
+            md: "500px",
             xs: "250px",
           },
           background: "black",
@@ -58,7 +58,7 @@ const Banner = ({ bannerPromotions }) => {
                 position: "absolute",
                 top :0,
                 height: {
-                  md: "450px",
+                  md: "500px",
                   xs: "250px",
                 },
                 overflow: "hidden",

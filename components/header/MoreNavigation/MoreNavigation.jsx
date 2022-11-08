@@ -71,8 +71,16 @@ const MoreNavigation=({
                 
             >
                 <PersonPinIcon/>
-                <Typography variant='p'>
-                    {user.name}
+                <Typography variant='div'>
+                    <Typography variant='p'
+                        sx={{
+                            display : "block",
+                            fontSize : "13px",
+                        }}
+                    >
+                        Hello
+                    </Typography>
+                    <b>{user.name.split(" ")[0]}</b>
                 </Typography>
             </Box>
 

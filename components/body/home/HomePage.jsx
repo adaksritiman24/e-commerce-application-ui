@@ -5,6 +5,8 @@ import Banner from './Banner'
 import CategoryPromotion from './CategoryPromotion';
 import JointPromotion from './JointPromotion';
 import classes from "./HomePage.module.css";
+import CategoriesDisplay from './CategoriesDisplay';
+import { homePageDisplayedCategories } from '../../../dummy_data/categories';
 
 const HomePage =()=> {
     const {
@@ -38,6 +40,17 @@ const HomePage =()=> {
         >
         
         <JointPromotion categoryPromotion1={categoryPromotions[1]} categoryPromotion2={categoryPromotions[2]}/>
+        </Box>
+        <Box
+          sx={{
+            mx : {
+              xs : "10px",
+              md : "2vw"
+           }
+        }}
+        >
+        
+        <CategoriesDisplay displayedCategories={homePageDisplayedCategories}/>
         </Box>
       </div>
     </>

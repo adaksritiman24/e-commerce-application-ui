@@ -9,14 +9,21 @@ import { grey } from '@mui/material/colors';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import AuthContext from '../../../auth/AuthContext';
 import { CartContext } from '../../../cart/CartProvider';
+import { useRouter } from 'next/router';
 
 const MoreNavigation=({
     setLoginModalOpen
 })=> {
+    const router = useRouter();
     const isDesktop  = useMediaQuery('(min-width:1200px)');
 
     const {user, handleLogout} = useContext(AuthContext);
     const {numberOfItems} = useContext(CartContext);
+
+
+    const handleNavigateToCartPage = ()=>{
+        router.push("/cart");
+    }
   return (
     user != null ? (
         <Box
@@ -101,6 +108,7 @@ const MoreNavigation=({
                         ml : 1,
                         color : grey[900]
                     }}
+                    onClick={handleNavigateToCartPage}
                 >
                     <Badge badgeContent={numberOfItems} color="primary">
                     <ShoppingCartIcon/>
@@ -197,6 +205,7 @@ const MoreNavigation=({
                         ml : 1,
                         color : grey[900]
                     }}
+                    onClick={handleNavigateToCartPage}
                 >
                     <Badge badgeContent={numberOfItems} color="primary">
                         <ShoppingCartIcon/>

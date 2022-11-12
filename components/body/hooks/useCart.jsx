@@ -1,11 +1,21 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { getTotalCartItems } from '../../../cart/readCartDataFromLocalStorage';
 import { SPRING_BOOT_BASE_URL } from '../../constants';
 import { buzzCart } from './useProduct';
 
-const useCart =()=> {
+const useCart =(setNumberOfCartItems)=> {
 
     const [productsData, setProductsData] = useState([]);
+    const [totalAmount, setTotalAmount] = useState(0);
+
+    const updateTotalAmount = ()=> {
+      let total = 0;
+      for(let product of productsData) {
+        total += product.totalPrice;
+      }
+      setTotalAmount(total);
+    }
 
     const updateProductsDataWithCartQuantity = (products, ids)=> {
         setProductsData( products.map((product)=>({
@@ -13,7 +23,8 @@ const useCart =()=> {
                 quantityInCart : ids.find((p)=>p.id === product.id).quantityInCart,
                 totalPrice : ids.find((p)=>p.id === product.id).quantityInCart * product.discountedPrice,
             }))
-        )  
+        );
+        setNumberOfCartItems(getTotalCartItems());
     }
 
 
@@ -96,12 +107,17 @@ const useCart =()=> {
         updateCartPageProducts();
     }
 
+    useEffect(()=>{
+      updateTotalAmount();
+    },[productsData])
+
     useEffect(() => {
       updateCartPageProducts();
     }, [])
     
   return ({
     productsData, 
+    totalAmount,
     setProductsData,
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,

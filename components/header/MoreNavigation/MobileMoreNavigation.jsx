@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, Stack, Tooltip, Typography } from '@mui/material'
+import { Badge, Box, Button, Drawer, Stack, Tooltip, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import { grey } from '@mui/material/colors';
@@ -8,13 +8,29 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { Close } from '@mui/icons-material';
+import { useContext } from 'react';
+import AuthContext from "../../../auth/AuthContext";
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { CartContext } from '../../../cart/CartProvider';
+import { useRouter } from 'next/router';
 
 
 
 const MobileSideDrawer = (props)=>{
+
+    const router = useRouter();
+
+    const handleNavigateToCartPage = ()=>{
+        router.push("/cart");
+    }
+
+    const {user} = useContext(AuthContext);
+    const {handleLogout} = useContext(AuthContext);
     const {
         drawerOpen,
-        setDrawerOpen
+        setDrawerOpen,
+        setLoginModalOpen,
+        numberOfItemsInCart
     } = props
     return (
         <Drawer
@@ -39,6 +55,8 @@ const MobileSideDrawer = (props)=>{
             }}
             
         >
+            {(user!=null) ? (
+                <>
             <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={grey[800]} >
                 <Stack direction="row"
                     sx={{
@@ -53,7 +71,7 @@ const MobileSideDrawer = (props)=>{
                     >
                         <PersonPinIcon/>
                         <Typography variant='h5'>
-                            Sritiman
+                             {user.name.split(" ")[0]}
                         </Typography>
                     </Box>
                     <Box
@@ -95,7 +113,7 @@ const MobileSideDrawer = (props)=>{
                     <Box>
                         <Box>Ship To</Box>
                         <Box>
-                            <b style={{ fontSize: "22px"}}>Kolkata</b>, India
+                            <b style={{ fontSize: "22px"}}>{user.address.city}</b>, {user.address.country}
                         </Box>
                     </Box>
                 </Box>
@@ -120,8 +138,11 @@ const MobileSideDrawer = (props)=>{
                             ml : 1,
                             color : grey[900]
                         }}
+                        onClick={handleNavigateToCartPage}
                     >
+                        <Badge badgeContent={numberOfItemsInCart} color="primary">
                         <ShoppingCartIcon/>
+                        </Badge>
                         <Typography variant='p'>
                             Your Cart
                         </Typography>
@@ -134,6 +155,7 @@ const MobileSideDrawer = (props)=>{
                             ml : 1,
                             color : grey[900]
                         }}
+                        onClick={handleLogout}
                     >
                         <LogoutIcon/>
                         <Typography variant='p'>
@@ -142,12 +164,95 @@ const MobileSideDrawer = (props)=>{
                     </Button>
                 </Tooltip>
             </Stack>
+            </>
+            ) : (
+                <>
+                    <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={grey[800]} >
+                <Stack direction="row"
+                    sx={{
+                        display : "flex",
+                        justifyContent : "space-between"
+                    }}
+                >
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Button variant='contained' sx={{
+                        fontWeight : "bold",
+                        textTransform : "none",
+                        bgcolor : grey[600],
+                        "&: hover" : {
+                            bgcolor : grey[700]
+                        }
+                        }}
+                        onClick={()=>setLoginModalOpen(true)}
+                        >
+                            Login
+                        </Button>
+                    </Box>
+                    <Box
+                        sx={{
+                            "& svg": {
+                                fontSize: "26px",
+                                m : "0",
+                                transform : "translateY(4px)"
+                            },
+                        }}
+                    >
+                        <Close
+                            sx={{
+                                cursor : "pointer",
+                            }}
+                            onClick = {()=>setDrawerOpen(false)}
+                        />
+                    </Box>
+                </Stack>
+            </Stack>   
+
+            <Stack spacing={2} padding={2}>    
+                <Tooltip title="Logout">   
+                    <Button 
+                        sx={{
+                            color : grey[900],
+                        }}
+                    >
+                        <PersonAddAltIcon/>
+                        <Typography variant='p'>
+                            Sign Up
+                        </Typography>
+                    </Button>
+                </Tooltip>
+
+                <Tooltip title="Your Cart">
+                    <Button
+                        sx={{
+                            color : grey[900],
+                        }}
+                        onClick={handleNavigateToCartPage}
+                    >
+                        <Badge badgeContent={numberOfItemsInCart} color="primary" >
+                            <ShoppingCartIcon/>
+                        </Badge>
+                        <Typography variant='p'>
+                            Your Cart
+                        </Typography>
+                    </Button>
+                </Tooltip>
+
+            </Stack>
+                </>
+            )}
         </Drawer>
     )
 } 
 
-const MobileMoreNavigation=()=> {
+const MobileMoreNavigation=({
+    setLoginModalOpen,
+})=> {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const {numberOfItems} = useContext(CartContext);
   return (
     <Box 
         sx={{
@@ -180,6 +285,8 @@ const MobileMoreNavigation=()=> {
         <MobileSideDrawer
             drawerOpen = {drawerOpen}
             setDrawerOpen = {setDrawerOpen}
+            setLoginModalOpen={setLoginModalOpen}
+            numberOfItemsInCart={numberOfItems}
         />
     </Box>
   )

@@ -1,7 +1,9 @@
 import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
+import { useContext } from "react";
 import { useState } from "react";
+import { LoginContext } from "../../modals/LoginModalProvider";
 import Logo from "../common/Logo";
 import LoginModal from "./authentication-ui/LoginModal";
 import CategoriesSection from "./CategoriesSection";
@@ -11,8 +13,8 @@ import SearchBox from "./SearchBox";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:900px)");
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
-
+  const {loginModalOpen, setLoginModalOpen} = useContext(LoginContext);
+  
   return (
     <Box
       sx={{
@@ -46,15 +48,11 @@ const Header = () => {
           {isDesktop ? (
             <MoreNavigation setLoginModalOpen={setLoginModalOpen} />
           ) : (
-            <MobileMoreNavigation />
+            <MobileMoreNavigation setLoginModalOpen={setLoginModalOpen}/>
           )}
         </Grid>
       </Grid>
       <CategoriesSection />
-      <LoginModal
-        loginModalOpen={loginModalOpen}
-        setLoginModalOpen={setLoginModalOpen}
-      />
     </Box>
   );
 };

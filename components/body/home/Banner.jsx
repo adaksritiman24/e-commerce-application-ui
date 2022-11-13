@@ -122,7 +122,7 @@ const Banner = ({ bannerPromotions }) => {
                     }}
                     className={classes.bannerSubHeading}
                   >
-                    {bannerPromotion.subHeading}
+                    {bannerPromotion.subheading}
                   </Typography>
                   <Typography
                     display="inline-block"

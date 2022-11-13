@@ -6,19 +6,23 @@ import CategoryPromotion from './CategoryPromotion';
 import JointPromotion from './JointPromotion';
 import classes from "./HomePage.module.css";
 import CategoriesDisplay from './CategoriesDisplay';
-import { homePageDisplayedCategories } from '../../../dummy_data/categories';
 
-const HomePage =()=> {
+const HomePage =({
+  bannerPromotions,
+  homePageDisplayedCategories
+})=> {
+
     const {
-        bannerPromotions,categoryPromotions
+        categoryPromotions
     } = useHomePage();
+
   return (
     <>
       <div
         className={classes.bannerHeading}
       >
         
-        <Banner bannerPromotions={bannerPromotions}/>
+        {bannerPromotions && <Banner bannerPromotions={bannerPromotions}/>}
         <Box
           sx={{
             mx : {
@@ -50,7 +54,7 @@ const HomePage =()=> {
         }}
         >
         
-        <CategoriesDisplay displayedCategories={homePageDisplayedCategories}/>
+        {homePageDisplayedCategories && <CategoriesDisplay displayedCategories={homePageDisplayedCategories}/>}
         </Box>
       </div>
     </>

@@ -1,9 +1,7 @@
 import { useState } from "react"
-import {bannerPromotions as bp} from "../../../dummy_data/banner_promotions";
 import {products} from "../../../dummy_data/products";
 
 const useHomePage = ()=> {
-    const [bannerPromotions, setBannerPromotions] = useState(bp);
     const [categoryPromotions, setCategoryPromotions] = useState([
         {
             title : "This Diwali we got the best smartphones for you",
@@ -36,11 +34,7 @@ const useHomePage = ()=> {
         }
     ]);
 
-    useState(()=>{
-        setBannerPromotions(bp);
-    },[])
     return ({
-        bannerPromotions,
         categoryPromotions,
     })
 }

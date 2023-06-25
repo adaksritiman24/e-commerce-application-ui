@@ -12,6 +12,7 @@ import ProductDetails from "./ProductDetails";
 import { useContext } from "react";
 import { CartContext } from "../../../cart/CartProvider";
 import AssociatedProduct from "./AssociatedProducts";
+import AuthContext from "../../../auth/AuthContext";
 
 const StyledPricingContainer = styled(Box)({
   pl: 0.5,
@@ -22,13 +23,14 @@ function ProductPage({
   product
 }) {
   const {setNumberOfItems} = useContext(CartContext);
+  const { user } = useContext(AuthContext);
   
   const {
     quantityInCart,
     addToCartWithQuantity1,
     decreaseCartQuantityBy1,
     removeFromCart,
-  } = useProduct(product, setNumberOfItems);
+  } = useProduct(product, setNumberOfItems, user!=null, user?.username);
 
   return (
 

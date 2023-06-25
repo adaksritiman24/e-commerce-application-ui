@@ -1,17 +1,26 @@
-import { useRouter } from "next/router";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { getTotalCartItems } from "../../../cart/readCartDataFromLocalStorage";
-import { products } from "../../../dummy_data/products";
+import { getTotalCartItemsFromLS } from "../../../cart/readCartDataFromLocalStorage";
+import { SPRING_BOOT_BASE_URL } from "../../constants";
 
 export const buzzCart = "buzzCart";
 
-const useProduct = (product, setNumberOfCartItems)=>{
-    const router = useRouter();
+const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>{
+    
     const productId = product.id;
     const [quantityInCart, setQuantityInCart] = useState(0);
 
-
+    //UPDATE PRODUCT QUANTITY IN CART BEGINS----------------------------------------------------------
     const updateCartQuantity=()=>{
+        if(isRegisteredUser) {
+            updateProductInCartQuantityForRegisteredUser();
+        }
+        else {
+            updateProductInCartQuantityForGuestUser();
+        }
+    }
+
+    const updateProductInCartQuantityForGuestUser = ()=> {
         const cartListJSON = localStorage.getItem(buzzCart);
         if(!cartListJSON){
             setQuantityInCart(0);
@@ -26,10 +35,51 @@ const useProduct = (product, setNumberOfCartItems)=>{
             setQuantityInCart(0);    
 
         console.log("Dispatching cart event");
-        setNumberOfCartItems(getTotalCartItems()); 
+        setNumberOfCartItems(getTotalCartItemsFromLS()); 
     }
 
+    const updateProductInCartQuantityForRegisteredUser = ()=> {
+        const config = {
+            method: 'get',
+            url:   `${SPRING_BOOT_BASE_URL}/cart/${username}`,
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+          };
+        
+        axios(config)
+          .then( response=>{
+            const cartList = response.data.cartEntryList;
+            console.log(cartList);
+            const currentProductData = cartList.find(cartItem=> cartItem.productId == productId);
+            if(currentProductData !== undefined)
+                setQuantityInCart(currentProductData.quantity);
+            else    
+                setQuantityInCart(0);   
+          })
+          .catch((error) =>{
+            console.log("Unable to fetch cart data");
+            setQuantityInCart(0);
+          });
+        console.log("Dispatching cart event");
+        setNumberOfCartItems(getTotalCartItemsFromLS());   
+    }
+
+    //UPDATE PRODUCT QUANTITY IN CART ENDS----------------------------------------------------------
+
+    //DECREASE PRODUCT QTY FROM CART BEGINS---------------------------------------------------------
+
+
     const decreaseCartQuantityBy1=()=>{
+        if(isRegisteredUser) {
+            decreaseProductQuantityForRegisteredUser();
+        }
+        else {
+            decreaseProductQuantityForGuest();
+        }
+    }
+
+    const decreaseProductQuantityForGuest = () => {
         const cartListJSON = localStorage.getItem(buzzCart);
         if(!cartListJSON){
             return
@@ -49,20 +99,69 @@ const useProduct = (product, setNumberOfCartItems)=>{
         updateCartQuantity();
     }
 
+    const decreaseProductQuantityForRegisteredUser = () => {
+        updateCartQuantityforRegisteredUser(productId, -1, username);
+    }
+
+    //DECREASE PRODUCT QTY FROM CART ENDS---------------------------------------------------------
+
+    //REMOVE PRODUCT FROM CART---------------------------------------------------------
     const removeFromCart = ()=>{
-        try{
-            const cartListJSON = localStorage.getItem(buzzCart);
-            const cartList = JSON.parse(cartListJSON);
-            const updatedCartList = cartList.filter((cartItem)=>cartItem.productId != productId);
-            localStorage.setItem(buzzCart,JSON.stringify(updatedCartList));
-            updateCartQuantity();
+
+        if (isRegisteredUser) {
+            removeFromCartForRegisteredUser();
         }
-        catch(e) {
-            console.log("Item not in cart");
+        else {
+
+            try{
+                const cartListJSON = localStorage.getItem(buzzCart);
+                const cartList = JSON.parse(cartListJSON);
+                const updatedCartList = cartList.filter((cartItem)=>cartItem.productId != productId);
+                localStorage.setItem(buzzCart,JSON.stringify(updatedCartList));
+                updateCartQuantity();
+            }
+            catch(e) {
+                console.log("Item not in cart");
+            }
+        }
+    }
+    const removeFromCartForRegisteredUser = ()=> {
+        var data = JSON.stringify({
+            "productId": productId
+          });
+          
+          var config = {
+            method: 'post',
+            url: `${SPRING_BOOT_BASE_URL}/cart/${username}/remove`,
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : data
+          };
+          
+          axios(config)
+          .then((response) =>{
+            updateCartQuantity();
+          })
+          .catch((error) =>{
+            console.log(error);
+          });
+    }
+
+    //---------------------------------------------------------
+
+    //INCREASE QTY OR ADD PRODUCT TO CART --------------------------------------------------------
+
+    const addToCartWithQuantity1= ()=> {
+        if(isRegisteredUser) {
+            addToCartWithQuantity1ForRegisteredUser(); 
+        }
+        else {
+            addToCartWithQuantity1ForGuestUser();
         }
     }
 
-    const addToCartWithQuantity1=()=>{
+    const addToCartWithQuantity1ForGuestUser=()=>{
         const cartListJSON = localStorage.getItem(buzzCart);
 
         if(!cartListJSON){
@@ -100,10 +199,42 @@ const useProduct = (product, setNumberOfCartItems)=>{
         
     }
 
+    const addToCartWithQuantity1ForRegisteredUser =()=> {
+        updateCartQuantityforRegisteredUser(productId, 1, username);
+    }
+    //INCREASE QTY OR ADD PRODUCT TO CART ENDS--------------------------------------------------------
+
+    //UPDATE Cart QTY for registered users
+    const updateCartQuantityforRegisteredUser = (productId, quantity, username) => {
+        var data = JSON.stringify({
+          "productId": productId,
+          "quantity": quantity
+        });
+        
+        var config = {
+          method: 'post',
+          url: `${SPRING_BOOT_BASE_URL}/cart/${username}`,
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then((response)=> {
+          updateCartQuantity();
+        })
+        .catch((error)=> {
+          console.log(error);
+          updateCartQuantity();
+        });
+        
+    }
+
 
     useEffect(()=>{
         updateCartQuantity();
-    },[productId])
+    },[productId, isRegisteredUser])
 
     return ({
         quantityInCart,

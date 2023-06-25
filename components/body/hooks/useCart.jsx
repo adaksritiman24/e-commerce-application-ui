@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { getTotalCartItems } from '../../../cart/readCartDataFromLocalStorage';
+import { getTotalCartItemsFromLS } from '../../../cart/readCartDataFromLocalStorage';
 import { SPRING_BOOT_BASE_URL } from '../../constants';
 import { buzzCart } from './useProduct';
 
-const useCart =(setNumberOfCartItems)=> {
+const useCart =(setNumberOfCartItems, isRegisteredUser, username)=> {
 
     const [productsData, setProductsData] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
+   
 
     const updateTotalAmount = ()=> {
       let total = 0;
@@ -24,7 +25,7 @@ const useCart =(setNumberOfCartItems)=> {
                 totalPrice : ids.find((p)=>p.id === product.id).quantityInCart * product.discountedPrice,
             }))
         );
-        setNumberOfCartItems(getTotalCartItems());
+        setNumberOfCartItems(getTotalCartItemsFromLS());
     }
 
 
@@ -50,9 +51,21 @@ const useCart =(setNumberOfCartItems)=> {
           });
           
     }
+    // UPDATE PRODUCTS ON PAGE ---------------------------------------------------------
     
-
     const updateCartPageProducts = ()=>{
+        
+        if(isRegisteredUser) {
+          updateCartPageProductsForRegisteredCustomer(username);
+        }
+        else {
+          upadateCartPageProductsForGuestUser();
+        }
+          
+    }
+
+    //update cart page for guest customer
+    const upadateCartPageProductsForGuestUser = ()=> {
         const cartListJSON = localStorage.getItem(buzzCart);
         if(cartListJSON == null){
             setProductsData([]);
@@ -64,41 +77,113 @@ const useCart =(setNumberOfCartItems)=> {
             id : product.productId,
             quantityInCart : product.quantity,
         }));
-
+          
         fetchProducts(ids);
-
     }
 
-
-    const increaseCartQuantityBy1 = (productId)=>{
-        const cartListJSON = localStorage.getItem(buzzCart);
-        const cartList = JSON.parse(cartListJSON);
         
-        const newCartList = cartList.map((cartItem)=>{
-            if(cartItem.productId == productId) return {
-                ...cartItem, quantity : cartItem.quantity + 1
-            }
-            else return cartItem;
-        })
-        localStorage.setItem(buzzCart,JSON.stringify(newCartList));
-        updateCartPageProducts();
+    //update cart page for registed customer
+    const updateCartPageProductsForRegisteredCustomer = (username)=> {
+        const config = {
+            method: 'get',
+            url:   `${SPRING_BOOT_BASE_URL}/cart/${username}`,
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+          };
+    
+        axios(config)
+          .then( response=>{
+            const cartList = response.data.cartEntryList;
+            const ids = cartList.map((product)=>({
+              id : product.productId,
+              quantityInCart : product.quantity,
+            }));
+            fetchProducts(ids);
+          })
+          .catch((error) =>{
+            console.log("Unable to fetch cart data");
+          });
+    }
+    //UPDATE CART PAGE ENDS----------------------------------------------------------------------
+
+    //update cart quantity (+1, -1)--------------------------------------------------------------------
+
+    // TODO
+    const increaseCartQuantityBy1 = (productId)=>{
+        
+        if(isRegisteredUser) {
+          updateCartQuantityforRegisteredUser(productId, 1, username)
+        }
+        else {
+          upadateCartQuantityForGuestUser(productId, 1)
+        }
     }
 
     const decreaseCartQuantityBy1 = (productId)=>{
+        if(isRegisteredUser) {
+          updateCartQuantityforRegisteredUser(productId, -1, username)
+        }
+        else {
+          upadateCartQuantityForGuestUser(productId, -1)
+        }
+    }
+
+    const upadateCartQuantityForGuestUser = (productId, quantity)=>{
         const cartListJSON = localStorage.getItem(buzzCart);
         const cartList = JSON.parse(cartListJSON);
         
         const newCartList = cartList.map((cartItem)=>{
             if(cartItem.productId == productId) return {
-                ...cartItem, quantity : cartItem.quantity - 1
+                ...cartItem, quantity : cartItem.quantity + quantity
             }
             else return cartItem;
         })
         localStorage.setItem(buzzCart,JSON.stringify(newCartList));
         updateCartPageProducts();
     }
+    
 
-    const removeFromCart = (productId)=> {
+    const updateCartQuantityforRegisteredUser = (productId, quantity, username) => {
+        var data = JSON.stringify({
+          "productId": productId,
+          "quantity": quantity
+        });
+        
+        var config = {
+          method: 'post',
+          url: `${SPRING_BOOT_BASE_URL}/cart/${username}`,
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then((response)=> {
+          updateCartPageProducts();
+        })
+        .catch((error)=> {
+          console.log(error);
+          updateCartPageProducts();
+        });
+        
+    }
+    // update cart quantity end-------------------------------------------------------------------
+    
+    //REMOVE ITEM FROM CART --------------------------------------------------------------------
+
+    //TODO
+    const removeFromCart = (productId)=> {  
+      if(isRegisteredUser) {
+        removeFromCartForRegisteredUser(productId, username);
+      }
+      else {
+        removeFromCartForGuestUser(productId);
+      }
+    }
+
+    const removeFromCartForGuestUser = (productId) => {
         const cartListJSON = localStorage.getItem(buzzCart);
         const cartList = JSON.parse(cartListJSON);
         const updatedCartList = cartList.filter((cartItem)=>cartItem.productId != productId);
@@ -107,13 +192,40 @@ const useCart =(setNumberOfCartItems)=> {
         updateCartPageProducts();
     }
 
+    const removeFromCartForRegisteredUser = (productId, username)=> {
+
+        var data = JSON.stringify({
+          "productId": productId
+        });
+        
+        var config = {
+          method: 'post',
+          url: `${SPRING_BOOT_BASE_URL}/cart/${username}/remove`,
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then((response) =>{
+          updateCartPageProducts();
+        })
+        .catch((error) =>{
+          console.log(error);
+        });
+        
+    }
+
+    //REMOVE ITEM FROM CART END----------------------------------------------------------------
+
     useEffect(()=>{
       updateTotalAmount();
     },[productsData])
 
     useEffect(() => {
       updateCartPageProducts();
-    }, [])
+    }, [isRegisteredUser])
     
   return ({
     productsData, 

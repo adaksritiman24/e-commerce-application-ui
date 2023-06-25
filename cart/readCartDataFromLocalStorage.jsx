@@ -1,4 +1,4 @@
-export const getTotalCartItems = ()=> {
+export const getTotalCartItemsFromLS = ()=> {
     try{
         const cartJSON = localStorage.getItem("buzzCart");
         if(cartJSON === null  || cartJSON === undefined) return 0;

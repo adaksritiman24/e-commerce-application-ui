@@ -9,16 +9,18 @@ import { CartContext } from "../../../cart/CartProvider";
 import CartProductActions from "./CartProductActions";
 import ShhippingAndTotal from "./ShippingAndTotal";
 import CartProductImage from "./CartProductImage";
+import AuthContext from "../../../auth/AuthContext";
 
 const CartPageBody = () => {
   const { setNumberOfItems } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
   const {
     productsData,
     totalAmount,
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,
     removeFromCart,
-  } = useCart(setNumberOfItems);
+  } = useCart(setNumberOfItems, user != null,  user?.username);
 
   if (productsData.length === 0) {
     return (

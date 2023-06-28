@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { buzzCart } from "../components/body/hooks/useProduct";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 
 const useAuth = ()=>{
@@ -39,8 +40,10 @@ const useAuth = ()=>{
 
             axios(config)
                 .then(response => {
+                    console.log("Got user data :", response.data);
                     setUser(response.data);
                     setToken(userToken)
+                    performCartMergeOperation(response?.data?.username);
                 })
                 .catch(error=> {
                     setUser(null);
@@ -85,10 +88,60 @@ const useAuth = ()=>{
         })
     }
 
+    const getCartDataFromLS = ()=> {
+        const cartListJSON = localStorage.getItem(buzzCart);
+        if(cartListJSON == null){
+            return [];
+        }
+        var cartList  = [];
+        try {
+            cartList = JSON.parse(cartListJSON);
+            if(cartList == null || !Array.isArray(cartList)) {
+                return [];
+            }
+        }
+        catch {
+            return [];
+        }
+        return cartList;
+    }
+
+    const removeCartFromLS =()=> {
+        localStorage.removeItem(buzzCart);
+    }
+
+    const performCartMergeOperation =(username)=> {
+        
+        var data = JSON.stringify(getCartDataFromLS());
+
+        if(username != null) {
+            console.log("Starting merge cart operation for user: "+username);
+            var config = {
+                method: 'post',
+                url: `${SPRING_BOOT_BASE_URL}/cart/${username}/merge`,
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                data : data
+            };
+    
+            axios(config)
+            .then((response) =>{
+                removeCartFromLS(); // delete cart from localstorage
+            })
+            .catch((error) => {
+                //do nothing
+                console.log("Error while merging cart.");
+            });
+        }
+
+    }
+
     useEffect(() => {
       fetchUserFromToken();
     
     }, [])
+
 
     return ({
         user, 

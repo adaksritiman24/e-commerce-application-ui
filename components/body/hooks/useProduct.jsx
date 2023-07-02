@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getTotalCartItemsFromLS } from "../../../cart/readCartDataFromLocalStorage";
 import { SPRING_BOOT_BASE_URL } from "../../constants";
 
 export const buzzCart = "buzzCart";
@@ -35,7 +34,7 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>
             setQuantityInCart(0);    
 
         console.log("Dispatching cart event");
-        setNumberOfCartItems(getTotalCartItemsFromLS()); 
+        setNumberOfCartItems(cartList.length); 
     }
 
     const updateProductInCartQuantityForRegisteredUser = ()=> {
@@ -50,19 +49,23 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>
         axios(config)
           .then( response=>{
             const cartList = response.data.cartEntryList;
-            console.log(cartList);
+
             const currentProductData = cartList.find(cartItem=> cartItem.productId == productId);
-            if(currentProductData !== undefined)
+            if(currentProductData !== undefined){
                 setQuantityInCart(currentProductData.quantity);
-            else    
+            }
+            else {
                 setQuantityInCart(0);   
+            }     
+            setNumberOfCartItems(cartList.length);  
           })
           .catch((error) =>{
             console.log("Unable to fetch cart data");
             setQuantityInCart(0);
+            setNumberOfCartItems(0);  
           });
         console.log("Dispatching cart event");
-        setNumberOfCartItems(getTotalCartItemsFromLS());   
+        
     }
 
     //UPDATE PRODUCT QUANTITY IN CART ENDS----------------------------------------------------------

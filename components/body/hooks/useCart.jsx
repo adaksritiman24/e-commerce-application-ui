@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { getTotalCartItemsFromLS } from '../../../cart/readCartDataFromLocalStorage';
 import { SPRING_BOOT_BASE_URL } from '../../constants';
 import { buzzCart } from './useProduct';
 
@@ -25,7 +24,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username)=> {
                 totalPrice : ids.find((p)=>p.id === product.id).quantityInCart * product.discountedPrice,
             }))
         );
-        setNumberOfCartItems(getTotalCartItemsFromLS());
+        setNumberOfCartItems(ids.length);
     }
 
 

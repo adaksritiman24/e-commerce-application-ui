@@ -64,6 +64,7 @@ const CartPageBody = () => {
           md: "22px",
           xs: "10px",
         },
+        borderRadius : "15px",
       }}
     >
       <Typography variant="h4" ml="10px" borderBottom="0.4px solid grey">
@@ -115,13 +116,18 @@ const CartPageBody = () => {
             sx={{
               display: "flex",
               alignItems: "center",
+              flexDirection : "column",
               mt: {
                 lg: "4px",
                 xs: "8px",
               },
             }}
           >
-            <Stack>
+            <Stack
+              sx={{
+                alignSelf : "flex-end"
+              }}
+            >
               <Typography
                 sx={{
                   textAlign: {
@@ -130,7 +136,27 @@ const CartPageBody = () => {
                   color: grey[500],
                 }}
               >
-                Price
+                Unit Price
+              </Typography>
+              <Typography variant="h5">
+                {getFormattedPrice(product.discountedPrice)}
+              </Typography>
+            </Stack>
+            <hr/>
+            <Stack
+              sx={{
+                alignSelf : "flex-end"
+              }}
+            >
+              <Typography
+                sx={{
+                  textAlign: {
+                    lg: "right",
+                  },
+                  color: grey[500],
+                }}
+              >
+                Total Price
               </Typography>
               <Typography variant="h5">
                 {getFormattedPrice(product.totalPrice)}

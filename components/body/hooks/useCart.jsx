@@ -4,32 +4,35 @@ import { SPRING_BOOT_BASE_URL } from '../../constants';
 import { buzzCart } from './useProduct';
 
 const useCart =(setNumberOfCartItems, isRegisteredUser, username)=> {
+    const [cartData, setCartData] = useState({});
 
-    const [productsData, setProductsData] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
-   
-
-    const updateTotalAmount = ()=> {
-      let total = 0;
-      for(let product of productsData) {
-        total += product.totalPrice;
-      }
-      setTotalAmount(total);
+    const updateCartWithProductData = (products, cartData)=> {
+        cartData.cartEntryList = cartData.cartEntryList.map(cartEntry=>{
+          const product = products.find(product=>product.id === cartEntry.productId)
+          return {
+            ...product,
+            ...cartEntry,
+            unitPrice : product.discountedPrice,
+            totalPrice : product.discountedPrice * cartEntry.quantity
+          }
+        })
+        //update Total Price in CartData
+        let totalPrice = 0;
+        for(let entry of cartData.cartEntryList) {
+          totalPrice += entry.totalPrice;
+        }
+        cartData.totalPrice=totalPrice;
+        setCartData(cartData);
+        console.log("Cart: ",cartData);
+        setNumberOfCartItems(cartData.cartEntryList.length);
     }
 
-    const updateProductsDataWithCartQuantity = (products, ids)=> {
-        setProductsData( products.map((product)=>({
-                ...product,
-                quantityInCart : ids.find((p)=>p.id === product.id).quantityInCart,
-                totalPrice : ids.find((p)=>p.id === product.id).quantityInCart * product.discountedPrice,
-            }))
-        );
-        setNumberOfCartItems(ids.length);
-    }
 
-
-    const fetchProducts = (ids) => {
-        const data = JSON.stringify(ids);
+    const fetchProductsAndSetCartData = (cartData) => {
+        const data = cartData.cartEntryList.map((cartEntry)=> ({
+          id : cartEntry.productId,
+          quantityInCart : cartEntry.quantity
+        }))
         const config = {
             method: 'post',
             url:   `${SPRING_BOOT_BASE_URL}/products/associated`,
@@ -41,19 +44,17 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username)=> {
     
         axios(config)
           .then( response=>{
-            updateProductsDataWithCartQuantity(response.data, ids);
+            updateCartWithProductData(response.data, cartData);
         
           })
           .catch((error) =>{
             console.log(error);
-            setProductsData([]);
           });
           
     }
     // UPDATE PRODUCTS ON PAGE ---------------------------------------------------------
     
     const updateCartPageProducts = ()=>{
-        
         if(isRegisteredUser) {
           updateCartPageProductsForRegisteredCustomer(username);
         }
@@ -67,17 +68,37 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username)=> {
     const upadateCartPageProductsForGuestUser = ()=> {
         const cartListJSON = localStorage.getItem(buzzCart);
         if(cartListJSON == null){
-            setProductsData([]);
+            setCartData([]);
             return;
         }
         const cartList = JSON.parse(cartListJSON);
 
-        const ids = cartList.map((product)=>({
+        const entryList = cartList.map((product)=>({
             id : product.productId,
             quantityInCart : product.quantity,
         }));
           
-        fetchProducts(ids);
+        fetchProductsAndSetCartData(createAnonymousCartData(entryList));
+    }
+
+    const createAnonymousCartData =(entryList)=> {
+      const cartEntryList = entryList.map(entry=>{
+        return {
+          productId : entry.id,
+          quantity : entry.quantityInCart,
+          unitPrice : 0,
+          totalPrice : 0
+        }
+      })
+      const cartData = {
+        id : "anonynous",
+        totalPrice : 0,
+        deliveryAddress : null,
+        cartEntryList
+      }
+      console.log("Created cart data for anonymous user");
+      return cartData;
+
     }
 
         
@@ -98,7 +119,8 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username)=> {
               id : product.productId,
               quantityInCart : product.quantity,
             }));
-            fetchProducts(ids);
+            console.log("Fetched cart data for Registered user");
+            fetchProductsAndSetCartData(response.data);
           })
           .catch((error) =>{
             console.log("Unable to fetch cart data");
@@ -218,18 +240,14 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username)=> {
 
     //REMOVE ITEM FROM CART END----------------------------------------------------------------
 
-    useEffect(()=>{
-      updateTotalAmount();
-    },[productsData])
 
     useEffect(() => {
       updateCartPageProducts();
     }, [isRegisteredUser])
     
   return ({
-    productsData, 
-    totalAmount,
-    setProductsData,
+    cartData,
+    setCartData,
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,
     removeFromCart,

@@ -15,14 +15,13 @@ const CartPageBody = () => {
   const { setNumberOfItems } = useContext(CartContext);
   const { user } = useContext(AuthContext);
   const {
-    productsData,
-    totalAmount,
+    cartData,
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,
     removeFromCart,
   } = useCart(setNumberOfItems, user != null,  user?.username);
 
-  if (productsData.length === 0) {
+  if (cartData.cartEntryList == null || cartData.cartEntryList.length === 0) {
     return (
       <Box
         sx={{
@@ -49,6 +48,7 @@ const CartPageBody = () => {
     );
   }
 
+
   return (
     <Paper
       elevation={4}
@@ -70,7 +70,7 @@ const CartPageBody = () => {
       <Typography variant="h4" ml="10px" borderBottom="0.4px solid grey">
         Your Cart
       </Typography>
-      {productsData.map((product) => (
+      {cartData.cartEntryList != null && cartData.cartEntryList.map((product) => (
         <Box
           sx={{
             m: "10px",
@@ -83,6 +83,7 @@ const CartPageBody = () => {
             },
             flexWrap: "wrap",
           }}
+          key={product.id}
         >
           <CartProductImage images={product.images} />
           <Box
@@ -165,7 +166,7 @@ const CartPageBody = () => {
           </Box>
         </Box>
       ))}
-      <ShhippingAndTotal totalAmount={totalAmount} />
+      <ShhippingAndTotal totalAmount={cartData.totalPrice} deliveryAddress={cartData.deliveryAddress} />
     </Paper>
   );
 };

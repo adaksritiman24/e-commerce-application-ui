@@ -31,7 +31,7 @@ const CartProductActions = ({
           color="success"
         >
           <Button
-            disabled={product.quantityInCart <= 1}
+            disabled={product.quantity <= 1}
             onClick={() => decreaseCartQuantityBy1(product.id)}
           >
             -
@@ -46,7 +46,7 @@ const CartProductActions = ({
               bgcolor: grey[200],
             }}
           >
-            {product.quantityInCart}
+            {product.quantity}
           </Box>
           <Button onClick={() => increaseCartQuantityBy1(product.id)}>+</Button>
         </ButtonGroup>

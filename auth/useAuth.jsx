@@ -41,9 +41,14 @@ const useAuth = ()=>{
             axios(config)
                 .then(response => {
                     console.log("Got user data :", response.data);
-                    setUser(response.data);
-                    setToken(userToken)
-                    performCartMergeOperation(response?.data?.username);
+                    performCartMergeOperation(response?.data?.username).then((status)=>{
+                        setUser(response.data);
+                        setToken(userToken);
+                    }).catch(error=>{
+                        setUser(response.data);
+                        setToken(userToken);
+                    })
+                    
                 })
                 .catch(error=> {
                     setUser(null);
@@ -110,7 +115,7 @@ const useAuth = ()=>{
         localStorage.removeItem(buzzCart);
     }
 
-    const performCartMergeOperation =(username)=> {
+    const performCartMergeOperation = async(username)=> {
         
         var data = JSON.stringify(getCartDataFromLS());
 
@@ -124,15 +129,16 @@ const useAuth = ()=>{
                 },
                 data : data
             };
-    
-            axios(config)
-            .then((response) =>{
+            try {
+                await axios(config);
+                console.log("Cart Merge done");
                 removeCartFromLS(); // delete cart from localstorage
-            })
-            .catch((error) => {
-                //do nothing
+            }
+            catch {
                 console.log("Error while merging cart.");
-            });
+                
+            }
+            return;
         }
 
     }

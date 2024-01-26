@@ -22,4 +22,7 @@ fileignoreconfig:
   checksum: dc148c43151b982fa6da0b9f8e3162ea511e7668d19d5bb9e9079c0b02734012
 - filename: components/header/authentication-ui/LoginModal.jsx
   checksum: 3f8d4281e8b7935d19250840638914e5cfc006134b0396888c24a76f11084bea  
+- filename: components/body/cart/CartPageBody.jsx
+  checksum: 3b1a2029a540cf8048d6e5b09307bc67f688141beea18f617846f3229d807aac
+
 version: 

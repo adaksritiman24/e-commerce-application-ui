@@ -9,9 +9,10 @@ import EmailIcon from "@mui/icons-material/Email";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import { LoginContext } from "../../../modals/LoginModalProvider";
 
-const ShhippingAndTotal = ({ totalAmount }) => {
+const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
   const { setLoginModalOpen } = useContext(LoginContext);
   const { user } = useContext(AuthContext);
+  console.log(deliveryAddress);
 
   return (
     <>
@@ -28,7 +29,7 @@ const ShhippingAndTotal = ({ totalAmount }) => {
           p: "15px",
         }}
       >
-        {user == null ? (
+        {deliveryAddress == null || user == null? (
           <Box
             sx={{
               display: "flex",
@@ -65,12 +66,12 @@ const ShhippingAndTotal = ({ totalAmount }) => {
                 />
                 <Box>
                   <Typography>
-                    {user.address.house}, {user.address.locality}
+                    {deliveryAddress.house}, {deliveryAddress.locality}
                   </Typography>
                   <Typography>
-                    {user.address.city}, {user.address.country}
+                    {deliveryAddress.city}, {deliveryAddress.country}
                   </Typography>
-                  <Typography>Pin code: {user.address.pincode}</Typography>
+                  <Typography>Pin code: {deliveryAddress.pincode}</Typography>
                 </Box>
               </Box>
               <Typography
@@ -84,7 +85,7 @@ const ShhippingAndTotal = ({ totalAmount }) => {
                     mr: "4px",
                   }}
                 />{" "}
-                {user.phoneNumber}
+                {deliveryAddress.phone}
               </Typography>
               <Typography
                 sx={{
@@ -97,7 +98,7 @@ const ShhippingAndTotal = ({ totalAmount }) => {
                     mr: "4px",
                   }}
                 />{" "}
-                {user.email}
+                {deliveryAddress.email}
               </Typography>
             </Box>
             <Button
@@ -108,7 +109,7 @@ const ShhippingAndTotal = ({ totalAmount }) => {
               }}
               color="success"
             >
-              Proceed to Checkout
+              Proceed to Payments
             </Button>
           </Box>
         )}

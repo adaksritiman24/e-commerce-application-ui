@@ -13,7 +13,6 @@ const CategoriesSection =()=> {
         sx={{
             background : grey[500],
             padding : "3px",
-            overflowX : "scroll",
         }}
     >
         {

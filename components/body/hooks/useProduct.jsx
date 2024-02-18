@@ -4,7 +4,7 @@ import { SPRING_BOOT_BASE_URL } from "../../constants";
 
 export const buzzCart = "buzzCart";
 
-const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>{
+const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username, anonymousAuthSessionId)=>{
     
     const productId = product.id;
     const [quantityInCart, setQuantityInCart] = useState(0);
@@ -12,35 +12,18 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>
     //UPDATE PRODUCT QUANTITY IN CART BEGINS----------------------------------------------------------
     const updateCartQuantity=()=>{
         if(isRegisteredUser) {
-            updateProductInCartQuantityForRegisteredUser();
+            updateProductInCartQuantityForRegisteredUser(username);
         }
         else {
-            updateProductInCartQuantityForGuestUser();
+            updateProductInCartQuantityForRegisteredUser(anonymousAuthSessionId);
         }
     }
 
-    const updateProductInCartQuantityForGuestUser = ()=> {
-        const cartListJSON = localStorage.getItem(buzzCart);
-        if(!cartListJSON){
-            setQuantityInCart(0);
-            return
-        }
-        const cartList = JSON.parse(cartListJSON);
-        const currentProductData = cartList.find(cartItem=> cartItem.productId == productId);
- 
-        if(currentProductData !== undefined)
-            setQuantityInCart(currentProductData.quantity);
-        else    
-            setQuantityInCart(0);    
 
-        console.log("Dispatching cart event");
-        setNumberOfCartItems(cartList.length); 
-    }
-
-    const updateProductInCartQuantityForRegisteredUser = ()=> {
+    const updateProductInCartQuantityForRegisteredUser = (userId)=> {
         const config = {
             method: 'get',
-            url:   `${SPRING_BOOT_BASE_URL}/cart/${username}`,
+            url:   `${SPRING_BOOT_BASE_URL}/cart/${userId}`,
             headers: { 
               'Content-Type': 'application/json'
             },
@@ -68,74 +51,33 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>
         
     }
 
-    //UPDATE PRODUCT QUANTITY IN CART ENDS----------------------------------------------------------
-
-    //DECREASE PRODUCT QTY FROM CART BEGINS---------------------------------------------------------
-
 
     const decreaseCartQuantityBy1=()=>{
         if(isRegisteredUser) {
-            decreaseProductQuantityForRegisteredUser();
+            updateCartQuantityBy1(productId, -1, username);
         }
         else {
-            decreaseProductQuantityForGuest();
+            updateCartQuantityBy1(productId, -1, anonymousAuthSessionId);
         }
     }
 
-    const decreaseProductQuantityForGuest = () => {
-        const cartListJSON = localStorage.getItem(buzzCart);
-        if(!cartListJSON){
-            return
-        }
-        const cartList = JSON.parse(cartListJSON);
-        const currentProductData = cartList.find(cartItem=> cartItem.productId == productId);
-
-        if(currentProductData !== undefined){
-            const newCartList = cartList.map((cartItem)=>{
-                if(cartItem.productId == productId) return {
-                    ...cartItem, quantity : cartItem.quantity - 1
-                }
-                else return cartItem;
-            })
-            localStorage.setItem(buzzCart,JSON.stringify(newCartList));
-        }
-        updateCartQuantity();
-    }
-
-    const decreaseProductQuantityForRegisteredUser = () => {
-        updateCartQuantityforRegisteredUser(productId, -1, username);
-    }
-
-    //DECREASE PRODUCT QTY FROM CART ENDS---------------------------------------------------------
-
-    //REMOVE PRODUCT FROM CART---------------------------------------------------------
     const removeFromCart = ()=>{
 
         if (isRegisteredUser) {
-            removeFromCartForRegisteredUser();
+            removeFromCartForUser(username);
         }
         else {
-
-            try{
-                const cartListJSON = localStorage.getItem(buzzCart);
-                const cartList = JSON.parse(cartListJSON);
-                const updatedCartList = cartList.filter((cartItem)=>cartItem.productId != productId);
-                localStorage.setItem(buzzCart,JSON.stringify(updatedCartList));
-                updateCartQuantity();
-            }
-            catch(e) {
-                console.log("Item not in cart");
-            }
+            removeFromCartForUser(anonymousAuthSessionId)
         }
     }
-    const removeFromCartForRegisteredUser = ()=> {
+    const removeFromCartForUser = (userId)=> {
         var data = JSON.stringify({
             "productId": productId
           });
           
           var config = {
             method: 'post',
-            url: `${SPRING_BOOT_BASE_URL}/cart/${username}/remove`,
+            url: `${SPRING_BOOT_BASE_URL}/cart/${userId}/remove`,
             headers: { 
               'Content-Type': 'application/json'
             },
@@ -151,64 +93,18 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>
           });
     }
 
-    //---------------------------------------------------------
-
-    //INCREASE QTY OR ADD PRODUCT TO CART --------------------------------------------------------
 
     const addToCartWithQuantity1= ()=> {
         if(isRegisteredUser) {
-            addToCartWithQuantity1ForRegisteredUser(); 
+            updateCartQuantityBy1(productId, 1, username);
         }
         else {
-            addToCartWithQuantity1ForGuestUser();
+            updateCartQuantityBy1(productId, 1, anonymousAuthSessionId);
         }
     }
 
-    const addToCartWithQuantity1ForGuestUser=()=>{
-        const cartListJSON = localStorage.getItem(buzzCart);
 
-        if(!cartListJSON){
-            const newCartList = [
-                {
-                    productId : productId,
-                    quantity : 1
-                }
-            ]
-            localStorage.setItem(buzzCart,JSON.stringify(newCartList));
-        }
-        else{
-            const cartList = JSON.parse(cartListJSON);
-            const currentProductData = cartList.find(cartItem=> cartItem.productId == productId);
-            
-            if(currentProductData === undefined){ //product not found in cart, add product with quantity 1
-                cartList.push({
-                    productId : productId,
-                    quantity : 1
-                })
-                localStorage.setItem(buzzCart,JSON.stringify(cartList));
-            }
-            else{ //increase quantity of the existing item
-                const newCartList = cartList.map((cartItem)=>{
-                    if(cartItem.productId == productId) return {
-                        ...cartItem, quantity : cartItem.quantity + 1
-                    }
-                    else return cartItem;
-                })
-                localStorage.setItem(buzzCart,JSON.stringify(newCartList));
-
-            }
-        }
-        updateCartQuantity();
-        
-    }
-
-    const addToCartWithQuantity1ForRegisteredUser =()=> {
-        updateCartQuantityforRegisteredUser(productId, 1, username);
-    }
-    //INCREASE QTY OR ADD PRODUCT TO CART ENDS--------------------------------------------------------
-
-    //UPDATE Cart QTY for registered users
-    const updateCartQuantityforRegisteredUser = (productId, quantity, username) => {
+    const updateCartQuantityBy1 = (productId, quantity, userId) => {
         var data = JSON.stringify({
           "productId": productId,
           "quantity": quantity
@@ -216,7 +112,7 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username)=>
         
         var config = {
           method: 'post',
-          url: `${SPRING_BOOT_BASE_URL}/cart/${username}`,
+          url: `${SPRING_BOOT_BASE_URL}/cart/${userId}`,
           headers: { 
             'Content-Type': 'application/json'
           },

@@ -140,7 +140,7 @@ const MobileSideDrawer = (props)=>{
                         }}
                         onClick={handleNavigateToCartPage}
                     >
-                        <Badge badgeContent={numberOfItemsInCart} color="primary">
+                        <Badge badgeContent={numberOfItemsInCart} showZero color="primary">
                         <ShoppingCartIcon/>
                         </Badge>
                         <Typography variant='p'>
@@ -232,7 +232,7 @@ const MobileSideDrawer = (props)=>{
                         }}
                         onClick={handleNavigateToCartPage}
                     >
-                        <Badge badgeContent={numberOfItemsInCart} color="primary" >
+                        <Badge badgeContent={numberOfItemsInCart} showZero color="primary" >
                             <ShoppingCartIcon/>
                         </Badge>
                         <Typography variant='p'>

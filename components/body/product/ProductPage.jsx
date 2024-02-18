@@ -23,14 +23,14 @@ function ProductPage({
   product
 }) {
   const {setNumberOfItems} = useContext(CartContext);
-  const { user } = useContext(AuthContext);
+  const { user, anonymousAuthSessionId } = useContext(AuthContext);
   
   const {
     quantityInCart,
     addToCartWithQuantity1,
     decreaseCartQuantityBy1,
     removeFromCart,
-  } = useProduct(product, setNumberOfItems, user!=null, user?.username);
+  } = useProduct(product, setNumberOfItems, user!=null, user?.username, anonymousAuthSessionId);
 
   return (
 

@@ -110,7 +110,7 @@ const MoreNavigation=({
                     }}
                     onClick={handleNavigateToCartPage}
                 >
-                    <Badge badgeContent={numberOfItems} color="primary">
+                    <Badge badgeContent={numberOfItems} showZero color="primary">
                     <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>
@@ -207,7 +207,7 @@ const MoreNavigation=({
                     }}
                     onClick={handleNavigateToCartPage}
                 >
-                    <Badge badgeContent={numberOfItems} color="primary">
+                    <Badge badgeContent={numberOfItems} showZero color="primary">
                         <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>

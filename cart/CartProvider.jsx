@@ -10,11 +10,11 @@ const cartContextValue = {
 export const CartContext = React.createContext(cartContextValue);
 
 const CartProvider = (props)=> {
-    const { user } = useContext(AuthContext);
+    const { user, anonymousAuthSessionId } = useContext(AuthContext);
     const [numberOfItems, setNumberOfItems] = useState();
 
     const updateCartQuantity = async()=> {
-        const noi = await getTotalCartItemsFromLS(user != null, user?.username);
+        const noi = await getTotalCartItemsFromLS(user != null, user?.username, anonymousAuthSessionId);
         setNumberOfItems(noi);
     }
 

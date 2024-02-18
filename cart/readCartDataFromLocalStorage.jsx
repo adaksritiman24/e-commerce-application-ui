@@ -1,16 +1,13 @@
 import axios from "axios";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 
-export const getTotalCartItemsFromLS = async(isRegisteredUser, username)=> {
+export const getTotalCartItemsFromLS = async(isRegisteredUser, username, anonymousAuthSessionId)=> {
     try{
         if(!isRegisteredUser) {
-            const cartJSON = localStorage.getItem("buzzCart");
-            if(cartJSON === null  || cartJSON === undefined) return 0;
-            const cartData = JSON.parse(cartJSON);
-            return cartData.length;
+            return await getCartQuantityForCustomer(anonymousAuthSessionId);
         }
         else {
-            return await getCartQuantityForRegisyteredCustomer(username);
+            return await getCartQuantityForCustomer(username);
         }
     }
     catch(error) {
@@ -18,7 +15,7 @@ export const getTotalCartItemsFromLS = async(isRegisteredUser, username)=> {
     }
 }
 
-const getCartQuantityForRegisyteredCustomer = async(username)=> {
+const getCartQuantityForCustomer = async(username)=> {
     const config = {
         method: 'get',
         url:   `${SPRING_BOOT_BASE_URL}/cart/${username}`,

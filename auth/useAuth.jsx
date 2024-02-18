@@ -57,14 +57,8 @@ const useAuth = (anonymousAuthSessionId)=>{
             axios(config)
                 .then(response => {
                     console.log("Got user data :", response.data);
-                    performCartMergeOperation(response?.data?.username).then((status)=>{
-                        setUser(response.data);
-                        setToken(userToken);
-                    }).catch(error=>{
-                        setUser(response.data);
-                        setToken(userToken);
-                    })
-                    
+                    setUser(response.data);
+                    setToken(userToken);
                 })
                 .catch(error=> {
                     setUser(null);
@@ -83,6 +77,7 @@ const useAuth = (anonymousAuthSessionId)=>{
     const handleLoginThroughModal = (username, password,setUsername, setPassword, setHelperText, setLoginModalOpen)=> {
         const data = JSON.stringify({
             "username": username,
+            "anonymousCartUsername" : anonymousAuthSessionId,
             "password": password,
         });
         const config = {
@@ -109,55 +104,6 @@ const useAuth = (anonymousAuthSessionId)=>{
         })
     }
 
-    const getCartDataFromLS = ()=> {
-        const cartListJSON = localStorage.getItem(buzzCart);
-        if(cartListJSON == null){
-            return [];
-        }
-        var cartList  = [];
-        try {
-            cartList = JSON.parse(cartListJSON);
-            if(cartList == null || !Array.isArray(cartList)) {
-                return [];
-            }
-        }
-        catch {
-            return [];
-        }
-        return cartList;
-    }
-
-    const removeCartFromLS =()=> {
-        localStorage.removeItem(buzzCart);
-    }
-
-    const performCartMergeOperation = async(username)=> {
-        
-        var data = JSON.stringify(getCartDataFromLS());
-
-        if(username != null) {
-            console.log("Starting merge cart operation for user: "+username);
-            var config = {
-                method: 'post',
-                url: `${SPRING_BOOT_BASE_URL}/cart/${username}/merge`,
-                headers: { 
-                    'Content-Type': 'application/json'
-                },
-                data : data
-            };
-            try {
-                await axios(config);
-                console.log("Cart Merge done");
-                removeCartFromLS(); // delete cart from localstorage
-            }
-            catch {
-                console.log("Error while merging cart.");
-                
-            }
-            return;
-        }
-
-    }
 
     useEffect(() => {
       fetchUserFromToken();

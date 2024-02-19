@@ -12,7 +12,6 @@ import { LoginContext } from "../../../modals/LoginModalProvider";
 const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
   const { setLoginModalOpen } = useContext(LoginContext);
   const { user } = useContext(AuthContext);
-  console.log(deliveryAddress);
 
   return (
     <>

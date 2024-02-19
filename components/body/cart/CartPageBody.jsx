@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography, styled } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { grey } from "@mui/material/colors";
 import React from "react";
@@ -10,16 +10,18 @@ import CartProductActions from "./CartProductActions";
 import ShhippingAndTotal from "./ShippingAndTotal";
 import CartProductImage from "./CartProductImage";
 import AuthContext from "../../../auth/AuthContext";
+import Link from "next/link";
+
 
 const CartPageBody = () => {
   const { setNumberOfItems } = useContext(CartContext);
-  const { user } = useContext(AuthContext);
+  const { user, anonymousAuthSessionId } = useContext(AuthContext);
   const {
     cartData,
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,
     removeFromCart,
-  } = useCart(setNumberOfItems, user != null,  user?.username);
+  } = useCart(setNumberOfItems, user != null,  user?.username, anonymousAuthSessionId);
 
   if (cartData.cartEntryList == null || cartData.cartEntryList.length === 0) {
     return (
@@ -95,7 +97,20 @@ const CartPageBody = () => {
               },
             }}
           >
-            <Typography variant="h6">{product.name}</Typography>
+            <Box
+              sx={{
+                "& a" : {
+                  fontFamily: "Trebuchet MS",
+                  fontSize: "20px",
+                  color: grey[800],
+                }
+              }}
+            >
+              <Link href={`/product/${product.id}`}>
+                {product.name}
+              </Link>
+            </Box>
+           
             <Typography
               sx={{
                 fontFamily: "Trebuchet MS",

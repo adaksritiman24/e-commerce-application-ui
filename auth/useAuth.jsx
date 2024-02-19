@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { buzzCart } from "../components/body/hooks/useProduct";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 
 const useAuth = (anonymousAuthSessionId)=>{
@@ -23,22 +22,8 @@ const useAuth = (anonymousAuthSessionId)=>{
         if(userToken == null){
             setUser(null);
             setToken(null);
-            //anonymous journey -->> fetch/create cart
-            console.log("Fetch Cart For anonymous user: "+anonymousAuthSessionId);
-            var config = {
-                method: 'get',
-                url: `${SPRING_BOOT_BASE_URL}/cart/anonymous/${anonymousAuthSessionId}`,
-                headers: { 
-                    'Content-Type': 'application/json'
-                },
-            };
-            axios(config)
-            .then(resp => {
-                console.log(resp);
-            })
-            .catch(error=> {
-                console.log("error");
-            });
+            
+            fetchOrCreateAnonymousCart();
         }
         else {
             const data = JSON.stringify({
@@ -71,6 +56,24 @@ const useAuth = (anonymousAuthSessionId)=>{
     const handleLogout = ()=>{
         removeTokenFromLocalStorage();
         fetchUserFromToken();
+    }
+
+    const fetchOrCreateAnonymousCart = ()=> {//anonymous journey -->> fetch/create cart
+        console.log("Fetch Cart For anonymous user: "+anonymousAuthSessionId);
+        var config = {
+            method: 'get',
+            url: `${SPRING_BOOT_BASE_URL}/cart/anonymous/${anonymousAuthSessionId}`,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+        };
+        axios(config)
+        .then(resp => {
+            console.log(resp);
+        })
+        .catch(error=> {
+            console.log("error");
+        });
     }
 
 

@@ -12,18 +12,25 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username, a
     //UPDATE PRODUCT QUANTITY IN CART BEGINS----------------------------------------------------------
     const updateCartQuantity=()=>{
         if(isRegisteredUser) {
-            updateProductInCartQuantityForRegisteredUser(username);
+            updateProductInCartQuantityForUser(username);
         }
         else {
-            updateProductInCartQuantityForRegisteredUser(anonymousAuthSessionId);
+            updateProductInCartQuantityForUser(anonymousAuthSessionId);
         }
     }
 
 
-    const updateProductInCartQuantityForRegisteredUser = (userId)=> {
+    const updateProductInCartQuantityForUser = (userId)=> {
+        let fetchCartUrl;
+        if(isRegisteredUser) {
+          fetchCartUrl = `${SPRING_BOOT_BASE_URL}/cart/${userId}`;
+        }
+        else {
+          fetchCartUrl = `${SPRING_BOOT_BASE_URL}/cart/anonymous/${userId}`;
+        }
         const config = {
             method: 'get',
-            url:   `${SPRING_BOOT_BASE_URL}/cart/${userId}`,
+            url:   fetchCartUrl,
             headers: { 
               'Content-Type': 'application/json'
             },

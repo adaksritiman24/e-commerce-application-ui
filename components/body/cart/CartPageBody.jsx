@@ -11,6 +11,7 @@ import ShhippingAndTotal from "./ShippingAndTotal";
 import CartProductImage from "./CartProductImage";
 import AuthContext from "../../../auth/AuthContext";
 import Link from "next/link";
+import { DeliverAddressModelProvider } from "../../../modals/DeliveryAddressModalProvider";
 
 
 const CartPageBody = () => {
@@ -181,7 +182,9 @@ const CartPageBody = () => {
           </Box>
         </Box>
       ))}
-      <ShhippingAndTotal totalAmount={cartData.totalPrice} deliveryAddress={cartData.deliveryAddress} />
+      <DeliverAddressModelProvider>
+        <ShhippingAndTotal totalAmount={cartData.totalPrice} deliveryAddress={cartData.deliveryAddress} />
+      </DeliverAddressModelProvider>
     </Paper>
   );
 };

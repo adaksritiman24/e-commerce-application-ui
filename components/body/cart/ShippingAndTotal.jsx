@@ -8,10 +8,10 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import { LoginContext } from "../../../modals/LoginModalProvider";
+import { DeliveryAddressContext } from "../../../modals/DeliveryAddressModalProvider";
 
 const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
-  const { setLoginModalOpen } = useContext(LoginContext);
-  const { user } = useContext(AuthContext);
+  const {setDeliveryAddressOpen} = useContext(DeliveryAddressContext);
 
   return (
     <>
@@ -28,7 +28,7 @@ const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
           p: "15px",
         }}
       >
-        {deliveryAddress == null || user == null? (
+        {deliveryAddress == null ? (
           <Box
             sx={{
               display: "flex",
@@ -38,19 +38,19 @@ const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
             <Button
               variant="contained"
               color="warning"
-              onClick={() => setLoginModalOpen(true)}
+              onClick={() => setDeliveryAddressOpen(true)}
               sx={{
                 textTransform: "none",
               }}
             >
-              Please sign in to proceed
+              Add delivery address
             </Button>
           </Box>
         ) : (
           <Box>
             <Typography variant="h5">Shipping Details</Typography>
             <hr />
-            <Typography variant="h6">{user.name}</Typography>
+            <Typography variant="h6">{deliveryAddress.name}</Typography>
             <Box color={grey[700]}>
               <Box
                 sx={{

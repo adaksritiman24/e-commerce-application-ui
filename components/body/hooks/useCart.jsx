@@ -171,6 +171,21 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
 
     //REMOVE ITEM FROM CART END----------------------------------------------------------------
 
+    //Add delivery address
+    const addDeliveryAddress = async(deliveryAddress)=> {
+      var data = JSON.stringify(deliveryAddress);
+      var config = {
+        method: 'post',
+        url: `${SPRING_BOOT_BASE_URL}/cart/delivery_address/${username}`,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      const response = await axios(config);
+      return response.data;
+    }
+
 
     useEffect(() => {
       updateCartPageProducts();

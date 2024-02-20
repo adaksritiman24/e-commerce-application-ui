@@ -47,7 +47,6 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
     // UPDATE PRODUCTS ON PAGE ---------------------------------------------------------
     
     const updateCartPageProducts = ()=>{
-        console.log("Updating cart page products...", isRegisteredUser);
         if(isRegisteredUser) {
           updateCartPageProductsForCustomer(username);
         }
@@ -77,7 +76,6 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
     
         axios(config)
           .then( response=>{
-            console.log("Fetched cart data for user -->", response.data);
             fetchProductsAndSetCartData(response.data);
           })
           .catch((error) =>{
@@ -136,15 +134,15 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
     //REMOVE ITEM FROM CART --------------------------------------------------------------------
     const removeFromCart = (productId)=> {  
       if(isRegisteredUser) {
-        removeFromCartForRegisteredUser(productId, username);
+        removeFromCartForUser(productId, username);
       }
       else {
-        removeFromCartForRegisteredUser(productId, anonymousAuthSessionId);
+        removeFromCartForUser(productId, anonymousAuthSessionId);
       }
     }
 
 
-    const removeFromCartForRegisteredUser = (productId, username)=> {
+    const removeFromCartForUser = (productId, userId)=> {
 
         var data = JSON.stringify({
           "productId": productId
@@ -152,7 +150,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
         
         var config = {
           method: 'post',
-          url: `${SPRING_BOOT_BASE_URL}/cart/${username}/remove`,
+          url: `${SPRING_BOOT_BASE_URL}/cart/${userId}/remove`,
           headers: { 
             'Content-Type': 'application/json'
           },
@@ -173,17 +171,31 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
 
     //Add delivery address
     const addDeliveryAddress = async(deliveryAddress)=> {
+
+      let setDeliveryAddressURL;
+      if(isRegisteredUser) {
+        setDeliveryAddressURL = `${SPRING_BOOT_BASE_URL}/cart/delivery_address/${username}`;
+      }
+      else {
+        setDeliveryAddressURL = `${SPRING_BOOT_BASE_URL}/cart/delivery_address/${anonymousAuthSessionId}`;
+      }
       var data = JSON.stringify(deliveryAddress);
       var config = {
         method: 'post',
-        url: `${SPRING_BOOT_BASE_URL}/cart/delivery_address/${username}`,
+        url: setDeliveryAddressURL,
         headers: {
           'Content-Type': 'application/json'
         },
         data : data
       };
-      const response = await axios(config);
-      return response.data;
+      
+      try {
+        await axios(config);
+        updateCartPageProducts();
+      }
+      catch(e) {
+        console.log("Failed to update delivery Address: ",e);
+      }
     }
 
 
@@ -197,6 +209,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,
     removeFromCart,
+    addDeliveryAddress,
   })
 }
 

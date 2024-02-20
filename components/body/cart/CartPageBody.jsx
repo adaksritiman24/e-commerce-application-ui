@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography, styled } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { grey } from "@mui/material/colors";
 import React from "react";
@@ -22,7 +22,9 @@ const CartPageBody = () => {
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,
     removeFromCart,
+    addDeliveryAddress
   } = useCart(setNumberOfItems, user != null,  user?.username, anonymousAuthSessionId);
+
 
   if (cartData.cartEntryList == null || cartData.cartEntryList.length === 0) {
     return (
@@ -182,7 +184,7 @@ const CartPageBody = () => {
           </Box>
         </Box>
       ))}
-      <DeliverAddressModelProvider>
+      <DeliverAddressModelProvider addDeliveryAddress={addDeliveryAddress}>
         <ShhippingAndTotal totalAmount={cartData.totalPrice} deliveryAddress={cartData.deliveryAddress} />
       </DeliverAddressModelProvider>
     </Paper>

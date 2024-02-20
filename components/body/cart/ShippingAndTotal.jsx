@@ -1,17 +1,22 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
 import { getFormattedPrice } from "../../common/utils/helpers";
 import { useContext } from "react";
-import AuthContext from "../../../auth/AuthContext";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
-import { LoginContext } from "../../../modals/LoginModalProvider";
+import CreateIcon from '@mui/icons-material/Create';
 import { DeliveryAddressContext } from "../../../modals/DeliveryAddressModalProvider";
 
 const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
-  const {setDeliveryAddressOpen} = useContext(DeliveryAddressContext);
+  const {setDeliveryAddressOpen, setDeliveryAddress} = useContext(DeliveryAddressContext);
+
+  const editDeliveryAddress =()=> {
+    console.log("Current Delivery Address: ", deliveryAddress);
+    setDeliveryAddress(deliveryAddress);
+    setDeliveryAddressOpen(true);
+  }
 
   return (
     <>
@@ -48,7 +53,28 @@ const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
           </Box>
         ) : (
           <Box>
-            <Typography variant="h5">Shipping Details</Typography>
+            <Box sx={{
+              display : "flex",
+              flexDirection : "row",
+              justifyContent: "center",
+              alignItems : "center",
+            }}>
+              <Typography variant="h5" mr={1}>
+                Shipping Details
+              </Typography>
+              <IconButton
+                disableTouchRipple
+              onClick={editDeliveryAddress}>
+                <CreateIcon 
+                  sx={{
+                    cursor : "pointer",
+                    color : grey[800],
+                  }}
+                  
+                />
+              </IconButton>
+            </Box>
+
             <hr />
             <Typography variant="h6">{deliveryAddress.name}</Typography>
             <Box color={grey[700]}>

@@ -1,18 +1,18 @@
-import { Box, Button, FormControl, Grid, InputLabel, Modal, OutlinedInput, Stack, Typography } from "@mui/material";
+import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Modal, OutlinedInput, Select, Stack, Typography } from "@mui/material";
 import { createContext, useState } from "react";
 
 const modalValues = {
     deliveryAddressOpen: false,
     setDeliveryAddressOpen: () => {},
     deliveryAddress: {
-        name: null,
-        house: null,
-        locality: null,
-        city: null,
-        country: null,
-        pincode: null,
-        phone: null,
-        email: null
+        name: "",
+        house: "",
+        locality: "",
+        city: "",
+        country: "India",
+        pincode: "",
+        phone: "",
+        email: ""
     },
     setDeliveryAddress: ()=> {}
 };
@@ -33,7 +33,7 @@ export const DeliveryAddressContext = createContext(modalValues);
 
 export const DeliverAddressModelProvider = ({children}) => {
     const [deliveryAddressOpen, setDeliveryAddressOpen] = useState(false);
-    const [deliveryAddress, setDeliveryAddress] = useState(false);
+    const [deliveryAddress, setDeliveryAddress] = useState(modalValues.deliveryAddress);
     const contextValues = {
         deliveryAddress,
         setDeliveryAddress,
@@ -60,6 +60,32 @@ const DeliveryAddressModal = ({
     deliveryAddressOpen,
     setDeliveryAddressOpen
 })=> {
+    const setDeliveryAddressField = (field, value)=> {
+        console.log("delivery Address", deliveryAddress);
+        setDeliveryAddress((address)=>{
+            switch(field) {
+                case "name": 
+                    return {...address, name: value};
+                case "house":
+                    return {...address, house: value};
+                case "locality":  
+                    return {...address, locality: value};  
+                case "city":   
+                    return {...address, city: value}; 
+                case "country":    
+                    return {...address, country: value};
+                case "pincode":   
+                    return {...address, pincode: value}; 
+                case "phone":    
+                    return {...address, phone: value};
+                case "email":    
+                    return {...address, email: value};
+                default:
+                    return address;  
+            }
+        });
+    }
+
     return (<Modal
     open={deliveryAddressOpen}
     onClose={()=>setDeliveryAddressOpen(false)}
@@ -117,6 +143,8 @@ const DeliveryAddressModal = ({
                     </InputLabel>
                     <OutlinedInput
                     id="d-name"
+                    value={deliveryAddress.name}
+                    onChange={(e)=>setDeliveryAddressField("name", e.target.value)}
                     />
                 </FormControl>
 
@@ -134,7 +162,10 @@ const DeliveryAddressModal = ({
                         Phone No.
                     </InputLabel>
                     <OutlinedInput
+                    type="number"
                     id="d-phone"
+                    value={deliveryAddress.phone}
+                    onChange={(e)=>setDeliveryAddressField("phone", e.target.value)}
                     />
                 </FormControl>
 
@@ -153,6 +184,8 @@ const DeliveryAddressModal = ({
                     </InputLabel>
                     <OutlinedInput
                     id="d-email"
+                    value={deliveryAddress.email}
+                    onChange={(e)=>setDeliveryAddressField("email", e.target.value)}
                     />
                 </FormControl>
             </Box>
@@ -189,6 +222,8 @@ const DeliveryAddressModal = ({
                     </InputLabel>
                     <OutlinedInput
                     id="d-house"
+                    value={deliveryAddress.house}
+                    onChange={(e)=>setDeliveryAddressField("house", e.target.value)}
                     />
                 </FormControl>
 
@@ -207,6 +242,8 @@ const DeliveryAddressModal = ({
                     </InputLabel>
                     <OutlinedInput
                     id="d-locality"
+                    value={deliveryAddress.locality}
+                    onChange={(e)=>setDeliveryAddressField("locality", e.target.value)}
                     />
                 </FormControl>
             </Box>
@@ -243,6 +280,8 @@ const DeliveryAddressModal = ({
                     </InputLabel>
                     <OutlinedInput
                     id="d-city"
+                    value={deliveryAddress.city}
+                    onChange={(e)=>setDeliveryAddressField("city", e.target.value)}
                     />
                 </FormControl>
 
@@ -259,9 +298,17 @@ const DeliveryAddressModal = ({
                     >
                         Country
                     </InputLabel>
-                    <OutlinedInput
-                    id="d-country"
-                    />
+                    <Select
+                        labelId="d-country"
+                        id="d-country"
+                        label="Country"
+                        value={deliveryAddress.country}
+                        onChange={(e)=>setDeliveryAddressField("country", e.target.value)}
+                    >
+                        <MenuItem value={"India"}>India (IN)</MenuItem>
+                        <MenuItem value={"United States"}>United States (US)</MenuItem>
+                        <MenuItem value={"China"}>China (CN)</MenuItem>
+                    </Select>
                 </FormControl>
 
                 <FormControl
@@ -279,6 +326,8 @@ const DeliveryAddressModal = ({
                     </InputLabel>
                     <OutlinedInput
                     id="d-pin"
+                    value={deliveryAddress.pincode}
+                    onChange={(e)=>setDeliveryAddressField("pincode", e.target.value)}
                     />
                 </FormControl>
 

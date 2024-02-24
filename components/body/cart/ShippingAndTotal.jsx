@@ -8,6 +8,25 @@ import EmailIcon from "@mui/icons-material/Email";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import CreateIcon from '@mui/icons-material/Create';
 import { DeliveryAddressContext } from "../../../modals/DeliveryAddressModalProvider";
+import PaymentModalProvider, { PaymentContext } from "../../../modals/payments/PaymentModalProvider";
+
+
+const PaymentButton = ()=> {
+  const {setPaymentModalOpen} = useContext(PaymentContext);
+  return (
+      <Button
+        variant="contained"
+        sx={{
+          mt: "10px",
+          textTransform : "none",
+        }}
+        color="success"
+        onClick={()=>setPaymentModalOpen(true)}
+      >
+        Proceed to Payments
+      </Button>
+  );
+}
 
 const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
   const {setDeliveryAddressOpen, setDeliveryAddress} = useContext(DeliveryAddressContext);
@@ -126,16 +145,9 @@ const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
                 {deliveryAddress.email}
               </Typography>
             </Box>
-            <Button
-              variant="contained"
-              sx={{
-                mt: "10px",
-                textTransform : "none",
-              }}
-              color="success"
-            >
-              Proceed to Payments
-            </Button>
+            <PaymentModalProvider>
+              <PaymentButton/>
+            </PaymentModalProvider>
           </Box>
         )}
         <Box

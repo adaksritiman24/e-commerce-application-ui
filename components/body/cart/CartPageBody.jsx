@@ -22,7 +22,8 @@ const CartPageBody = () => {
     increaseCartQuantityBy1,
     decreaseCartQuantityBy1,
     removeFromCart,
-    addDeliveryAddress
+    addDeliveryAddress,
+    placeOrderUsingBankCard,
   } = useCart(setNumberOfItems, user != null,  user?.username, anonymousAuthSessionId);
 
 
@@ -185,7 +186,11 @@ const CartPageBody = () => {
         </Box>
       ))}
       <DeliverAddressModelProvider addDeliveryAddress={addDeliveryAddress}>
-        <ShhippingAndTotal totalAmount={cartData.totalPrice} deliveryAddress={cartData.deliveryAddress} />
+        <ShhippingAndTotal 
+         totalAmount={cartData.totalPrice}
+         deliveryAddress={cartData.deliveryAddress} 
+         placeOrderUsingBankCard={placeOrderUsingBankCard} 
+        />
       </DeliverAddressModelProvider>
     </Paper>
   );

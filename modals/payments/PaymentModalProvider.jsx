@@ -19,11 +19,12 @@ const contextValues = {
     setPaymentData : ()=> {},
     paymentModalOpen: false,
     setPaymentModalOpen: ()=> {},
+    placeOrder: (bankCardDetails)=> {},
 }
 
 export const PaymentContext = React.createContext(contextValues);
 
-const PaymentModalProvider =({children})=> {
+const PaymentModalProvider =({children, placeOrderForCart})=> {
 
     const [paymentData, setPaymentData] = useState(contextValues.paymentData);
     const [paymentModalOpen, setPaymentModalOpen] = useState(false)
@@ -33,7 +34,8 @@ const PaymentModalProvider =({children})=> {
         paymentData,
         setPaymentData,
         paymentModalOpen,
-        setPaymentModalOpen
+        setPaymentModalOpen,
+        placeOrder : placeOrderForCart,
     }
 
   return (

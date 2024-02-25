@@ -1,44 +1,127 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { grey } from "@mui/material/colors";
-import React from "react";
+import React, { useState } from "react";
 import { getFormattedPrice } from "../../common/utils/helpers";
 import { useContext } from "react";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import CloseIcon from "@mui/icons-material/Close";
 import EmailIcon from "@mui/icons-material/Email";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
-import CreateIcon from '@mui/icons-material/Create';
+import CreateIcon from "@mui/icons-material/Create";
 import { DeliveryAddressContext } from "../../../modals/DeliveryAddressModalProvider";
-import PaymentModalProvider, { PaymentContext } from "../../../modals/payments/PaymentModalProvider";
+import PaymentModalProvider, {
+  PaymentContext,
+} from "../../../modals/payments/PaymentModalProvider";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import SubmitPaymentLoader from "../../../modals/payments/loaders/SubmitPaymentLoader";
 
+const REMEMBER_ME = "rememberMe";
 
-const PaymentButton = ()=> {
-  const {setPaymentModalOpen} = useContext(PaymentContext);
+const PaymentButton = () => {
+  const { setPaymentModalOpen } = useContext(PaymentContext);
   return (
-      <Button
-        variant="contained"
-        sx={{
-          mt: "10px",
-          textTransform : "none",
-        }}
-        color="success"
-        onClick={()=>setPaymentModalOpen(true)}
-      >
-        Proceed to Payments
-      </Button>
+    <Button
+      variant="contained"
+      sx={{
+        mt: "10px",
+        textTransform: "none",
+      }}
+      color="success"
+      onClick={() => setPaymentModalOpen(true)}
+    >
+      Proceed to Payments
+    </Button>
   );
-}
+};
 
-const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
-  const {setDeliveryAddressOpen, setDeliveryAddress} = useContext(DeliveryAddressContext);
+const ErrorNotification = ({ open, setOpen }) => {
+  return (
+    <Collapse
+      style={{
+        position: "fixed",
+        top: "10px",
+        right: "50%",
+        transform: "translate(50%, 50%)",
+        zIndex: 6000,
+      }}
+      in={open}
+    >
+      <Alert
+        style={{
+          background: "rgb(251,200,200)",
+        }}
+        severity="error"
+        action={
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        }
+        sx={{ mb: 2 }}
+      >
+        Failed to Place Order!
+      </Alert>
+    </Collapse>
+  );
+};
 
-  const editDeliveryAddress =()=> {
+const ShhippingAndTotal = ({
+  totalAmount,
+  deliveryAddress,
+  placeOrderUsingBankCard,
+}) => {
+  const { setDeliveryAddressOpen, setDeliveryAddress } = useContext(
+    DeliveryAddressContext
+  );
+  const [loading, setLoading] = useState(false);
+  const [cookie, _b, removeCookie] = useCookies([REMEMBER_ME]);
+  const [errorAlertOpen, setErrorAlertOpen] = useState(false);
+
+  const router = useRouter();
+
+  const editDeliveryAddress = () => {
     console.log("Current Delivery Address: ", deliveryAddress);
     setDeliveryAddress(deliveryAddress);
     setDeliveryAddressOpen(true);
-  }
+  };
+
+  const handlePlaceOrder = (bankCardDetails) => {
+    setLoading(true);
+    setTimeout(async () => {
+      const { status, orderId } = await placeOrderUsingBankCard(
+        bankCardDetails
+      );
+      if (status) {
+        removeCookie(REMEMBER_ME, {path : "/"});
+        router.push(`/order/${orderId}`);
+      } else {
+        setLoading(false);
+        setErrorAlertOpen(true);
+      }
+      console.log("Order Status: ", status);
+    }, 1500);
+  };
 
   return (
     <>
+      {errorAlertOpen && (
+        <ErrorNotification open={errorAlertOpen} setOpen={setErrorAlertOpen} />
+      )}
+      {loading && <SubmitPaymentLoader />}
       <Box
         sx={{
           display: "flex",
@@ -72,24 +155,23 @@ const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
           </Box>
         ) : (
           <Box>
-            <Box sx={{
-              display : "flex",
-              flexDirection : "row",
-              justifyContent: "center",
-              alignItems : "center",
-            }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Typography variant="h5" mr={1}>
                 Shipping Details
               </Typography>
-              <IconButton
-                disableTouchRipple
-              onClick={editDeliveryAddress}>
-                <CreateIcon 
+              <IconButton disableTouchRipple onClick={editDeliveryAddress}>
+                <CreateIcon
                   sx={{
-                    cursor : "pointer",
-                    color : grey[800],
+                    cursor: "pointer",
+                    color: grey[800],
                   }}
-                  
                 />
               </IconButton>
             </Box>
@@ -145,8 +227,8 @@ const ShhippingAndTotal = ({ totalAmount, deliveryAddress }) => {
                 {deliveryAddress.email}
               </Typography>
             </Box>
-            <PaymentModalProvider>
-              <PaymentButton/>
+            <PaymentModalProvider placeOrderForCart={handlePlaceOrder}>
+              <PaymentButton />
             </PaymentModalProvider>
           </Box>
         )}

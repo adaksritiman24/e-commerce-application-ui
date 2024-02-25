@@ -198,6 +198,44 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
       }
     }
 
+    //Place-order
+    const placeOrderUsingBankCard = async(bankCardDetails) => {
+      const data = {
+        paymentMode : "BANK_CARD",
+        customerId : isRegisteredUser ? username : anonymousAuthSessionId,
+        cost: {
+          totalCost : cartData.totalPrice,
+        },
+        bankCard : {
+          cardNumber : bankCardDetails.cardNumber,
+          cvv : bankCardDetails.cvv,
+          name : bankCardDetails.name,
+          expDate : bankCardDetails.expDate,
+        }
+      }
+
+      console.log(data);
+
+      var config = {
+        method : "post",
+        url : `${SPRING_BOOT_BASE_URL}/payments/v1/capture`,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data : JSON.stringify(data)
+      }
+
+      try {
+        const response = await axios(config);
+        console.log("Successfully placed order:", response.data);
+        return {status: true, orderId: response.data.orderId};
+      }
+      catch(e) {
+        console.log("Unable to place order: ", e.response.data);
+        return {status: false};
+      }
+    }
+
 
     useEffect(() => {
       updateCartPageProducts();
@@ -210,6 +248,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
     decreaseCartQuantityBy1,
     removeFromCart,
     addDeliveryAddress,
+    placeOrderUsingBankCard
   })
 }
 

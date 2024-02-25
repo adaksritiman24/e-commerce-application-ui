@@ -92,7 +92,7 @@ const PaymentMethods = ({ paymentModes }) => {
           </RadioGroup>
         </FormControl>
       </Box>
-      {selectedPaymentMode === "Credit/Debit Card" && <BankCardForm />}
+      {selectedPaymentMode === "Credit/Debit Card" && <BankCardForm/>}
       {selectedPaymentMode === "Buzz Giftcard" && <GiftCardForm />}
     </>
   );
@@ -148,7 +148,7 @@ const PaymentModal = ({
           >
             Add Payment Details
           </Paper>
-          <PaymentMethods paymentModes={paymentData.paymentModes} />
+          <PaymentMethods paymentModes={paymentData.paymentModes}/>
         </Typography>
       </Box>
     </Modal>

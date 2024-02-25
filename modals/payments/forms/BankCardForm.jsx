@@ -28,6 +28,18 @@ const BankCardForm = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
+  const {placeOrder} = useContext(PaymentContext);
+
+  const handlePaymentSubmit = ()=> {
+    const bankCard = {
+      cardNumber : paymentData.bankCardDetails.cardNumber,
+      cvv : paymentData.bankCardDetails.cardCVV,
+      expDate: paymentData.bankCardDetails.cardExpiryData,
+      name: paymentData.bankCardDetails.cardName,
+    }
+    placeOrder(bankCard);
+  }
+
   setInterval(() => {
     setIsFormVisible(true);
   }, 1500);
@@ -62,7 +74,7 @@ const BankCardForm = () => {
           ...paymentData,
           bankCardDetails: {
             ...paymentData.bankCardDetails,
-            cardNumber: processNumber(target.value, 12),
+            cardNumber: processNumber(target.value, 16),
           },
         });
         break;
@@ -128,7 +140,6 @@ const BankCardForm = () => {
                 autoComplete :"cc-number",
                 inputMode : "numeric",
                 pattern: /[0-9\s]/,
-                maxlength: 16,
               }}
               label="Card Number"
               name="card"
@@ -177,6 +188,7 @@ const BankCardForm = () => {
         >
           <SubmitPaymentButton
             disabled={disabled}
+            onClick={handlePaymentSubmit}
             sx={
               disabled
                 ? {

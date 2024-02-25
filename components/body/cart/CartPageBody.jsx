@@ -36,17 +36,19 @@ const CartPageBody = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          color: grey[800],
+          flexGrow: 1
         }}
       >
         <Box textAlign="center">
           <Box>
             <ShoppingCartIcon
               sx={{
-                fontSize: "100px",
+                fontSize: "80px",
               }}
             />
           </Box>
-          <Typography variant="h4" fontWeight="bold">
+          <Typography variant="h5" fontWeight="bold">
             Your cart is empty
           </Typography>
         </Box>
@@ -70,7 +72,7 @@ const CartPageBody = () => {
           md: "22px",
           xs: "10px",
         },
-        borderRadius : "15px",
+        borderRadius : "4px",
       }}
     >
       <Typography variant="h4" ml="10px" borderBottom="0.4px solid grey">
@@ -158,7 +160,7 @@ const CartPageBody = () => {
               >
                 Unit Price
               </Typography>
-              <Typography variant="h5">
+              <Typography variant="h6">
                 {getFormattedPrice(product.discountedPrice)}
               </Typography>
             </Stack>
@@ -178,7 +180,7 @@ const CartPageBody = () => {
               >
                 Total Price
               </Typography>
-              <Typography variant="h5">
+              <Typography variant="h6">
                 {getFormattedPrice(product.totalPrice)}
               </Typography>
             </Stack>

@@ -3,6 +3,7 @@ import Header from '../../components/header/Header'
 import OrderPageBody from '../../components/body/order/OrderPageBody'
 import axios from 'axios';
 import { SPRING_BOOT_BASE_URL } from '../../components/constants';
+import Footer from '../../components/common/Footer';
 
 const OrderPage=({orderData})=> {
   console.log("OrderData: ", orderData);
@@ -10,6 +11,7 @@ const OrderPage=({orderData})=> {
     <>
         <Header/>
         <OrderPageBody orderData={orderData}/>
+        <Footer/>
     </>
   )
 }

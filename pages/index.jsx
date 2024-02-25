@@ -2,6 +2,7 @@ import axios from "axios";
 import HomePage from "../components/body/home/HomePage";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 import Header from "../components/header/Header";
+import Footer from "../components/common/Footer";
 
 export default function Home({
   bannerPromotions,
@@ -14,6 +15,7 @@ export default function Home({
         bannerPromotions={bannerPromotions}
         homePageDisplayedCategories={homePageDisplayedCategories}
       />
+      <Footer/>
     </>
   );
 }

@@ -13,6 +13,7 @@ import {
   import React, { useContext, useEffect, useState } from "react";
 import { PaymentContext } from "../PaymentModalProvider";
 import PaymentFormLoader from "../loaders/PaymentFormLoader";
+import { getFormattedPrice } from "../../../components/common/utils/helpers";
 
 const SubmitPaymentButton = styled("button")({
     color: grey[200],
@@ -28,7 +29,7 @@ const BankCardForm = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
-  const {placeOrder} = useContext(PaymentContext);
+  const {placeOrder, cartTotal} = useContext(PaymentContext);
 
   const handlePaymentSubmit = ()=> {
     const bankCard = {
@@ -209,7 +210,7 @@ const BankCardForm = () => {
                   }
             }
           >
-            Pay ₹200
+            Pay {getFormattedPrice(cartTotal)}
           </SubmitPaymentButton>
         </Box>
       </Paper>

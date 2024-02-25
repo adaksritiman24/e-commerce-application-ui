@@ -36,12 +36,15 @@ const SearchResults = () => {
     setFilteredResults  
   }
   if(loading)
-    return <LoadingSpinner/>
+    return <>
+      <LoadingSpinner/>
+      <Box sx={{flexGrow: 1}}></Box>
+    </>
 
   return (
     <Box px={isMobile ? 3 : 5}
       sx={{
-        flexGrow : "1",
+        flexGrow : 1,
       }}
     >
   
@@ -62,11 +65,10 @@ const SearchResults = () => {
             item
             lg={3}
             sx={{
-              position: "sticky",
               top: "12px",
-              height: "97vh",
               background: grey[100],
-              mt : "5px"
+              mt : "5px",
+              mb : "10px",
             }}
           >
             <Typography variant="h4" fontWeight={500} p={2}

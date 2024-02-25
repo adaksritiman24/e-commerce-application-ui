@@ -22,6 +22,7 @@ import PaymentModalProvider, {
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import SubmitPaymentLoader from "../../../modals/payments/loaders/SubmitPaymentLoader";
+import Summary from "../../common/Summary";
 
 const REMEMBER_ME = "rememberMe";
 
@@ -227,7 +228,7 @@ const ShhippingAndTotal = ({
                 {deliveryAddress.email}
               </Typography>
             </Box>
-            <PaymentModalProvider placeOrderForCart={handlePlaceOrder}>
+            <PaymentModalProvider placeOrderForCart={handlePlaceOrder} cartTotal={totalAmount}>
               <PaymentButton />
             </PaymentModalProvider>
           </Box>
@@ -240,18 +241,12 @@ const ShhippingAndTotal = ({
             },
           }}
         >
-          <Typography>Net Payble Amount:</Typography>
-          <Typography
-            sx={{
-              fontWeight: "600",
-              fontSize: {
-                md: "32px",
-                xs: "26px",
-              },
-            }}
-          >
-            {getFormattedPrice(totalAmount)}
-          </Typography>
+          <Summary
+            total={totalAmount}
+            tax={0}
+            shippingCost={0}
+            subtotal={totalAmount}
+          />
         </Box>
       </Box>
     </>

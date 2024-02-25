@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react'
 import SearchResults from '../../components/body/search/SearchResults';
 import Header from '../../components/header/Header';
+import Footer from '../../components/common/Footer';
 
 const Search=()=> {
   return (
@@ -10,11 +11,12 @@ const Search=()=> {
       sx={{
         display : "flex",
         flexDirection : "column",
-        maxHeight : "100vh",
+        height : "100vh",
       }}
     >
       <Header/>
       <SearchResults/>
+      <Footer/>
     </Box>
     </>
   )

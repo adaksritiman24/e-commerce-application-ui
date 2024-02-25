@@ -24,13 +24,13 @@ const contextValues = {
 
 export const PaymentContext = React.createContext(contextValues);
 
-const PaymentModalProvider =({children, placeOrderForCart})=> {
+const PaymentModalProvider =({children, placeOrderForCart, cartTotal})=> {
 
     const [paymentData, setPaymentData] = useState(contextValues.paymentData);
     const [paymentModalOpen, setPaymentModalOpen] = useState(false)
 
     const paymentContextData = {
-        cartTotal : 0,
+        cartTotal : cartTotal,
         paymentData,
         setPaymentData,
         paymentModalOpen,

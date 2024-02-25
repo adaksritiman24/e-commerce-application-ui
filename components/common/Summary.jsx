@@ -5,21 +5,21 @@ import { grey } from '@mui/material/colors';
 
 const Summary =({total, subtotal, tax, shippingCost})=> {
   return (
-    <Paper elevation={4}
+    <Paper
         sx={{
-            borderRadius : "8px",
+            borderRadius : "2px",
             overflow: "hidden"
         }}
     >
         <Box
             variant="caption"
             sx={{
-                px: "40px",
+                px: "50px",
                 pt: "10px",
                 pb: "10px",
                 fontSize: "20px",
                 fontWeight: "bold",
-                fontFamily: "Trebuchet MS",
+                fontFamily: "helvetica",
                 background : grey[700],
                 color: "white",
                 textAlign: "center"

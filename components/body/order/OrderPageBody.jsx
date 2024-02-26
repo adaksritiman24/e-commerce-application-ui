@@ -34,7 +34,7 @@ const OrderPageBody = ({ orderData }) => {
         px: {
           lg: "130px",
         },
-        borderRadius: "15px",
+        borderRadius: "4px",
       }}
     >
       <Box sx={{
@@ -48,7 +48,6 @@ const OrderPageBody = ({ orderData }) => {
       </Box>
       <Box
         sx={{
-          background: grey[200],
           m: "10px",
         }}
       >
@@ -56,10 +55,11 @@ const OrderPageBody = ({ orderData }) => {
           orderData.orderEntryList.map((product) => (
             <Box
               sx={{
-                m: "10px",
                 p: "14px",
-                borderBottom: "1px solid grey",
+                mt:1,
+                background: grey[200],
                 display: "flex",
+                borderRadius:"4px", 
                 flexDirection: {
                   md: "row",
                   xs: "column",
@@ -122,15 +122,17 @@ const OrderPageBody = ({ orderData }) => {
                 >
                   <Typography
                     sx={{
+                      fontSize: "15px",
                       textAlign: {
                         lg: "right",
+                        xs: "right"                 
                       },
                       color: grey[500],
                     }}
                   >
-                    Unit Price
+                    Item Price
                   </Typography>
-                  <Typography variant="h6">
+                  <Typography variant="subtitle1">
                     {getFormattedPrice(product.discountedPrice)}
                   </Typography>
                 </Stack>
@@ -144,13 +146,14 @@ const OrderPageBody = ({ orderData }) => {
                     sx={{
                       textAlign: {
                         lg: "right",
+                        xs: "right"   
                       },
                       color: grey[500],
                     }}
                   >
                     Total Price
                   </Typography>
-                  <Typography variant="h6">
+                  <Typography variant="h6" fontWeight={600}>
                     {getFormattedPrice(product.totalPrice)}
                   </Typography>
                 </Stack>

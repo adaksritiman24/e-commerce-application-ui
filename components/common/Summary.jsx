@@ -57,7 +57,7 @@ const Summary =({total, subtotal, tax, shippingCost})=> {
                 py: "4px",
                 px: "8px",
                 mt: "12px",
-                borderTop: "2px solid black"
+                borderTop: "0.5px solid gray"
             }
         }}
         >

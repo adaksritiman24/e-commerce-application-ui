@@ -58,6 +58,9 @@ const CartPageBody = () => {
 
 
   return (
+    <Box sx={{
+      flexGrow: 1
+    }}>
     <Paper
       elevation={4}
       sx={{
@@ -199,6 +202,7 @@ const CartPageBody = () => {
         />
       </DeliverAddressModelProvider>
     </Paper>
+    </Box>
   );
 };
 

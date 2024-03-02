@@ -23,6 +23,9 @@ const MobileSideDrawer = (props)=>{
     const handleNavigateToCartPage = ()=>{
         router.push("/cart");
     }
+    const handleNavigateToOrdersPage = ()=> {
+        router.push('/my-orders');
+    }
 
     const {user} = useContext(AuthContext);
     const {handleLogout} = useContext(AuthContext);
@@ -124,6 +127,7 @@ const MobileSideDrawer = (props)=>{
                             ml : 1,
                             color : grey[900]
                         }}
+                        onClick={handleNavigateToOrdersPage}
                     >
                         <InventoryIcon/>
                         <Typography variant='p'>

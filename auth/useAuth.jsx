@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
+import { useRouter } from "next/router";
 
 const useAuth = (anonymousAuthSessionId)=>{
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
+    const router =useRouter();
 
     const getToken = ()=> {
         return localStorage.getItem('buzzUserToken');
@@ -54,8 +56,10 @@ const useAuth = (anonymousAuthSessionId)=>{
         }
     }
     const handleLogout = ()=>{
+        console.log("Logout!");
         removeTokenFromLocalStorage();
         fetchUserFromToken();
+        router.push("/");
     }
 
     const fetchOrCreateAnonymousCart = ()=> {//anonymous journey -->> fetch/create cart

@@ -24,6 +24,9 @@ const MoreNavigation=({
     const handleNavigateToCartPage = ()=>{
         router.push("/cart");
     }
+    const handleNavigateToOrdersPage = ()=> {
+        router.push('/my-orders');
+    }
   return (
     user != null ? (
         <Box
@@ -97,6 +100,7 @@ const MoreNavigation=({
                         ml : 1,
                         color : grey[900]
                     }}
+                    onClick={handleNavigateToOrdersPage}
                 >
                     <InventoryIcon/>
                 </IconButton>

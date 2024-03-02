@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React, { useState } from "react";
-import { getFormattedPrice } from "../../common/utils/helpers";
 import { useContext } from "react";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import CloseIcon from "@mui/icons-material/Close";

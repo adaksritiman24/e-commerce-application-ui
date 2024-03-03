@@ -108,8 +108,11 @@ const MyOrdersPageBody = () => {
                     cursor: "pointer",
                   },
                 }}
-                onClick={()=>{
-                    router.push(`/order/${order.id}`)
+                onClick={() => {
+                  router.push({
+                    pathname: `/order/${order.id}`,
+                    query: { searchType: "view-order" },
+                  });
                 }}
               >
                 <StyledTableCell align="center">

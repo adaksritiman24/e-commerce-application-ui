@@ -19,6 +19,7 @@ const CarousalButton =({
     >
         {Array(numberOfCards).fill(0).map((_, index)=>(
             <Box
+                key={index}
                 sx={{
                     width : "60px",
                     height : "3px",

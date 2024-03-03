@@ -7,9 +7,12 @@ import OrderShippingAndTotal from "./OrderShippingAndTotal";
 import { CartContext } from "../../../cart/CartProvider";
 import { getFormattedPrice } from "../../common/utils/helpers";
 import CartProductImage from "../cart/CartProductImage";
+import { useRouter } from "next/router";
 
 const OrderPageBody = ({ orderData }) => {
   const { setNumberOfItems } = useContext(CartContext);
+  const router = useRouter();
+  const searchType = router.query.searchType;
   setNumberOfItems(0);
 
   if (orderData == undefined || orderData == null) {
@@ -37,13 +40,20 @@ const OrderPageBody = ({ orderData }) => {
         borderRadius: "4px",
       }}
     >
-      <Box sx={{
-        mx: "10px"
-      }}>
-        <Typography variant="h4">Your order is confirmed!</Typography>
-        <Typography variant="subtitle1">
-          Thank you for shopping with Buzz.
-        </Typography>
+      <Box
+        sx={{
+          mx: "10px",
+        }}
+      >
+        {(searchType === undefined || searchType === null) && (
+          <>
+            <Typography variant="h4">Your order is confirmed!</Typography>
+            <Typography variant="subtitle1">
+              Thank you for shopping with Buzz.
+            </Typography>
+          </>
+        )}
+
         <Typography variant="h6">Order Number: {orderData.id}</Typography>
       </Box>
       <Box
@@ -56,10 +66,10 @@ const OrderPageBody = ({ orderData }) => {
             <Box
               sx={{
                 p: "14px",
-                mt:1,
+                mt: 1,
                 background: grey[200],
                 display: "flex",
-                borderRadius:"4px", 
+                borderRadius: "4px",
                 flexDirection: {
                   md: "row",
                   xs: "column",
@@ -125,7 +135,7 @@ const OrderPageBody = ({ orderData }) => {
                       fontSize: "15px",
                       textAlign: {
                         lg: "right",
-                        xs: "right"                 
+                        xs: "right",
                       },
                       color: grey[500],
                     }}
@@ -146,7 +156,7 @@ const OrderPageBody = ({ orderData }) => {
                     sx={{
                       textAlign: {
                         lg: "right",
-                        xs: "right"   
+                        xs: "right",
                       },
                       color: grey[500],
                     }}

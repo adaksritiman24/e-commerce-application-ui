@@ -15,7 +15,7 @@ const SearchedProducts = ({ searchResults }) => {
   return (
     <Box>
       <Typography variant={isDesktop ? "h4" : "h5"} fontWeight={500} p={2}>
-        Results for '{keyword}'
+        Results for <b>{keyword}</b>
       </Typography>
       <Grid container spacing={2} padding={isDesktop ? 2 : 0}>
         {searchResults.map((searchResult, index) => (

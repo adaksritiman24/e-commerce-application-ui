@@ -200,7 +200,7 @@ const AssociatedProduct = ({
                     }}
                 >
                     {products.map((product, index)=>(
-                        <AssociatedProductCard product={product}/>
+                        <AssociatedProductCard key={index} product={product}/>
                     ))}
                 </Box>
             </Box>

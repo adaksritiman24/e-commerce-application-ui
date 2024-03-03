@@ -78,9 +78,6 @@ const LoginModal =({
         <Typography id="login-modal-title" variant="h6" component="h2" fontWeight="600">
             Login
         </Typography>
-        <Typography id="login-modal-description" sx={{ mt: 2 }}>
-        Please log in to purchse items.
-        </Typography>
         <form onSubmit={(e)=>handleLogin(e)}>
           <Stack
             sx={{

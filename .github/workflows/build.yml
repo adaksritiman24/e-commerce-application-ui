@@ -1,0 +1,31 @@
+name: Build Application
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on : ubuntu-latest
+        steps:
+            - name: Initializing Repository
+              uses: actions/checkout@v3
+            - name: Cache Dependencies
+              id: cache
+              uses: actions/cache@v3
+              with:
+                path: node_modules
+                key: npm-next-dependencies-key-${{hashFiles('**/package.json')}}
+            - name: Install Depencencies
+              if: ( steps.cache.outputs.cache-hit != 'true')
+              run: |
+                echo "Installing Dependencies"
+                npm ci
+            - name: Build Website artifacts
+              run: |
+                npm run build
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: buzz-ui-artifact
+                path: .next

@@ -1,4 +1,5 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import { grey } from "@mui/material/colors";
 import React from "react";
 import { useContext } from "react";
@@ -16,7 +17,28 @@ const OrderPageBody = ({ orderData }) => {
   setNumberOfItems(0);
 
   if (orderData == undefined || orderData == null) {
-    return <></>;
+    return (
+      <Box sx={{
+        flexGrow:1,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center"
+      }}>
+        <Stack
+          sx={{
+            display:"flex",
+            flexDirection:"column",
+            alignItems:"center"
+          }}
+        >
+        <ReportProblemIcon sx={{
+          fontSize:"70px"
+        }}/>
+        <Typography fontWeight={600}>Order Not Found!</Typography>
+        </Stack>
+
+      </Box>
+    );
   }
 
   return (

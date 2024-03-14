@@ -22,8 +22,11 @@ import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 import SubmitPaymentLoader from "../../../modals/payments/loaders/SubmitPaymentLoader";
 import Summary from "../../common/Summary";
+import { animated, useSpring } from "@react-spring/web";
 
 const REMEMBER_ME = "rememberMe";
+
+const AnimatedCollapseAlert = animated(Collapse);
 
 const PaymentButton = () => {
   const { setPaymentModalOpen } = useContext(PaymentContext);
@@ -43,14 +46,19 @@ const PaymentButton = () => {
 };
 
 const ErrorNotification = ({ open, setOpen }) => {
+  const aStyle = useSpring({
+    from: { y: 0 },
+    to: { y: 240 },
+  });
   return (
-    <Collapse
+    <AnimatedCollapseAlert
       style={{
         position: "fixed",
-        top: "10px",
+        top: "-200px",
         right: "50%",
-        transform: "translate(50%, 50%)",
+        transform: "translate(50%, 0%)",
         zIndex: 6000,
+        ...aStyle,
       }}
       in={open}
     >
@@ -75,7 +83,7 @@ const ErrorNotification = ({ open, setOpen }) => {
       >
         Failed to Place Order!
       </Alert>
-    </Collapse>
+    </AnimatedCollapseAlert>
   );
 };
 
@@ -106,7 +114,7 @@ const ShhippingAndTotal = ({
         bankCardDetails
       );
       if (status) {
-        removeCookie(REMEMBER_ME, {path : "/"});
+        removeCookie(REMEMBER_ME, { path: "/" });
         router.push(`/order/${orderId}`);
       } else {
         setLoading(false);
@@ -227,7 +235,10 @@ const ShhippingAndTotal = ({
                 {deliveryAddress.email}
               </Typography>
             </Box>
-            <PaymentModalProvider placeOrderForCart={handlePlaceOrder} cartTotal={totalAmount}>
+            <PaymentModalProvider
+              placeOrderForCart={handlePlaceOrder}
+              cartTotal={totalAmount}
+            >
               <PaymentButton />
             </PaymentModalProvider>
           </Box>

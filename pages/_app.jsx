@@ -1,6 +1,7 @@
 import AuthenticationProvider from '../auth/AuthenticationProvider'
 import CartProvider from '../cart/CartProvider'
 import LoginModalProvider from '../modals/LoginModalProvider'
+import SignupModalProvider from '../modals/payments/SignupModalProvider'
 import '../styles/globals.css'
 
 
@@ -9,7 +10,9 @@ function EcommerceApplication({ Component, pageProps }) {
     <AuthenticationProvider>
       <CartProvider>
         <LoginModalProvider>
-          <Component {...pageProps} />
+          <SignupModalProvider>
+           <Component {...pageProps} />
+          </SignupModalProvider>
         </LoginModalProvider>
       </CartProvider>
     </AuthenticationProvider>

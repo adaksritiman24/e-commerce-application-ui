@@ -13,12 +13,14 @@ import AuthContext from "../../../auth/AuthContext";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { CartContext } from '../../../cart/CartProvider';
 import { useRouter } from 'next/router';
+import { SignupModalContext } from '../../../modals/payments/SignupModalProvider';
 
 
 
 const MobileSideDrawer = (props)=>{
 
     const router = useRouter();
+    const {setSignupModalOpen} = useContext(SignupModalContext);
 
     const handleNavigateToCartPage = ()=>{
         router.push("/cart");
@@ -221,6 +223,7 @@ const MobileSideDrawer = (props)=>{
                         sx={{
                             color : grey[900],
                         }}
+                        onClick={()=>setSignupModalOpen(true)}
                     >
                         <PersonAddAltIcon/>
                         <Typography variant='p'>

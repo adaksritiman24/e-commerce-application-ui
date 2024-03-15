@@ -13,7 +13,6 @@ const style = {
     bgcolor: 'background.paper',
     borderRadius : "6px",
     boxShadow: 24,
-    p: 4,
     zIndex : 5000,
   };
 
@@ -75,17 +74,27 @@ const LoginModal =({
         },
         boxSizing : "border-box"
     }}>
-        <Typography id="login-modal-title" variant="h6" component="h2" fontWeight="600">
+        <Typography id="login-modal-title" variant="h6" component="h2" fontWeight="600" sx={{
+          background: grey[900],
+          color: grey[100],
+          px: 4,
+          py: 2,
+          borderTopLeftRadius : "6px",
+          borderTopRightRadius : "6px",
+        }}>
             Login
         </Typography>
-        <form onSubmit={(e)=>handleLogin(e)}>
+        <form onSubmit={(e)=>handleLogin(e)}
+          style={{
+            padding: "24px",
+          }}
+        >
           <Stack
             sx={{
               my : 2,
             }}
             direction = "column"
             spacing={3}
-            pt ={1}
           >
             <ThemeProvider theme={formTheme}>
 

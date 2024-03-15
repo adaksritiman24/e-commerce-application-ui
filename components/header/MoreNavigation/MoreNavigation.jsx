@@ -10,6 +10,7 @@ import PersonPinIcon from '@mui/icons-material/PersonPin';
 import AuthContext from '../../../auth/AuthContext';
 import { CartContext } from '../../../cart/CartProvider';
 import { useRouter } from 'next/router';
+import { SignupModalContext } from '../../../modals/payments/SignupModalProvider';
 
 const MoreNavigation=({
     setLoginModalOpen
@@ -19,6 +20,7 @@ const MoreNavigation=({
 
     const {user, handleLogout} = useContext(AuthContext);
     const {numberOfItems} = useContext(CartContext);
+    const {setSignupModalOpen} = useContext(SignupModalContext);
 
 
     const handleNavigateToCartPage = ()=>{
@@ -185,7 +187,9 @@ const MoreNavigation=({
                         "&: hover" : {
                             bgcolor : grey[900]
                         }
-                    }}>
+                    }}
+                    onClick={()=>setSignupModalOpen(true)}
+                    >
                         Sign Up
                     </Button>
                 </Tooltip>

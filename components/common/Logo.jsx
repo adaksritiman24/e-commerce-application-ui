@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import classes from "./Logo.module.css";
 
-const Logo = () => {
+const Logo = ({variant, isSecondary}) => {
   const router = useRouter();
   const handleLogoClick = () => {
     router.push("/");
@@ -16,20 +16,18 @@ const Logo = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "5px",
-        ml: "12px",
         cursor: "pointer",
         color: grey[100],
       }}
     >
       <Typography
-        variant="h4"
+        variant={variant}
         sx={{
           m: 0,
           p: 0,
         }}
       >
-        <span className={classes["brand"]}>
+        <span className={isSecondary? classes["brand-secondary"]: classes["brand"]}>
           <b>B</b>
         </span>
         <span className={classes["brand-sub"]}>

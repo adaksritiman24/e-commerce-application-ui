@@ -28,8 +28,8 @@ const Header = () => {
         }}
       >
         {isDesktop && (
-          <Grid item md={2} xs={0} sx={{ display: "flex" }}>
-            <Logo />
+          <Grid item md={2} xs={0} sx={{ display: "flex", pl:2 }}>
+            <Logo variant={"h4"} />
           </Grid>
         )}
 

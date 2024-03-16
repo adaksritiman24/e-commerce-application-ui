@@ -9,7 +9,11 @@
     font-family: 'Allerta Stencil', sans-serif;
 }
 .brand {
-    color : black;
-    font-size: 50px;
+    color : rgb(14, 16, 12);
+    font-family: 'Wallpoet', cursive;
+}
+
+.brand-secondary {
+    color : rgb(164, 1, 1);;
     font-family: 'Wallpoet', cursive;
 }

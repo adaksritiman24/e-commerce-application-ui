@@ -19,6 +19,7 @@ import { SignupModalContext } from "./SignupModalProvider";
 import AuthContext from "../../auth/AuthContext";
 import { animated, useSpring } from "@react-spring/web";
 import LoadingSpinner from "../../components/body/search/LoadingSpinner";
+import Logo from "../../components/common/Logo";
 
 const AnimatedCollapseAlert = animated(Collapse);
 
@@ -219,7 +220,7 @@ const SignupForm = ({ signupModalOpen, setSignupModalOpen }) => {
             boxSizing: "border-box",
           }}
         >
-          <h2
+          <Box
             style={{
               margin: "0",
               padding: "18px",
@@ -229,10 +230,21 @@ const SignupForm = ({ signupModalOpen, setSignupModalOpen }) => {
               background: grey[900],
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
+              display: "flex",
+              justifyContent: "space-between"
             }}
           >
-            Sign Up
-          </h2>
+            <Box
+              sx={{
+                fontSize: "24px",
+                fontWeight: "bold",
+                fontFamily: "Trebuchet MS",
+              }}
+            >
+              Sign Up
+            </Box>
+            <Logo isSecondary={true} variant={"subtitle1"}/>
+          </Box>
           <Box
             sx={{
               p: {

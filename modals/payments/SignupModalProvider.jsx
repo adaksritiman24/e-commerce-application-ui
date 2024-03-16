@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SignupForm from "./SignupForm";
 
-const SignupModalContext = React.createContext({
+export const SignupModalContext = React.createContext({
   setSignupModalOpen: () => {},
   signupModalOpen: false,
   helper: {
@@ -9,12 +9,41 @@ const SignupModalContext = React.createContext({
     text: "",
   },
   setHelper: () => {},
+  signupRequest: {
+    name: "",
+    username: "",
+    email: "",
+    address: {
+      house: "",
+      locality: "",
+      city: "",
+      country: "India",
+      pincode: "",
+    },
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
+  },
+  setSignupRequest: () => {},
 });
-
-export { SignupModalContext };
 
 const SignupModalProvider = ({ children }) => {
   const [signupModalOpen, setSignupModalOpen] = useState(false);
+  const [signupRequest, setSignupRequest] = useState({
+    name: "",
+    username: "",
+    email: "",
+    address: {
+      house: "",
+      locality: "",
+      city: "",
+      country: "India",
+      pincode: "",
+    },
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [helper, setHelper] = useState(null);
 
   const contextValues = {
@@ -22,6 +51,8 @@ const SignupModalProvider = ({ children }) => {
     setSignupModalOpen,
     helper,
     setHelper,
+    signupRequest,
+    setSignupRequest,
   };
 
   return (

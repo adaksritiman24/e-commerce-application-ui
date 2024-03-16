@@ -17,7 +17,7 @@ const LoadingSpinner =()=> {
             justifyContent : "center",
             alignItems : "center",
             background : "rgb(0, 0, 0, 0.2)",
-            zIndex : "300",
+            zIndex : "3000",
         }}
     >
         <ThreeDots color={grey[700]}/>

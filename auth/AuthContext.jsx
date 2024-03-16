@@ -6,6 +6,7 @@ const authDetails = {
     handleLoginThroughModal : (username, password, setUsername, setPassword, setHelperText, setLoginModalOpen)=> {},
     handleLogout : ()=>{},
     anonymousAuthSessionId: null,
+    handleSignupThroughModal : (signupRequest, setSuccess, setErrorMessage, setModalOpen, setLoading, setSignupRequest)=>{},
 }
 const AuthContext = React.createContext(authDetails);
 export default AuthContext;

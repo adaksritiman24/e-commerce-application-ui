@@ -1,19 +1,19 @@
-import { Badge, Box, Button, Drawer, Stack, Tooltip, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Avatar, Badge, Box, Button, Drawer, Stack, Tooltip, Typography } from '@mui/material'
+import React, { useCallback, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
-import { grey } from '@mui/material/colors';
+import { deepOrange, grey } from '@mui/material/colors';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LogoutIcon from '@mui/icons-material/Logout';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Close } from '@mui/icons-material';
 import { useContext } from 'react';
 import AuthContext from "../../../auth/AuthContext";
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { CartContext } from '../../../cart/CartProvider';
 import { useRouter } from 'next/router';
 import { SignupModalContext } from '../../../modals/payments/SignupModalProvider';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 
 
@@ -37,6 +37,16 @@ const MobileSideDrawer = (props)=>{
         setLoginModalOpen,
         numberOfItemsInCart
     } = props
+
+    const getInitials = useCallback((name)=> {
+        var initials = "";
+        var names = name.split(" ");
+        for(let n of names) {
+            initials+=n[0];
+        }
+        return initials;
+    }, [user]);
+
     return (
         <Drawer
             open={drawerOpen}
@@ -74,7 +84,9 @@ const MobileSideDrawer = (props)=>{
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <PersonPinIcon/>
+                        <Avatar sx={{ bgcolor: deepOrange[500] , width: 32, height: 32 , fontSize: "16px" , mr: 1}} variant='rounded'>
+                            {getInitials(user.name)}
+                        </Avatar>
                         <Typography variant='h5'>
                              {user.name.split(" ")[0]}
                         </Typography>
@@ -163,7 +175,7 @@ const MobileSideDrawer = (props)=>{
                         }}
                         onClick={handleLogout}
                     >
-                        <LogoutIcon/>
+                        <ExitToAppIcon/>
                         <Typography variant='p'>
                             Logout
                         </Typography>
@@ -225,7 +237,7 @@ const MobileSideDrawer = (props)=>{
                         }}
                         onClick={()=>setSignupModalOpen(true)}
                     >
-                        <PersonAddAltIcon/>
+                        <PersonIcon/>
                         <Typography variant='p'>
                             Sign Up
                         </Typography>

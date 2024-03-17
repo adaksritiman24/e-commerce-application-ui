@@ -6,6 +6,7 @@ import {
     OutlinedInput,
     Paper,
     TextField,
+    keyframes,
     styled,
   } from "@mui/material";
   import { grey } from "@mui/material/colors";
@@ -113,12 +114,22 @@ const BankCardForm = () => {
     handlePaymentsButtonEnable();
   }, [paymentData]);
 
+  var expansion = keyframes`
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  `;
+
   if (isFormVisible) {
     return (
       <Paper
         elevation={4}
         sx={{
           m: 2,
+          animation: `${expansion} 400ms ease-out`,
         }}
       >
         <Box
@@ -160,6 +171,10 @@ const BankCardForm = () => {
         <Box
           sx={{
             display: "flex",
+            flexDirection: {
+              xs: "column",
+              md: "row"
+            }
           }}
         >
           <TextField
@@ -170,7 +185,7 @@ const BankCardForm = () => {
             value={paymentData.bankCardDetails.cardName}
             onInput={(inp) => handleFormInput(inp)}
           />
-          <FormControl sx={{ m: 2, mt: 0, ml: 0, flex: 2 }}>
+          <FormControl sx={{ m: 2, mt: 0, flex: 2 }}>
             <InputLabel>Card Expiry Date</InputLabel>
             <OutlinedInput
               placeholder="MM/YY"

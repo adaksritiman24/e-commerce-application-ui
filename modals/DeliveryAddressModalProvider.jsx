@@ -9,7 +9,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const modalValues = {
   deliveryAddressOpen: false,
@@ -33,7 +33,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
-  borderRadius: "2px",
+  borderRadius: "5px",
   boxShadow: 24,
   p: 4,
   zIndex: 5000,
@@ -79,6 +79,8 @@ const DeliveryAddressModal = ({
   setDeliveryAddressOpen,
   addDeliveryAddress,
 }) => {
+  const [isButtonEnabled, setIsButtonEnabled]=useState(false);
+
   const setDeliveryAddressField = (field, value) => {
     setDeliveryAddress((address) => {
       switch (field) {
@@ -103,10 +105,34 @@ const DeliveryAddressModal = ({
       }
     });
   };
+
+  const isValidPhoneNumber = (number)=> {
+    if(number.length === 10) {
+      return true;
+    }
+    return false;
+  }
+
+  
+  const verifyAllFieldValid = ()=> {
+    if(deliveryAddress.name == "" || deliveryAddress.house == "" || deliveryAddress.locality == "" || deliveryAddress.city == "" || 
+    deliveryAddress.country == "" || deliveryAddress.pincode == "" || !isValidPhoneNumber(deliveryAddress.phone.toString()) || deliveryAddress.email == "" ) {
+      setIsButtonEnabled(false);
+    }
+    else {
+      setIsButtonEnabled(true);
+    }
+  }
+
+  
   const addDeliveryAddressCallback = () => {
     addDeliveryAddress(deliveryAddress);
     setDeliveryAddressOpen(false);
   };
+
+  useEffect(()=>{
+    verifyAllFieldValid();
+  }, [deliveryAddress]);
 
   return (
     <Modal
@@ -125,7 +151,7 @@ const DeliveryAddressModal = ({
         sx={{
           ...style,
           minWidth: {
-            lg: "600px",
+            lg: "750px",
             sm: "500px",
             xs: "320px",
           },
@@ -152,14 +178,19 @@ const DeliveryAddressModal = ({
                 lg: "row",
               },
               justifyContent: "space-between",
-              "& .MuiFormControl-root ": {
+              "& .MuiFormControl-root": {
                 mx: 1,
+                my: {
+                  xs: 1,
+                  sm: 1, 
+                  lg: 0
+                }
               },
             }}
           >
             <FormControl
               sx={{
-                flex: 3,
+                flex: 2,
               }}
             >
               <InputLabel
@@ -395,6 +426,7 @@ const DeliveryAddressModal = ({
                 size="medium"
                 color="primary"
                 type="submit"
+                disabled={!isButtonEnabled}
               >
                 Add Address
               </Button>

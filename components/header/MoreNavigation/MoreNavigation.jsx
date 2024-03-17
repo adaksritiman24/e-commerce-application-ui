@@ -1,16 +1,15 @@
-import { Badge, Box, Button, IconButton, Tooltip, Typography, useMediaQuery } from '@mui/material'
-import React, { useContext } from 'react'
+import { Avatar, Badge, Box, Button, IconButton, Tooltip, Typography, useMediaQuery } from '@mui/material'
+import React, { useCallback, useContext } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LogoutIcon from '@mui/icons-material/Logout';
-import LoginIcon from '@mui/icons-material/Login';
-import { grey } from '@mui/material/colors';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
+import { deepOrange, grey } from '@mui/material/colors';
 import AuthContext from '../../../auth/AuthContext';
 import { CartContext } from '../../../cart/CartProvider';
 import { useRouter } from 'next/router';
 import { SignupModalContext } from '../../../modals/payments/SignupModalProvider';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const MoreNavigation=({
     setLoginModalOpen
@@ -29,6 +28,15 @@ const MoreNavigation=({
     const handleNavigateToOrdersPage = ()=> {
         router.push('/my-orders');
     }
+    const getInitials = useCallback((name)=> {
+        var initials = "";
+        var names = name.split(" ");
+        for(let n of names) {
+            initials+=n[0];
+        }
+        return initials;
+    }, [user]);
+
   return (
     user != null ? (
         <Box
@@ -82,7 +90,9 @@ const MoreNavigation=({
                 alignItems="center"
                 
             >
-                <PersonPinIcon/>
+                <Avatar sx={{ bgcolor: deepOrange[500] , width: 32, height: 32 , fontSize: "12px" , mr: 1}} variant='rounded'>
+                    {getInitials(user.name)}
+                </Avatar>
                 <Typography variant='div'>
                     <Typography variant='p'
                         sx={{
@@ -130,7 +140,7 @@ const MoreNavigation=({
                     }}
                     onClick={handleLogout}
                 >
-                    <LogoutIcon/>
+                    <ExitToAppIcon/>
                 </IconButton>
             </Tooltip>
         </Box>
@@ -198,19 +208,17 @@ const MoreNavigation=({
             <Tooltip title="Login">
                 <IconButton 
                     sx={{
-                        ml : 1,
                         color : grey[900]
                     }}
                     onClick={()=>setLoginModalOpen(true)}
                 >
-                    <LoginIcon/>
+                    <AccountBoxIcon/>
                 </IconButton>
             </Tooltip>
 
             <Tooltip title="Your Cart">
                 <IconButton
                     sx={{
-                        ml : 1,
                         color : grey[900]
                     }}
                     onClick={handleNavigateToCartPage}

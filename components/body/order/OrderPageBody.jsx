@@ -11,6 +11,30 @@ import CartProductImage from "../cart/CartProductImage";
 import DoneIcon from "@mui/icons-material/Done";
 import { useRouter } from "next/router";
 
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import FlightLandIcon from '@mui/icons-material/FlightLand';
+import FlightTakeoffSharpIcon from '@mui/icons-material/FlightTakeoffSharp';
+import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
+
+
+const getOrderStatusIcon = (status)=> {
+  switch (status.toLowerCase()) {
+    case "created":
+      return <TaskAltIcon/>;
+    case "dispatched":
+      return <FlightTakeoffSharpIcon/>;
+    case "shipped":
+      return <FlightLandIcon/>;
+    case "out_for_delivery":
+      return <LocalShippingIcon/>;
+    case "delivered":
+      return <CheckCircleSharpIcon/>;
+    default:
+      return <TaskAltIcon/>;
+  }
+}
+
 const OrderPageBody = ({ orderData }) => {
   const { setNumberOfItems } = useContext(CartContext);
   const router = useRouter();
@@ -116,11 +140,13 @@ const OrderPageBody = ({ orderData }) => {
           >
             <Chip
               variant="filled"
+              icon={getOrderStatusIcon(orderData.status)}
               label={`${orderData.status}`}
               color="success"
               sx={{
-                background: grey[500],
+                background: orderData.status.toLowerCase()==="delivered"? green[600] : grey[500],
                 fontSize: "20px",
+                p:1,
               }}
             />
           </Box>

@@ -11,6 +11,7 @@ import {
   Stack,
   TextField,
   Typography,
+  keyframes,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import CloseIcon from "@mui/icons-material/Close";
@@ -181,6 +182,17 @@ const SignupForm = ({ signupModalOpen, setSignupModalOpen }) => {
     }
   };
 
+  
+  var expansion = keyframes`
+    0% {
+      opacity: 0.5;
+      top: -250px;
+    }
+    100% {
+      opacity: 1;
+    }
+  `;
+
   useEffect(() => {
     validateForm();
   }, [signupRequest]);
@@ -212,6 +224,7 @@ const SignupForm = ({ signupModalOpen, setSignupModalOpen }) => {
               fontFamily: "Trebuchet MS",
               margin: "0",
             },
+            animation: `${expansion} 300ms ease-out`,
             width: {
               lg: "640px",
               sm: "540px",

@@ -1,4 +1,4 @@
-import { Box, Button, createTheme, FormControl, Grid, InputLabel, Modal, OutlinedInput, Stack, styled, ThemeProvider, Typography } from '@mui/material'
+import { Box, Button, createTheme, FormControl, Grid, InputLabel, keyframes, Modal, OutlinedInput, Stack, styled, ThemeProvider, Typography } from '@mui/material'
 import { grey, red } from '@mui/material/colors';
 import React, { useEffect } from 'react'
 import { useContext } from 'react';
@@ -31,6 +31,18 @@ const LoginModal =({
   const [helperText, setHelperText]  = useState(null);
   const [username, setUsername]  = useState("");
   const [password, setPassword]  = useState("");
+
+  var expansion = keyframes`
+    0% {
+      opacity: 0.5;
+      width: 0px;
+      overflow: hidden;
+    }
+    100% {
+      opacity: 1;
+    }
+  `;
+
 
   const formTheme = createTheme({
     palette : {
@@ -72,6 +84,7 @@ const LoginModal =({
             sm : "500px",
             xs : "320px",
         },
+        animation: `${expansion} 400ms ease-out`,
         boxSizing : "border-box"
     }}>
         <Typography id="login-modal-title" variant="h6" component="h2" fontWeight="600" sx={{

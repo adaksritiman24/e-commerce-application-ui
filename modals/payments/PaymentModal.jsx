@@ -7,6 +7,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  keyframes,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
@@ -104,6 +105,15 @@ const PaymentModal = ({
   paymentData,
   setPaymentData,
 }) => {
+  var expansion = keyframes`
+    0% {
+      opacity: 0;
+      width: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  `
   return (
     <Modal
       open={paymentModalOpen}
@@ -120,6 +130,7 @@ const PaymentModal = ({
       <Box
         sx={{
           ...style,
+          animation: `${expansion} 400ms ease-out`,
           width: {
             lg: "500px",
             sm: "500px",
@@ -127,7 +138,6 @@ const PaymentModal = ({
           },
           boxSizing: "border-box",
           overflow: "hidden",
-          transition: "2s",
         }}
       >
         <Typography

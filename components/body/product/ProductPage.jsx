@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { CartContext } from "../../../cart/CartProvider";
 import AssociatedProduct from "./AssociatedProducts";
 import AuthContext from "../../../auth/AuthContext";
+import Review from "./reviews/Review";
 
 const StyledPricingContainer = styled(Box)({
   pl: 0.5,
@@ -171,6 +172,7 @@ function ProductPage({
           </Grid>
         </Grid>
         <AssociatedProduct productIds={product.associatedProducts}/>
+        <Review/>
         </>
       )}
     </Grid>

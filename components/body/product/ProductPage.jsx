@@ -88,7 +88,7 @@ function ProductPage({
               }}
             >
               <Rating
-                defaultValue={product.rating}
+                value={product.rating}
                 precision={0.5}
                 readOnly
                 size="large"
@@ -102,8 +102,7 @@ function ProductPage({
                   alignItems: "center",
                 }}
               >
-                {" "}
-                {product.rating}
+                
               </p>
             </Box>
             <StyledPricingContainer>
@@ -172,7 +171,7 @@ function ProductPage({
           </Grid>
         </Grid>
         <AssociatedProduct productIds={product.associatedProducts}/>
-        <Review/>
+        <Review productId={product.id}/>
         </>
       )}
     </Grid>

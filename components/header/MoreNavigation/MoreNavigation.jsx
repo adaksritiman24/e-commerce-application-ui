@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { SignupModalContext } from '../../../modals/payments/SignupModalProvider';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { getColorCoding } from '../../common/utils/helpers';
 
 const MoreNavigation=({
     setLoginModalOpen
@@ -90,7 +91,7 @@ const MoreNavigation=({
                 alignItems="center"
                 
             >
-                <Avatar sx={{ bgcolor: deepOrange[500] , width: 32, height: 32 , fontSize: "12px" , mr: 1}} variant='rounded'>
+                <Avatar sx={{ bgcolor: getColorCoding(user.name) , width: 32, height: 32 , fontSize: "12px" , mr: 1}} variant='rounded'>
                     {getInitials(user.name)}
                 </Avatar>
                 <Typography variant='div'>

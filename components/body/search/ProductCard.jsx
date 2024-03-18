@@ -61,7 +61,7 @@ const ProductCard = ({ product }) => {
             }}
           >
             <Rating
-              defaultValue={product.rating}
+              value={product.rating}
               precision={0.5}
               readOnly
               size="large"
@@ -72,7 +72,7 @@ const ProductCard = ({ product }) => {
               fontFamily : "Trebuchet Ms",
               fontSize : "16px"
             }}
-            > {product.rating}</p>
+            >R {product.rating}</p>
           </Box>
         ) : (
           <Typography

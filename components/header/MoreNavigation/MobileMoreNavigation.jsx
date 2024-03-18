@@ -13,6 +13,7 @@ import { CartContext } from '../../../cart/CartProvider';
 import { useRouter } from 'next/router';
 import { SignupModalContext } from '../../../modals/payments/SignupModalProvider';
 import PersonIcon from '@mui/icons-material/Person';
+import { getColorCoding } from '../../common/utils/helpers';
 
 
 
@@ -84,7 +85,7 @@ const MobileSideDrawer = (props)=>{
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <Avatar sx={{ bgcolor: deepOrange[500] , width: 32, height: 32 , fontSize: "16px" , mr: 1}} variant='rounded'>
+                        <Avatar sx={{ bgcolor: getColorCoding(user.name) , width: 32, height: 32 , fontSize: "16px" , mr: 1}} variant='rounded'>
                             {getInitials(user.name)}
                         </Avatar>
                         <Typography variant='h5'>

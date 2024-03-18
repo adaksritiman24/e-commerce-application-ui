@@ -88,7 +88,7 @@ const AssociatedProductCard = ({product}) =>{
             >
 
             <Rating
-                defaultValue={product.rating}
+                value={product.rating}
                 precision={0.5}
                 readOnly
                 sx={{

@@ -10,6 +10,7 @@ const Summary =({total, subtotal, tax, shippingCost})=> {
             borderRadius : "2px",
             overflow: "hidden"
         }}
+        elevation={4}
     >
         <Box
             variant="caption"

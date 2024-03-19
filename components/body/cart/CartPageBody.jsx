@@ -77,17 +77,19 @@ const CartPageBody = () => {
           xs: "10px",
         },
         borderRadius : "4px",
+        background: "white",
       }}
     >
-      <Typography variant="h4" ml="10px" borderBottom="0.4px solid grey" sx={{ display: "flex", alignItems: "flex-end"}}>
+      <Typography variant="h4" mx="10px"  sx={{ display: "flex", alignItems: "flex-end"}}>
         <ShoppingCartOutlinedIcon fontSize="32px" sx={{p:"4px"}}/> Your Cart
       </Typography>
       {cartData.cartEntryList != null && cartData.cartEntryList.map((product) => (
-        <Box
+        <Paper
           sx={{
             m: "10px",
+            mb: "18px",
             p: "14px",
-            border: "1px solid grey",
+            border: `0.5px solid ${grey[400]}`,
             borderRadius: "4px",
             display: "flex",
             flexDirection: {
@@ -95,6 +97,7 @@ const CartPageBody = () => {
               xs: "column",
             },
             flexWrap: "wrap",
+            background:"white",
           }}
           key={product.id}
         >
@@ -193,7 +196,7 @@ const CartPageBody = () => {
               </Typography>
             </Stack>
           </Box>
-        </Box>
+        </Paper>
       ))}
       <DeliverAddressModelProvider addDeliveryAddress={addDeliveryAddress}>
         <ShhippingAndTotal 

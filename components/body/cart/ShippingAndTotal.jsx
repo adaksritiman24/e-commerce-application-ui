@@ -2,8 +2,10 @@ import {
   Alert,
   Box,
   Button,
+  Card,
   Collapse,
   IconButton,
+  Paper,
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -130,14 +132,14 @@ const ShhippingAndTotal = ({
         <ErrorNotification open={errorAlertOpen} setOpen={setErrorAlertOpen} />
       )}
       {loading && <SubmitPaymentLoader />}
-      <Box
+      <Card
+        elevation={4}
         sx={{
           display: "flex",
           flexDirection: {
             md: "row",
             xs: "column",
           },
-          border: "1px solid grey",
           justifyContent: "space-between",
           borderRadius: "4px",
           m: "10px",
@@ -260,7 +262,7 @@ const ShhippingAndTotal = ({
             subtotal={totalAmount}
           />
         </Box>
-      </Box>
+      </Card>
     </>
   );
 };

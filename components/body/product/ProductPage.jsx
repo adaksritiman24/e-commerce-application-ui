@@ -143,7 +143,8 @@ function ProductPage({
                   display: "flex",
                   alignItems: "center",
                   color: grey[600],
-                  mt: 0.5,
+                  mt: 1,
+                  fontFamily: "arial"
                 }}
               >
                 You Save:

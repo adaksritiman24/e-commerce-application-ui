@@ -12,6 +12,7 @@ import CartProductImage from "./CartProductImage";
 import AuthContext from "../../../auth/AuthContext";
 import Link from "next/link";
 import { DeliverAddressModelProvider } from "../../../modals/DeliveryAddressModalProvider";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 
 const CartPageBody = () => {
@@ -78,8 +79,8 @@ const CartPageBody = () => {
         borderRadius : "4px",
       }}
     >
-      <Typography variant="h4" ml="10px" borderBottom="0.4px solid grey">
-        Your Cart
+      <Typography variant="h4" ml="10px" borderBottom="0.4px solid grey" sx={{ display: "flex", alignItems: "flex-end"}}>
+        <ShoppingCartOutlinedIcon fontSize="32px" sx={{p:"4px"}}/> Your Cart
       </Typography>
       {cartData.cartEntryList != null && cartData.cartEntryList.map((product) => (
         <Box

@@ -5,9 +5,9 @@ import React, { useState } from "react";
 import useSearchResults from "../hooks/useSearchResults";
 import FilterForMobile from "./FilterForMobile";
 import Filters from "./Filters";
-import LoadingSpinner from "./LoadingSpinner";
 import SearchedProducts from "./SearchedProducts";
 import SearchFilters from "./SearchFilters";
+import GlobalLoader from "../../common/GlobalLoader";
 
 const SearchResults = () => {
   
@@ -37,7 +37,7 @@ const SearchResults = () => {
   }
   if(loading)
     return <>
-      <LoadingSpinner/>
+      <GlobalLoader/>
       <Box sx={{flexGrow: 1}}></Box>
     </>
 

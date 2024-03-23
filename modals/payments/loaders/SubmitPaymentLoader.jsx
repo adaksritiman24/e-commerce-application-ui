@@ -1,7 +1,5 @@
-import { Box } from '@mui/material';
-import { grey } from '@mui/material/colors';
-import React from 'react'
-import {ThreeDots} from "react-loader-spinner";
+import { Box, CircularProgress } from '@mui/material';
+import React from 'react';
 
 const SubmitPaymentLoader =()=> {
   return (
@@ -19,7 +17,7 @@ const SubmitPaymentLoader =()=> {
             zIndex : "5000",
         }}
     >
-        <ThreeDots color={grey[700]}/>
+        <CircularProgress thickness={6} size={50} />
     </Box>
   )
 }

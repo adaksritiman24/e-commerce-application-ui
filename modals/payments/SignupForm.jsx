@@ -19,8 +19,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { SignupModalContext } from "./SignupModalProvider";
 import AuthContext from "../../auth/AuthContext";
 import { animated, useSpring } from "@react-spring/web";
-import LoadingSpinner from "../../components/body/search/LoadingSpinner";
 import Logo from "../../components/common/Logo";
+import GlobalLoader from "../../components/common/GlobalLoader";
 
 const AnimatedCollapseAlert = animated(Collapse);
 
@@ -199,7 +199,7 @@ const SignupForm = ({ signupModalOpen, setSignupModalOpen }) => {
 
   return (
     <>
-      {loading && <LoadingSpinner />}
+      {loading && <GlobalLoader />}
       {!success && (
         <ErrorNotification
           open={!success}

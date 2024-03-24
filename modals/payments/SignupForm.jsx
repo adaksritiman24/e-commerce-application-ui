@@ -13,7 +13,7 @@ import {
   Typography,
   keyframes,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import CloseIcon from "@mui/icons-material/Close";
 import React, { useContext, useEffect, useState } from "react";
 import { SignupModalContext } from "./SignupModalProvider";
@@ -239,8 +239,8 @@ const SignupForm = ({ signupModalOpen, setSignupModalOpen }) => {
               padding: "18px",
               paddingLeft: "24px",
               marginBottom: "6px",
-              color: grey[100],
-              background: grey[900],
+              color: deepPurple[50],
+              background: deepPurple[800],
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
               display: "flex",
@@ -272,7 +272,7 @@ const SignupForm = ({ signupModalOpen, setSignupModalOpen }) => {
                 xs: 1,
               },
               "& .MuiPaper-root": {
-                background: grey[100],
+                background: grey[50],
                 borderRadius: 1,
                 px: "8px",
                 pb: "8px",

@@ -1,5 +1,5 @@
 import { Box, Button, createTheme, FormControl, Grid, InputLabel, keyframes, Modal, OutlinedInput, Stack, styled, ThemeProvider, Typography } from '@mui/material'
-import { grey, red } from '@mui/material/colors';
+import { deepPurple, grey, red } from '@mui/material/colors';
 import React, { useEffect } from 'react'
 import { useContext } from 'react';
 import { useState } from 'react';
@@ -47,7 +47,7 @@ const LoginModal =({
   const formTheme = createTheme({
     palette : {
       primary : {
-        main : grey[700]
+        main : deepPurple[700]
       }
     }
   })
@@ -88,8 +88,8 @@ const LoginModal =({
         boxSizing : "border-box"
     }}>
         <Typography id="login-modal-title" variant="h6" component="h2" fontWeight="600" sx={{
-          background: grey[900],
-          color: grey[100],
+          background: deepPurple[900],
+          color: deepPurple[50],
           px: 4,
           py: 2,
           borderTopLeftRadius : "6px",

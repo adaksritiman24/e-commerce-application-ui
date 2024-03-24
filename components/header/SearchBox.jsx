@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { green, grey } from "@mui/material/colors";
+import { deepPurple, green, grey } from "@mui/material/colors";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useSearchBox from "./hooks/useSearchBox";
@@ -25,7 +25,7 @@ const CustomCloseIcon = (props) => {
       sx={{
         position: "absolute",
         right: "0",
-        bgcolor: grey[300],
+        bgcolor: deepPurple[300],
         display: "flex",
         mr: "4px",
         alignItems: "center",
@@ -48,7 +48,7 @@ const SearchIcon = (props) => {
   return (
     <Box
       sx={{
-        bgcolor: focussed ? green[900] : grey[800],
+        bgcolor: focussed ? green[900] : deepPurple[800],
         display: "flex",
         alignItems: "center",
         width: "45px",
@@ -125,7 +125,7 @@ const SearchBox = () => {
               outlineColor: "black",
 
               "& .MuiInputBase-input": {
-                bgcolor: grey[200],
+                bgcolor: deepPurple[100],
                 borderRadius: "2px",
                 borderTopRightRadius: "0",
                 borderBottomRightRadius: "0",

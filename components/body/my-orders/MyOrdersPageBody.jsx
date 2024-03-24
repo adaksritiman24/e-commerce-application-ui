@@ -13,7 +13,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styled from "@emotion/styled";
-import { green, grey } from "@mui/material/colors";
+import { deepPurple, green, grey } from "@mui/material/colors";
 import { getFormattedPrice } from "../../common/utils/helpers";
 import AuthContext from "../../../auth/AuthContext";
 import useOrder from "../hooks/useOrder";
@@ -27,7 +27,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
   "&: nth-child(odd)": {
-    background: grey[200],
+    background: deepPurple[50],
   },
 }));
 
@@ -83,7 +83,7 @@ const MyOrdersPageBody = () => {
           <TableHead>
             <TableRow
               sx={{
-                background: grey[800],
+                background: deepPurple[800],
                 "& .MuiTableCell-head": {
                   color: grey[200],
                 },

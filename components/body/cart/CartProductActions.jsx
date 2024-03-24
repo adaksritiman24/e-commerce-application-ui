@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import React from "react";
 
 const CartProductActions = ({
@@ -38,12 +38,12 @@ const CartProductActions = ({
           </Button>
           <Box
             sx={{
-              border: "0.4px solid grey",
+              border: "0.4px solid purple",
               minWidth: "45px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              bgcolor: grey[200],
+              bgcolor: deepPurple[50],
             }}
           >
             {product.quantity}

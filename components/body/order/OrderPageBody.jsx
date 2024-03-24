@@ -1,6 +1,6 @@
 import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-import { green, grey } from "@mui/material/colors";
+import { deepPurple, green, grey } from "@mui/material/colors";
 import React from "react";
 import { useContext } from "react";
 import Link from "next/link";
@@ -73,10 +73,10 @@ const OrderPageBody = ({ orderData }) => {
     <Paper
       elevation={2}
       sx={{
-        my: "20px",
+        my: "30px",
         mx: {
-          lg: "30px",
-          md: "20px",
+          lg: "120px",
+          md: "90px",
           xs: "14px",
         },
         p: {
@@ -88,6 +88,7 @@ const OrderPageBody = ({ orderData }) => {
           lg: "130px",
         },
         borderRadius: "4px",
+        background: "white"
       }}
     >
       <Box
@@ -144,7 +145,7 @@ const OrderPageBody = ({ orderData }) => {
               label={`${orderData.status}`}
               color="success"
               sx={{
-                background: orderData.status.toLowerCase()==="delivered"? green[600] : grey[500],
+                background: orderData.status.toLowerCase()==="delivered"? green[600] : deepPurple[400],
                 fontSize: "20px",
                 p:1,
               }}
@@ -163,7 +164,7 @@ const OrderPageBody = ({ orderData }) => {
               sx={{
                 p: "14px",
                 mt: 1,
-                background: grey[200],
+                background: deepPurple[50],
                 display: "flex",
                 borderRadius: "4px",
                 flexDirection: {

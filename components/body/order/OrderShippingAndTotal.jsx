@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import React, { useState } from "react";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -22,18 +22,18 @@ const OrderShippingAndTotal = ({ totalAmount, deliveryAddress }) => {
           },
           justifyContent: "space-between",
           m: "10px",
-          background: grey[200],
+          background: deepPurple[50],
           p: "15px",
         }}
       >
         <Box>
-          <Typography variant="h5" mr={1}>
+          <Typography variant="h5" mr={1} fontWeight={600}>
             Shipping Details
           </Typography>
 
           <hr />
           <Typography variant="h6">{deliveryAddress.name}</Typography>
-          <Box color={grey[700]}>
+          <Box color={grey[800]}>
             <Box
               sx={{
                 display: "flex",

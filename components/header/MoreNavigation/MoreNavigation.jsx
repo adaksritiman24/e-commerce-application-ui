@@ -1,9 +1,9 @@
-import { Avatar, Badge, Box, Button, IconButton, Tooltip, Typography, useMediaQuery } from '@mui/material'
+import { Avatar, Badge, Box, Button, IconButton, Tooltip, Typography, createTheme, useMediaQuery } from '@mui/material'
 import React, { useCallback, useContext } from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { deepOrange, grey } from '@mui/material/colors';
+import { deepOrange, deepPurple, grey } from '@mui/material/colors';
 import AuthContext from '../../../auth/AuthContext';
 import { CartContext } from '../../../cart/CartProvider';
 import { useRouter } from 'next/router';
@@ -21,6 +21,8 @@ const MoreNavigation=({
     const {user, handleLogout} = useContext(AuthContext);
     const {numberOfItems} = useContext(CartContext);
     const {setSignupModalOpen} = useContext(SignupModalContext);
+
+    const badgeTheme = createTheme();
 
 
     const handleNavigateToCartPage = ()=>{
@@ -127,7 +129,7 @@ const MoreNavigation=({
                     }}
                     onClick={handleNavigateToCartPage}
                 >
-                    <Badge badgeContent={numberOfItems} showZero color="primary">
+                    <Badge badgeContent={numberOfItems} showZero color="error">
                     <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>
@@ -194,9 +196,9 @@ const MoreNavigation=({
                     <Button variant='contained' sx={{
                         fontWeight : "bold",
                         textTransform : "none",
-                        bgcolor : grey[800],
+                        bgcolor : deepPurple[800],
                         "&: hover" : {
-                            bgcolor : grey[900]
+                            bgcolor : deepPurple[900]
                         }
                     }}
                     onClick={()=>setSignupModalOpen(true)}
@@ -224,7 +226,7 @@ const MoreNavigation=({
                     }}
                     onClick={handleNavigateToCartPage}
                 >
-                    <Badge badgeContent={numberOfItems} showZero color="primary">
+                    <Badge badgeContent={numberOfItems} showZero color="error">
                         <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>

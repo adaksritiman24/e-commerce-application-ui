@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import React from 'react'
 import { getFormattedPrice } from './utils/helpers';
-import { grey } from '@mui/material/colors';
+import { deepPurple, grey } from '@mui/material/colors';
 
 const Summary =({total, subtotal, tax, shippingCost})=> {
   return (
@@ -21,7 +21,7 @@ const Summary =({total, subtotal, tax, shippingCost})=> {
                 fontSize: "20px",
                 fontWeight: "bold",
                 fontFamily: "helvetica",
-                background : grey[700],
+                background : deepPurple[700],
                 color: "white",
                 textAlign: "center"
             }}

@@ -1,5 +1,5 @@
 import { Checkbox, Typography } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { deepPurple } from '@mui/material/colors'
 import { Box } from '@mui/system'
 import React from 'react'
 
@@ -26,7 +26,7 @@ const BrandSelectComponent =({
         sx={{
             borderTop : "1px solid rgba(0,0,0,0.2)",
             maxHeight : "220px",
-            overflow : "scroll"
+            overflowY : "scroll"
         }}
     >
         {brands.map((brand, index)=>(
@@ -41,7 +41,7 @@ const BrandSelectComponent =({
                     sx={{
                         padding : "4px",
                         '&.Mui-checked': {
-                            color: grey[600],
+                            color: deepPurple[600],
                         },
                     }}
                 />

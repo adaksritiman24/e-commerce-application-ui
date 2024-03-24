@@ -1,5 +1,5 @@
 import { Box, Chip, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import React from "react";
 import { calculateTotalDiscountPercentage, getFormattedPrice } from "../../common/utils/helpers";
 
@@ -57,7 +57,7 @@ const ProductCardPricing = ({ normalPrice, discountedPrice , offer}) => {
 
           sx={{
             fontWeight: "600",
-            background: grey[800],
+            background: deepPurple[800],
             color: grey[300],
             borderRadius : "4px",
             px : "5px",

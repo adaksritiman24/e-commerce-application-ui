@@ -8,7 +8,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import React, { useState } from "react";
 import { useContext } from "react";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
@@ -143,7 +143,7 @@ const ShhippingAndTotal = ({
           justifyContent: "space-between",
           borderRadius: "4px",
           m: "10px",
-          background: grey[200],
+          background: deepPurple[50],
           p: "15px",
         }}
       >
@@ -175,14 +175,14 @@ const ShhippingAndTotal = ({
                 alignItems: "center",
               }}
             >
-              <Typography variant="h5" mr={1}>
+              <Typography variant="h5" fontWeight={600} mr={1}>
                 Shipping Details
               </Typography>
               <IconButton disableTouchRipple onClick={editDeliveryAddress}>
                 <CreateIcon
                   sx={{
                     cursor: "pointer",
-                    color: grey[800],
+                    color: deepPurple[800],
                   }}
                 />
               </IconButton>
@@ -190,7 +190,7 @@ const ShhippingAndTotal = ({
 
             <hr />
             <Typography variant="h6">{deliveryAddress.name}</Typography>
-            <Box color={grey[700]}>
+            <Box color={grey[900]}>
               <Box
                 sx={{
                   display: "flex",

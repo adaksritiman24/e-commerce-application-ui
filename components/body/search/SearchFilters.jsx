@@ -1,6 +1,6 @@
 import { Box, Rating, styled, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Slider } from "@mui/material";
-import { green, grey, red } from "@mui/material/colors";
+import { deepPurple, green, grey, red } from "@mui/material/colors";
 import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import useSearchFilters from "../hooks/useSearchFilters";
@@ -118,7 +118,6 @@ const SearchFilters = ({
         flexDirection: "column",
         maxHeight: isDesktop ? "776px" : "none",
         alignItems: "center",
-        overflow: "scroll",
       }}
     >
       <StyledFilterBox>
@@ -142,7 +141,7 @@ const SearchFilters = ({
             "& .MuiSlider-thumb": {
               height: 23,
               width: 23,
-              backgroundColor: grey[600],
+              backgroundColor: deepPurple[600],
               "&:focus, &:hover, &.Mui-active": {
                 boxShadow:
                   "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)",
@@ -151,7 +150,7 @@ const SearchFilters = ({
             "& .MuiSlider-track": {
               border: "none",
               height: "10px",
-              bgcolor: grey[400],
+              bgcolor: deepPurple[300],
             },
             "& .MuiSlider-rail": {
               opacity: "0.8",

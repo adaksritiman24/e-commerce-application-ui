@@ -1,7 +1,7 @@
 import { Avatar, Badge, Box, Button, Drawer, Stack, Tooltip, Typography } from '@mui/material'
 import React, { useCallback, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
-import { deepOrange, grey } from '@mui/material/colors';
+import { deepOrange, deepPurple, grey } from '@mui/material/colors';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -59,7 +59,7 @@ const MobileSideDrawer = (props)=>{
                     mr : "5px"
                 },
                 "& .MuiPaper-root" : {
-                    bgcolor : grey[400],
+                    bgcolor : deepPurple[200],
                     width : "250px"
                 },
                 "& .MuiButtonBase-root" : {
@@ -73,7 +73,7 @@ const MobileSideDrawer = (props)=>{
         >
             {(user!=null) ? (
                 <>
-            <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={grey[800]} >
+            <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={deepPurple[800]} >
                 <Stack direction="row"
                     sx={{
                         display : "flex",
@@ -159,7 +159,7 @@ const MobileSideDrawer = (props)=>{
                         }}
                         onClick={handleNavigateToCartPage}
                     >
-                        <Badge badgeContent={numberOfItemsInCart} showZero color="primary">
+                        <Badge badgeContent={numberOfItemsInCart} showZero color="error">
                         <ShoppingCartIcon/>
                         </Badge>
                         <Typography variant='p'>
@@ -186,7 +186,7 @@ const MobileSideDrawer = (props)=>{
             </>
             ) : (
                 <>
-                    <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={grey[800]} >
+                    <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={deepPurple[800]} >
                 <Stack direction="row"
                     sx={{
                         display : "flex",
@@ -201,9 +201,9 @@ const MobileSideDrawer = (props)=>{
                         <Button variant='contained' sx={{
                         fontWeight : "bold",
                         textTransform : "none",
-                        bgcolor : grey[600],
+                        bgcolor : deepPurple[600],
                         "&: hover" : {
-                            bgcolor : grey[700]
+                            bgcolor : deepPurple[700]
                         }
                         }}
                         onClick={()=>setLoginModalOpen(true)}
@@ -252,7 +252,7 @@ const MobileSideDrawer = (props)=>{
                         }}
                         onClick={handleNavigateToCartPage}
                     >
-                        <Badge badgeContent={numberOfItemsInCart} showZero color="primary" >
+                        <Badge badgeContent={numberOfItemsInCart} showZero color="error" >
                             <ShoppingCartIcon/>
                         </Badge>
                         <Typography variant='p'>
@@ -292,7 +292,7 @@ const MobileMoreNavigation=({
                 display : "flex",
                 justifyContent : "flex-end",
                 "& svg": {
-                    border : "1px solid gray",
+                    border : `1px solid ${deepPurple[800]}`,
                     borderRadius : "4px",
                     p : "4px",
                 },

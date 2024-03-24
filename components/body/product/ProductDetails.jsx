@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemIcon, Typography } from "@mui/material";
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import React from "react";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 
 const ProductDetails = ({
     details
@@ -14,7 +14,7 @@ const ProductDetails = ({
           fontFamily: "arial",
           fontWeight: "bold",
           fontSize: "20px",
-          background: grey[100],
+          background: deepPurple[50],
           m: "0",
           p: "8px",
         }}
@@ -45,7 +45,7 @@ const ProductDetails = ({
             <ListItemIcon
               sx={{
                 "& svg": {
-                  color: grey[800],
+                  color: deepPurple[800],
                 },
                 minWidth: "36px",
               }}

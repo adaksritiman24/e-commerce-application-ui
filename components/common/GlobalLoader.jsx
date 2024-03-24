@@ -1,5 +1,19 @@
-import { Box, CircularProgress, circularProgressClasses } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  ThemeProvider,
+  circularProgressClasses,
+  createTheme,
+} from "@mui/material";
+import { deepPurple } from "@mui/material/colors";
 import React from "react";
+
+const theme = createTheme({
+  palette: {
+    primary: { main: deepPurple[500] },
+    secondary: { main: deepPurple[700] },
+  },
+});
 
 const GlobalLoader = () => {
   return (
@@ -17,11 +31,18 @@ const GlobalLoader = () => {
         zIndex: "3000",
       }}
     >
-      <CircularProgress thickness={6} size={50} sx={{
-        [`& .${circularProgressClasses.circle}`]: {
-            strokeLinecap: 'round',
-          },
-      }}/>
+      <ThemeProvider theme={theme}>
+        <CircularProgress
+          thickness={6}
+          color="primary"
+          size={50}
+          sx={{
+            [`& .${circularProgressClasses.circle}`]: {
+              strokeLinecap: "round",
+            },
+          }}
+        />
+      </ThemeProvider>
     </Box>
   );
 };

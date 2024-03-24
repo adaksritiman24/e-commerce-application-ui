@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import React, { useState } from "react";
 import TrackOrderModal from "../../modals/TrackOrderModal";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
@@ -7,19 +7,21 @@ import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 const Footer = () => {
   const [trackOrderModalOpen, setTrackOrderModalOpen] = useState(false);
   return (
+    <>
     <Box
       sx={{
         bottom: "0",
         textAlign: "center",
-        background: grey[500],
+        background: deepPurple[400],
         fontFamily: "helvetica",
         fontSize: "18px",
         color: "white",
-        py: 1,
         mt: 1,
-        color: grey[700],
+        pb: 1,
+        color: grey[200],
       }}
     >
+      <Box sx={{background: deepPurple[500], py: 1, mb: 1}}></Box>
       <u>Copyright@ www.buzz.co.in</u>
       <Box
         sx={{
@@ -33,7 +35,7 @@ const Footer = () => {
               cursor: "pointer",
               display: "flex",
               justifyContent: "center",
-              color: grey[900],
+              color: grey[200],
             }}
           >
             <GpsFixedIcon />
@@ -46,6 +48,7 @@ const Footer = () => {
         />
       </Box>
     </Box>
+    </>
   );
 };
 

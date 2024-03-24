@@ -2,13 +2,13 @@ import { Button, IconButton, Typography } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Stack } from "@mui/system";
 import React from "react";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 
 const Filters = ({ setOpenFilterForMobile }) => {
   return (
     <Stack direction="row"
       sx={{
-        background : grey[300],
+        background : deepPurple[100],
         mt:"8px",
         borderRadius : "4px",
       }}
@@ -18,7 +18,7 @@ const Filters = ({ setOpenFilterForMobile }) => {
           "& svg": {
             fontSize: "30px",
           },
-          color: grey[800],
+          color: deepPurple[900],
         }}
         onClick={() => setOpenFilterForMobile(true)}
       >

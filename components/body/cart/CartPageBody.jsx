@@ -1,6 +1,6 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import React from "react";
 import useCart from "../hooks/useCart";
 import { getFormattedPrice } from "../../common/utils/helpers";
@@ -37,7 +37,7 @@ const CartPageBody = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: grey[800],
+          color: deepPurple[700],
           flexGrow: 1
         }}
       >

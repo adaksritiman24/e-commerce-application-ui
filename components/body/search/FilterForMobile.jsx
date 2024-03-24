@@ -1,6 +1,6 @@
 import { Close } from "@mui/icons-material";
 import { Drawer, IconButton, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import { Stack } from "@mui/system";
 import React from "react";
 import SearchFilters from "./SearchFilters";
@@ -12,7 +12,7 @@ const FilterForMobile = ({ openFilterForMobile, setOpenFilterForMobile, searchFi
         variant="permanent"
         sx={{
           "& .MuiPaper-root" : {
-            bgcolor : grey[100],
+            bgcolor : deepPurple[50],
             left : openFilterForMobile ? "0" : "-400px",
             transition : "0.4s ease-out",
           },
@@ -26,7 +26,7 @@ const FilterForMobile = ({ openFilterForMobile, setOpenFilterForMobile, searchFi
         >
           <Typography variant="h5" fontWeight={500} p={2}
                 sx={{
-                  background : grey[300],
+                  background : deepPurple[300],
                   display : "flex",
                   justifyContent :  "space-between"
                 }}

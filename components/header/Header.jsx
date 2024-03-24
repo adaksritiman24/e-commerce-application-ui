@@ -1,11 +1,9 @@
-import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { Box, Grid, useMediaQuery } from "@mui/material";
+import { deepPurple } from "@mui/material/colors";
 import React from "react";
 import { useContext } from "react";
-import { useState } from "react";
 import { LoginContext } from "../../modals/LoginModalProvider";
 import Logo from "../common/Logo";
-import LoginModal from "./authentication-ui/LoginModal";
 import CategoriesSection from "./CategoriesSection";
 import MobileMoreNavigation from "./MoreNavigation/MobileMoreNavigation";
 import MoreNavigation from "./MoreNavigation/MoreNavigation";
@@ -18,7 +16,7 @@ const Header = () => {
   return (
     <Box
       sx={{
-        bgcolor: grey[400],
+        bgcolor: deepPurple[400],
       }}
     >
       <Grid

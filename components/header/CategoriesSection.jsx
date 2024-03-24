@@ -1,5 +1,5 @@
 import { Box, Chip, useMediaQuery, useTheme } from '@mui/material'
-import { green, grey } from '@mui/material/colors';
+import { deepPurple, green, grey } from '@mui/material/colors';
 import React from 'react'
 import useCategories from './hooks/useCategories'
 
@@ -11,7 +11,7 @@ const CategoriesSection =()=> {
   return (
     <Box
         sx={{
-            background : grey[500],
+            background : deepPurple[500],
             padding : "3px",
         }}
     >
@@ -21,14 +21,14 @@ const CategoriesSection =()=> {
                     label={category.name}
                     key={index}
                     sx={{
-                        background : grey[700],
+                        background : deepPurple[700],
                         color : grey[200],
                         fontSize : isDesktop ? "18px" : "14px",
                         m : "5px",
                         p : "4px",
                         cursor : "pointer",
                         ":hover":{
-                            background : grey[800]
+                            background : deepPurple[800]
                         },
                         borderRadius : "3px"
                    

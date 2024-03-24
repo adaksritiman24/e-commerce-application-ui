@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Rating, Typography } from "@mui/material";
 import React from "react";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import ProductCardPricing from "./ProductCardPricing";
 import { useRouter } from "next/router";
 import ProductImageSRP from "./ProductImageSRP";

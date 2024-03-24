@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSearchResults from "../hooks/useSearchResults";
@@ -66,14 +66,15 @@ const SearchResults = () => {
             lg={3}
             sx={{
               top: "12px",
-              background: grey[100],
+              background: deepPurple[50],
               mt : "5px",
               mb : "10px",
             }}
           >
             <Typography variant="h4" fontWeight={500} p={2}
               sx={{
-                background : grey[300]
+                background : deepPurple[100],
+                color: "black"
               }}
             >
               Filters

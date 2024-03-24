@@ -1,6 +1,6 @@
 import { InsertPhoto } from "@mui/icons-material";
 import {Box, Paper, Rating, Typography, useMediaQuery} from "@mui/material"
-import { grey } from "@mui/material/colors";
+import { deepPurple, grey } from "@mui/material/colors";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -164,8 +164,11 @@ const AssociatedProduct = ({
                     md: "16px",
                     xs: "25px",
                 },
+                mx: {
+                    xs: 2
+                },
                 mb : "20px",
-                bgcolor : grey[200],
+                bgcolor : deepPurple[50],
             }}
         >
 
@@ -188,8 +191,7 @@ const AssociatedProduct = ({
             </Typography>
             <Box
                 sx={{
-                    overflow : "scroll",
-                    
+                    overflowX : "scroll"
                 }}
             >
                 <Box

@@ -69,11 +69,14 @@ const SearchResults = () => {
               background: deepPurple[50],
               mt : "5px",
               mb : "10px",
+              pb : 1,
+              height: "fit-content",
+              overflowY : "hidden"
             }}
           >
             <Typography variant="h4" fontWeight={500} p={2}
               sx={{
-                background : deepPurple[100],
+                background : deepPurple[200],
                 color: "black"
               }}
             >

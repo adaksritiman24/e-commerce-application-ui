@@ -35,7 +35,6 @@ const LoginModal =({
   var expansion = keyframes`
     0% {
       opacity: 0.5;
-      width: 0px;
       overflow: hidden;
     }
     100% {
@@ -88,7 +87,7 @@ const LoginModal =({
         boxSizing : "border-box"
     }}>
         <Typography id="login-modal-title" variant="h6" component="h2" fontWeight="600" sx={{
-          background: deepPurple[900],
+          background: deepPurple[800],
           color: deepPurple[50],
           px: 4,
           py: 2,

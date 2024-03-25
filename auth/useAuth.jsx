@@ -163,7 +163,16 @@ const useAuth = (anonymousAuthSessionId) => {
     } catch (e) {
       console.log("Signup Error:", e.response.data?.message);
       setSuccess(false);
-      setErrorMessage(e.response.data?.message);
+      let errorDetails = e.response.data?.details;
+      if(errorDetails === null || errorDetails === undefined) {
+        setErrorMessage(e.response.data?.message);
+      }
+      else {
+        errorDetails = errorDetails.slice(1, errorDetails.length - 1);
+        var errors = errorDetails.split(",");
+        setErrorMessage(errors[0].trim());
+      }
+      
     }
     setLoading(false);
   };

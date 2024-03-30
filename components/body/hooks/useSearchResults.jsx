@@ -45,6 +45,9 @@ const useSearchResults = (searchTerm, setLoading)=>{
             }
             catch (error){
                 console.log(error);
+                setSearchResults([]);
+                setFilteredResults([]);
+                setLoading(false);
             }
             
         }

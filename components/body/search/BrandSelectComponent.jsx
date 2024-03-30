@@ -25,7 +25,7 @@ const BrandSelectComponent =({
     <Box
         sx={{
             borderTop : "1px solid rgba(0,0,0,0.2)",
-            maxHeight : "220px",
+            maxHeight : "100px",
             overflowY : "scroll"
         }}
     >

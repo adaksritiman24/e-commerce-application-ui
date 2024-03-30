@@ -1,7 +1,7 @@
-import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Grid, Pagination, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { deepPurple, grey } from "@mui/material/colors";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSearchResults from "../hooks/useSearchResults";
 import FilterForMobile from "./FilterForMobile";
 import Filters from "./Filters";
@@ -10,14 +10,18 @@ import SearchFilters from "./SearchFilters";
 import GlobalLoader from "../../common/GlobalLoader";
 
 const SearchResults = () => {
-  
+
+  const productPerPage = 4;
   const theme = useTheme();
   const desktopMedia = theme.breakpoints.up("lg");
   const mobileMedia = theme.breakpoints.down("sm");
   const isDesktop = useMediaQuery(desktopMedia);
   const isMobile = useMediaQuery(mobileMedia);
   const [openFilterForMobile, setOpenFilterForMobile] = useState(false);
+  const [displayedProducts, setDisplayedProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [pageCount, setPageCount] = useState(0);
   const router = useRouter();
   const keyword = router.query["text"];
 
@@ -33,8 +37,22 @@ const SearchResults = () => {
     brands,
     priceBracket: price ,
     searchResults,
-    setFilteredResults  
+    setFilteredResults
   }
+
+  const handlePageChange = (_, newPage)=> {
+    const startIndex = (newPage-1)*productPerPage;
+    setDisplayedProducts(filteredResults.slice( startIndex, startIndex + productPerPage));
+    setCurrentPage(newPage);
+  }
+
+  useEffect(()=> {
+    const extraPage = (filteredResults.length)%productPerPage > 0 ? 1 : 0;
+    setPageCount(parseInt(filteredResults.length/productPerPage) + extraPage);
+    setCurrentPage(1);
+    setDisplayedProducts(filteredResults.slice(0, productPerPage));
+  },[filteredResults]);
+
   if(loading)
     return <>
       <GlobalLoader/>
@@ -91,7 +109,17 @@ const SearchResults = () => {
           </Grid>
         )}
         <Grid item lg={9} xs={12}>
-          <SearchedProducts searchResults={filteredResults} />
+          <SearchedProducts searchResults={displayedProducts} />
+        </Grid>
+        <Grid item lg={12} xs={12}>
+          <Stack spacing={2} sx={{
+            display : "flex",
+            alignItems : "flex-end",
+            m: 1,
+            mt: 2,
+          }}>
+            <Pagination count={pageCount} onChange={handlePageChange} page={currentPage} variant="outlined" shape="rounded" size="large"/>
+          </Stack>
         </Grid>
       </Grid>
     </Box>

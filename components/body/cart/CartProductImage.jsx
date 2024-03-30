@@ -22,6 +22,9 @@ const CartProductImage = ({ images }) => {
             src={`${IMAGE_SERVER_BASE_URL}${images[0]["url"]}`}
             alt="NF"
             width="100%"
+            style={{
+              aspectRatio: 1
+            }}
           />
         </Box>
       ) : (

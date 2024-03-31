@@ -8,6 +8,7 @@ import Filters from "./Filters";
 import SearchedProducts from "./SearchedProducts";
 import SearchFilters from "./SearchFilters";
 import GlobalLoader from "../../common/GlobalLoader";
+import Head from "next/head";
 
 const SearchResults = () => {
 
@@ -55,11 +56,18 @@ const SearchResults = () => {
 
   if(loading)
     return <>
+      <Head>
+        <title>{`Buzz search: ${keyword}`}</title>
+      </Head>
       <GlobalLoader/>
       <Box sx={{flexGrow: 1}}></Box>
     </>
 
   return (
+    <>
+    <Head>
+      <title>{`Buzz search: ${keyword}`}</title>
+    </Head>
     <Box px={isMobile ? 3 : 5}
       sx={{
         flexGrow : 1,
@@ -123,6 +131,7 @@ const SearchResults = () => {
         </Grid>
       </Grid>
     </Box>
+    </>
   );
 };
 

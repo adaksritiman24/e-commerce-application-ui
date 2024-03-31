@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import AuthenticationProvider from '../auth/AuthenticationProvider'
 import CartProvider from '../cart/CartProvider'
 import GlobalLoader from '../components/common/GlobalLoader'
@@ -30,6 +31,9 @@ const Loading = ()=> {
 function EcommerceApplication({ Component, pageProps }) {
   return (
     <>
+    <Head>
+      <link rel='icon' href='/fav.ico'/>
+    </Head>
     <Loading/>
     <AuthenticationProvider>
       <CartProvider>

@@ -14,6 +14,7 @@ import { CartContext } from "../../../cart/CartProvider";
 import AssociatedProduct from "./AssociatedProducts";
 import AuthContext from "../../../auth/AuthContext";
 import Review from "./reviews/Review";
+import Head from "next/head";
 
 const StyledPricingContainer = styled(Box)({
   pl: 0.5,
@@ -38,6 +39,7 @@ function ProductPage({
     <Grid px={{ md: 3, lg: 10 }} mt={2}>
       {product && (
         <>
+        <Head><title>{product.name}</title></Head>
         <Grid container>
           <Grid item md={6} xs={12}>
             <ProductImage images={product.images}/>

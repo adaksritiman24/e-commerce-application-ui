@@ -16,6 +16,7 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import FlightTakeoffSharpIcon from '@mui/icons-material/FlightTakeoffSharp';
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
+import Head from "next/head";
 
 
 const getOrderStatusIcon = (status)=> {
@@ -43,6 +44,10 @@ const OrderPageBody = ({ orderData }) => {
 
   if (orderData == undefined || orderData == null) {
     return (
+      <>
+      <Head>
+        <title>Order Not Found</title>
+      </Head>
       <Box
         sx={{
           flexGrow: 1,
@@ -66,10 +71,17 @@ const OrderPageBody = ({ orderData }) => {
           <Typography fontWeight={600}>Order Not Found!</Typography>
         </Stack>
       </Box>
+      </>
     );
   }
 
   return (
+    <>
+    {(searchType === undefined || searchType === null) ? (
+        <Head><title>Order Confirmation</title></Head>
+    ): (
+      <Head><title>Order</title></Head>
+    )}
     <Paper
       elevation={2}
       sx={{
@@ -273,6 +285,7 @@ const OrderPageBody = ({ orderData }) => {
         deliveryAddress={orderData.deliveryAddress}
       />
     </Paper>
+    </>
   );
 };
 

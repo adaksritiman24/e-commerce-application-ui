@@ -3,6 +3,7 @@ import HomePage from "../components/body/home/HomePage";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 import Header from "../components/header/Header";
 import Footer from "../components/common/Footer";
+import Head from "next/head";
 
 export default function Home({
   bannerPromotions,
@@ -10,6 +11,9 @@ export default function Home({
 }) {
   return (
     <>
+      <Head>
+        <title>Buzz - For your best digital shopping experience</title>
+      </Head>
       <Header />
       <HomePage
         bannerPromotions={bannerPromotions}

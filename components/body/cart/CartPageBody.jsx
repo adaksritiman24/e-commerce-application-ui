@@ -67,12 +67,12 @@ const CartPageBody = () => {
       sx={{
         my: "20px",
         mx: {
-          lg: "160px",
+          lg: "250px",
           md: "20px",
           xs: "14px",
         },
         p: {
-          lg: "30px",
+          lg: "50px",
           md: "22px",
           xs: "10px",
         },
@@ -96,7 +96,7 @@ const CartPageBody = () => {
               md: "row",
               xs: "column",
             },
-            flexWrap: "wrap",
+            flexWrap: "no-wrap",
             background:"white",
           }}
           key={product.id}

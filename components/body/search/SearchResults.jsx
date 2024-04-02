@@ -42,6 +42,7 @@ const SearchResults = () => {
   }
 
   const handlePageChange = (_, newPage)=> {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const startIndex = (newPage-1)*productPerPage;
     setDisplayedProducts(filteredResults.slice( startIndex, startIndex + productPerPage));
     setCurrentPage(newPage);

@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "../../components/header/Header";
 import OrderPageBody from "../../components/body/order/OrderPageBody";
-import axios from "axios";
 import { SPRING_BOOT_BASE_URL } from "../../components/constants";
 import Footer from "../../components/common/Footer";
 import { Box } from "@mui/material";
+import axiosClient from "../../oauth/client/axiosClient";
 
 const OrderPage = ({ orderData }) => {
   console.log("OrderData: ", orderData);
@@ -30,7 +30,7 @@ export default OrderPage;
 export const getServerSideProps = async (context) => {
   const { orderId } = context.query;
   try {
-    const response = await axios.get(
+    const response = await axiosClient.get(
       `${SPRING_BOOT_BASE_URL}/order/${orderId}`
     );
 

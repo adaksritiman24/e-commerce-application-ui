@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { SPRING_BOOT_BASE_URL } from '../../constants';
+import axiosClient from '../../../oauth/client/axiosClient';
 
 const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthSessionId)=> {
     const [cartData, setCartData] = useState({});
@@ -34,7 +34,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
             data : data
           };
     
-        axios(config)
+        axiosClient(config)
           .then( response=>{
             updateCartWithProductData(response.data, cartData);
         
@@ -74,7 +74,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
             },
           };
     
-        axios(config)
+        axiosClient(config)
           .then( response=>{
             fetchProductsAndSetCartData(response.data);
           })
@@ -119,7 +119,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
           data : data
         };
         
-        axios(config)
+        axiosClient(config)
         .then((response)=> {
           updateCartPageProducts();
         })
@@ -157,7 +157,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
           data : data
         };
         
-        axios(config)
+        axiosClient(config)
         .then((response) =>{
           updateCartPageProducts();
         })
@@ -190,7 +190,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
       };
       
       try {
-        await axios(config);
+        await axiosClient(config);
         updateCartPageProducts();
       }
       catch(e) {
@@ -226,7 +226,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
       }
 
       try {
-        const response = await axios(config);
+        const response = await axiosClient(config);
         console.log("Successfully placed order:", response.data);
         return {status: true, orderId: response.data.orderId};
       }

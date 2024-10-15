@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 import { useRouter } from "next/router";
+import axiosClient from "../oauth/client/axiosClient";
 
 const useAuth = (anonymousAuthSessionId) => {
   const [user, setUser] = useState(null);
@@ -40,7 +40,7 @@ const useAuth = (anonymousAuthSessionId) => {
         data,
       };
 
-      axios(config)
+      axiosClient(config)
         .then((response) => {
           console.log("Got user data :", response.data);
           setUser(response.data);
@@ -70,7 +70,7 @@ const useAuth = (anonymousAuthSessionId) => {
         "Content-Type": "application/json",
       },
     };
-    axios(config)
+    axiosClient(config)
       .then((resp) => {
         console.log(resp);
       })
@@ -100,7 +100,7 @@ const useAuth = (anonymousAuthSessionId) => {
       },
       data,
     };
-    axios(config)
+    axiosClient(config)
       .then((response) => {
         setUserTokenInLocalStorage(response.data.authToken);
         fetchUserFromToken();
@@ -136,7 +136,7 @@ const useAuth = (anonymousAuthSessionId) => {
       data,
     };
     try {
-      const response = await axios(config);
+      const response = await axiosClient(config);
       setUserTokenInLocalStorage(response.data.authToken);
       fetchUserFromToken();
       setErrorMessage("");

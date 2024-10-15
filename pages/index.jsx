@@ -1,9 +1,9 @@
-import axios from "axios";
 import HomePage from "../components/body/home/HomePage";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 import Header from "../components/header/Header";
 import Footer from "../components/common/Footer";
 import Head from "next/head";
+import axiosClient from "../oauth/client/axiosClient";
 
 export default function Home({
   bannerPromotions,
@@ -31,7 +31,7 @@ const getPromotionBannerData = async () => {
     headers: {},
   };
   try {
-    const response = await axios(config);
+    const response = await axiosClient(config);
     return response.data;
   } catch (error) {
     return [];
@@ -44,7 +44,7 @@ const getPromotionsCategoryData = async () => {
     url: `${SPRING_BOOT_BASE_URL}/promotions/categories`,
   };
   try {
-    const response = await axios(config);
+    const response = await axiosClient(config);
     return response.data;
   } catch (error) {
     return [];

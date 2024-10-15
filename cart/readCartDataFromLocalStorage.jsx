@@ -1,5 +1,5 @@
-import axios from "axios";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
+import axiosClient from "../oauth/client/axiosClient";
 
 export const getTotalCartItemsFromLS = async(isRegisteredUser, username, anonymousAuthSessionId)=> {
     try{
@@ -25,7 +25,7 @@ const getCartQuantityForCustomer = async(username)=> {
       };
     try {
 
-        const response = await axios(config);
+        const response = await axiosClient(config);
         const {cartEntryList} = response.data;
         return cartEntryList.length;
     }

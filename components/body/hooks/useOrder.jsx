@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { SPRING_BOOT_BASE_URL } from "../../constants";
+import axiosClient from "../../../oauth/client/axiosClient";
 
 const useOrder = (username) => {
   const [orders, setOrders] = useState([]);
@@ -20,7 +20,7 @@ const useOrder = (username) => {
       };
 
       try {
-        var response = await axios(config);
+        var response = await axiosClient(config);
         setOrders(response.data);
       } catch (exception) {
         console.log("Error in fetching order: ", exception);

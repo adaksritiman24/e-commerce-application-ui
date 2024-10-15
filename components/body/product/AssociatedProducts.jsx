@@ -1,10 +1,10 @@
 import { InsertPhoto } from "@mui/icons-material";
 import {Box, Paper, Rating, Typography, useMediaQuery} from "@mui/material"
 import { deepPurple, grey } from "@mui/material/colors";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IMAGE_SERVER_BASE_URL, SPRING_BOOT_BASE_URL } from "../../constants";
+import axiosClient from "../../../oauth/client/axiosClient";
 
 
 const AssociatedProductCard = ({product}) =>{
@@ -135,7 +135,7 @@ const getAssociatedProductsData = (ids, setProducts) => {
         data : data
       };
 
-    axios(config)
+    axiosClient(config)
       .then( response=>{
         setProducts(response.data);
       })

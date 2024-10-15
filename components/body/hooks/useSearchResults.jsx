@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
 import { SPRING_BOOT_BASE_URL } from "../../constants";
+import axiosClient from "../../../oauth/client/axiosClient";
 
 
 const useSearchResults = (searchTerm, setLoading)=>{
@@ -35,7 +35,7 @@ const useSearchResults = (searchTerm, setLoading)=>{
 
             try{
                 setLoading(true);
-                const response = await axios.get(`${SPRING_BOOT_BASE_URL}/products/search/${searchTerm}`)
+                const response = await axiosClient.get(`${SPRING_BOOT_BASE_URL}/products/search/${searchTerm}`)
                 setTimeout(()=>{
                     setSearchResults(response.data);
                     setFilteredResults(response.data);

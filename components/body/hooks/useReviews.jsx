@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { SPRING_BOOT_BASE_URL } from "../../constants";
+import axiosClient from "../../../oauth/client/axiosClient";
 
 const useReviews = (productId) => {
   const [reviews, setReviews] = useState([]);
@@ -16,7 +16,7 @@ const useReviews = (productId) => {
     };
 
     try {
-      const response = await axios(config);
+      const response = await axiosClient(config);
       setReviews(response.data);
       calculateCombinedRating(response.data);
 
@@ -58,7 +58,7 @@ const useReviews = (productId) => {
     if (username != null) {
       try {
         console.log(rating, text, username);
-        await axios(config);
+        await axiosClient(config);
         setReviewText("");
         fetchAllReviews();
       } catch (e) {

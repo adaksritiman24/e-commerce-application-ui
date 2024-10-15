@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { SPRING_BOOT_BASE_URL } from "../../constants";
+import axiosClient from "../../../oauth/client/axiosClient";
 
 export const buzzCart = "buzzCart";
 
@@ -36,7 +36,7 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username, a
             },
           };
         
-        axios(config)
+        axiosClient(config)
           .then( response=>{
             const cartList = response.data.cartEntryList;
 
@@ -91,7 +91,7 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username, a
             data : data
           };
           
-          axios(config)
+          axiosClient(config)
           .then((response) =>{
             updateCartQuantity();
           })
@@ -126,7 +126,7 @@ const useProduct = (product, setNumberOfCartItems, isRegisteredUser, username, a
           data : data
         };
         
-        axios(config)
+        axiosClient(config)
         .then((response)=> {
           updateCartQuantity();
         })

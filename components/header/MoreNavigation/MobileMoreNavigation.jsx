@@ -131,7 +131,11 @@ const MobileSideDrawer = (props)=>{
                     <Box>
                         <Box>Ship To</Box>
                         <Box>
-                            <b style={{ fontSize: "22px"}}>{user.address.city}</b>, {user.address.country}
+                            {null != user.address &&
+                                <>
+                                    <b style={{ fontSize: "22px"}}>{user.address.city}</b>, {user.address.country}
+                                </>
+                            }
                         </Box>
                     </Box>
                 </Box>

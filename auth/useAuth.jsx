@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SPRING_BOOT_BASE_URL } from "../components/constants";
 import { useRouter } from "next/router";
 import axiosClient from "../oauth/client/axiosClient";
+import { googleLogout } from "@react-oauth/google";
 
 const useAuth = (anonymousAuthSessionId) => {
   const [user, setUser] = useState(null);
@@ -55,6 +56,14 @@ const useAuth = (anonymousAuthSessionId) => {
   };
   const handleLogout = () => {
     console.log("Logout!");
+    try {
+      googleLogout();
+      console.log(
+        "Google Logout!"
+      );
+    }catch(e) {
+      console.log("Error while google logout: ", e);
+    }
     removeTokenFromLocalStorage();
     fetchUserFromToken();
     router.push("/");
@@ -114,6 +123,38 @@ const useAuth = (anonymousAuthSessionId) => {
         setHelperText("Invalid userame or password !!");
       });
   };
+
+  const handleGoogleLogin = (username, lastName, firstName, setLoginModalOpen, setHelperText) => {
+    const data = JSON.stringify({
+      username: username,
+      anonymousCartUsername: anonymousAuthSessionId,
+      password: "dummy",
+      oauthLogin : true,
+      userDetails : {
+        lastName: lastName,
+        firstName: firstName,
+      }
+    });
+    const config = {
+      method: "post",
+      url: `${SPRING_BOOT_BASE_URL}/customer/login`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data,
+    };
+    axiosClient(config)
+      .then((response) => {
+        setUserTokenInLocalStorage(response.data.authToken);
+        fetchUserFromToken();
+        setLoginModalOpen(false);
+        document.getElementById("searchBoxMain").focus();
+      })
+      .catch((error) => {
+        setHelperText(error?.response?.data?.message);
+        
+      });
+  }
 
   const handleSignupThroughModal = async (
     signupRequest,
@@ -189,6 +230,7 @@ const useAuth = (anonymousAuthSessionId) => {
     handleLoginThroughModal,
     handleSignupThroughModal,
     handleLogout,
+    handleGoogleLogin, 
   };
 };
 

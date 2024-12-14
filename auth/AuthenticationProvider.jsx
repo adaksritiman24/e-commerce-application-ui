@@ -22,7 +22,7 @@ const AuthenticationProvider = (props) => {
     anonymousAuthSessionId = cookies.rememberMe;
   }
 
-  const { user, token, handleLoginThroughModal, handleLogout, handleSignupThroughModal } = useAuth(anonymousAuthSessionId);
+  const { user, token, handleLoginThroughModal, handleLogout, handleSignupThroughModal, handleGoogleLogin } = useAuth(anonymousAuthSessionId);
   
 
 
@@ -33,6 +33,7 @@ const AuthenticationProvider = (props) => {
     handleSignupThroughModal,
     handleLogout,
     anonymousAuthSessionId,
+    handleGoogleLogin,
   };
 
   return (

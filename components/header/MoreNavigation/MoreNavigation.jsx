@@ -77,8 +77,12 @@ const MoreNavigation=({
                     }}
                 >Ship To</Box>
                 <Box>
-                    <b style={{ fontSize: isDesktop ? "22px" : "18px"}}>{user.address.city}</b>, 
-                    <span style={{ fontSize : isDesktop ? "18px" : "14px"}}> {user.address.country}</span>
+                    {null != user.address &&
+                    <>
+                        <b style={{ fontSize: isDesktop ? "22px" : "18px"}}>{user.address.city}</b>, 
+                        <span style={{ fontSize : isDesktop ? "18px" : "14px"}}> {user.address.country}</span>
+                    </>
+                    }
                 </Box>
             </Box>
         </Box>

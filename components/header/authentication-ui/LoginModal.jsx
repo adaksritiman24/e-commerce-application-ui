@@ -4,6 +4,8 @@ import React, { useEffect } from 'react'
 import { useContext } from 'react';
 import { useState } from 'react';
 import AuthContext from '../../../auth/AuthContext';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleLoginButton from "../../../oauth/login/GoogleLoginButton";
 const style = {
     position: 'absolute',
     top: '40%',
@@ -72,7 +74,6 @@ const LoginModal =({
     sx={{
       "& button" : {
         textTransform : "none",
-        width  : "100%",
       }
     }}
     >
@@ -146,6 +147,11 @@ const LoginModal =({
             container
             spacing={2}
             pt={2}
+            sx={{
+              "& button": {
+                width  : "100%",
+              }
+            }}
           >
             <Grid item md={6} xs={12}>
             <Button variant='contained' size='large' color='primary' type='submit'
@@ -161,6 +167,18 @@ const LoginModal =({
             </Grid>
           </Grid>
         </form>
+        <Typography fontWeight="bold" textAlign={"center"}>OR</Typography>  
+        <GoogleOAuthProvider clientId="814043822804-jpjbkobctqrggkh7i1r5ckdegr6h1q09.apps.googleusercontent.com">
+          <Box
+            margin={3}
+            marginTop={1}
+            paddingX={3}
+            display="flex"
+            justifyContent="center"
+          >
+            <GoogleLoginButton handleLoginModelOpen={setLoginModalOpen} setHelperText={setHelperText}/>
+          </Box>
+        </GoogleOAuthProvider>
     </Box>
     </Modal>
   )

@@ -168,7 +168,7 @@ const LoginModal =({
           </Grid>
         </form>
         <Typography fontWeight="bold" textAlign={"center"}>OR</Typography>  
-        <GoogleOAuthProvider clientId="814043822804-jpjbkobctqrggkh7i1r5ckdegr6h1q09.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={process.env.CLIENT_ID | "default-client-id-google"}>
           <Box
             margin={3}
             marginTop={1}

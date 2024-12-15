@@ -9,7 +9,8 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import AuthContext from "../auth/AuthContext";
 
 const modalValues = {
   deliveryAddressOpen: false,
@@ -80,7 +81,7 @@ const DeliveryAddressModal = ({
   addDeliveryAddress,
 }) => {
   const [isButtonEnabled, setIsButtonEnabled]=useState(false);
-
+  const {fetchUserFromToken} = useContext(AuthContext);
   const setDeliveryAddressField = (field, value) => {
     setDeliveryAddress((address) => {
       switch (field) {
@@ -126,7 +127,7 @@ const DeliveryAddressModal = ({
 
   
   const addDeliveryAddressCallback = () => {
-    addDeliveryAddress(deliveryAddress);
+    addDeliveryAddress(deliveryAddress, fetchUserFromToken);
     setDeliveryAddressOpen(false);
   };
 

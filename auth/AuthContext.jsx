@@ -8,6 +8,7 @@ const authDetails = {
     anonymousAuthSessionId: null,
     handleSignupThroughModal : (signupRequest, setSuccess, setErrorMessage, setModalOpen, setLoading, setSignupRequest)=>{},
     handleGoogleLogin: ()=> {},
+    fetchUserFromToken: ()=>{},
 }
 const AuthContext = React.createContext(authDetails);
 export default AuthContext;

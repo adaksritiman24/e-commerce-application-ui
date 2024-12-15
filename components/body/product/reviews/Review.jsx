@@ -146,6 +146,7 @@ const Review = ({ productId }) => {
                 rating={review.rating}
                 text={review.text}
                 name={review.customer.name}
+                profilePicture={review.customer.profilePicture}
               />
             ))
           )}

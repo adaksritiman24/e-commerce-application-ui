@@ -35,6 +35,7 @@ const GoogleLoginButton = ({ handleLoginModelOpen, setHelperText }) => {
             res.data.email,
             res.data.family_name,
             res.data.given_name,
+            res.data.picture,
             handleLoginModelOpen,
             setHelperText
           );

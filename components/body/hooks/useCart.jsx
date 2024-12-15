@@ -170,7 +170,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
     //REMOVE ITEM FROM CART END----------------------------------------------------------------
 
     //Add delivery address
-    const addDeliveryAddress = async(deliveryAddress)=> {
+    const addDeliveryAddress = async(deliveryAddress, fetchUserFromToken)=> {
 
       let setDeliveryAddressURL;
       if(isRegisteredUser) {
@@ -192,6 +192,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
       try {
         await axiosClient(config);
         updateCartPageProducts();
+        fetchUserFromToken();
       }
       catch(e) {
         console.log("Failed to update delivery Address: ",e);

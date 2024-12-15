@@ -11,6 +11,7 @@ import { SignupModalContext } from '../../../modals/payments/SignupModalProvider
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { getColorCoding } from '../../common/utils/helpers';
+import Image from 'next/image';
 
 const MoreNavigation=({
     setLoginModalOpen
@@ -97,9 +98,23 @@ const MoreNavigation=({
                 alignItems="center"
                 
             >
-                <Avatar sx={{ bgcolor: getColorCoding(user.name) , width: 32, height: 32 , fontSize: "12px" , mr: 1}} variant='rounded'>
-                    {getInitials(user.name)}
-                </Avatar>
+                {
+                    null == user.profilePicture?
+                    <>
+                        <Avatar sx={{ bgcolor: getColorCoding(user.name) , width: 32, height: 32 , fontSize: "12px" , mr: 1}} variant='rounded'>
+                            {getInitials(user.name)}
+                        </Avatar>
+                    </> :
+                    <>
+                        <Box sx={{
+                            mr: 1
+                        }}>
+                            <Image width={32} height={32} src={user.profilePicture} style={{
+                                borderRadius: 5,
+                            }}/>
+                    </Box>
+                    </>
+                }
                 <Typography variant='div'>
                     <Typography variant='p'
                         sx={{

@@ -124,7 +124,7 @@ const useAuth = (anonymousAuthSessionId) => {
       });
   };
 
-  const handleGoogleLogin = (username, lastName, firstName, setLoginModalOpen, setHelperText) => {
+  const handleGoogleLogin = (username, lastName, firstName, picture, setLoginModalOpen, setHelperText) => {
     const data = JSON.stringify({
       username: username,
       anonymousCartUsername: anonymousAuthSessionId,
@@ -133,6 +133,7 @@ const useAuth = (anonymousAuthSessionId) => {
       userDetails : {
         lastName: lastName,
         firstName: firstName,
+        profilePicture: picture,
       }
     });
     const config = {
@@ -231,6 +232,7 @@ const useAuth = (anonymousAuthSessionId) => {
     handleSignupThroughModal,
     handleLogout,
     handleGoogleLogin, 
+    fetchUserFromToken,
   };
 };
 

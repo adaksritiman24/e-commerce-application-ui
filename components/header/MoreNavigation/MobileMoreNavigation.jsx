@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { SignupModalContext } from '../../../modals/payments/SignupModalProvider';
 import PersonIcon from '@mui/icons-material/Person';
 import { getColorCoding } from '../../common/utils/helpers';
+import Image from 'next/image';
 
 
 
@@ -85,9 +86,23 @@ const MobileSideDrawer = (props)=>{
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <Avatar sx={{ bgcolor: getColorCoding(user.name) , width: 32, height: 32 , fontSize: "16px" , mr: 1}} variant='rounded'>
-                            {getInitials(user.name)}
-                        </Avatar>
+                        {
+                            null == user.profilePicture?
+                            <>
+                                <Avatar sx={{ bgcolor: getColorCoding(user.name) , width: 32, height: 32 , fontSize: "16px" , mr: 1}} variant='rounded'>
+                                    {getInitials(user.name)}
+                                </Avatar>
+                            </> :
+                            <>
+                                <Box sx={{
+                                    mr: 1
+                                }}>
+                                    <Image width={32} height={32} src={user.profilePicture} style={{
+                                        borderRadius: 5,
+                                    }}/>
+                            </Box>
+                            </>
+                        }
                         <Typography variant='h5'>
                              {user.name.split(" ")[0]}
                         </Typography>

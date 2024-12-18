@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { deepPurple, grey } from "@mui/material/colors";
 import React from "react";
@@ -13,6 +13,9 @@ import AuthContext from "../../../auth/AuthContext";
 import Link from "next/link";
 import { DeliverAddressModelProvider } from "../../../modals/DeliveryAddressModalProvider";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useRouter } from "next/router";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import BackHandOutlinedIcon from "@mui/icons-material/BackHandOutlined";
 
 const CartPageBody = () => {
   const { setNumberOfItems } = useContext(CartContext);
@@ -32,6 +35,7 @@ const CartPageBody = () => {
   );
 
   if (cartData.cartEntryList == null || cartData.cartEntryList.length === 0) {
+    const router = useRouter();
     return (
       <Box
         sx={{
@@ -40,21 +44,42 @@ const CartPageBody = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: deepPurple[700],
+          color: "black",
           flexGrow: 1,
         }}
       >
         <Box textAlign="center">
           <Box>
-            <ShoppingCartIcon
+            <BackHandOutlinedIcon
+              sx={{ transform: "rotateY(180deg)", fontSize: "30px" }}
+            />
+            <SentimentDissatisfiedIcon
               sx={{
-                fontSize: "80px",
+                fontSize: "60px",
               }}
             />
+            <BackHandOutlinedIcon sx={{ fontSize: "30px" }} />
+            <hr />
           </Box>
-          <Typography variant="h5" fontWeight="bold">
-            Your cart is empty
-          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+            }}
+          >
+            <Typography variant="h6" fontFamily={"arial"}>
+              Your cart is empty
+            </Typography>
+          </Box>
+          <Button
+            variant="contained"
+            sx={{ mt: 1, borderRadius: 5, textTransform: "none" }}
+            color="warning"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Continue Shopping
+          </Button>
         </Box>
       </Box>
     );
@@ -99,7 +124,7 @@ const CartPageBody = () => {
             background: deepPurple[50],
             borderRadius: 2,
             border: `1px solid ${deepPurple[800]}`,
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <ShoppingCartOutlinedIcon fontSize="32px" sx={{ p: "4px" }} /> Your
@@ -156,7 +181,11 @@ const CartPageBody = () => {
                 >
                   {product.brand}
                 </Typography>
-                <Typography variant="subtitle1" fontSize={"14px"} style={{color : grey[600]}}>
+                <Typography
+                  variant="subtitle1"
+                  fontSize={"14px"}
+                  style={{ color: grey[600] }}
+                >
                   Seller : <strong>{product.seller}</strong>
                 </Typography>
                 <CartProductActions

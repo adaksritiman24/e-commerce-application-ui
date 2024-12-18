@@ -5,10 +5,10 @@ The application is built on NextJS
 - build this app using `npm build`
 - start the app using `npm start`
 
-### Screenshots of the working prototype
-![ec-1](https://github.com/adaksritiman24/e-commerce-application-ui/assets/53531220/e966464b-45f9-4ec0-8195-3d43998d2f1c)
-![Screenshot 2024-03-08 000703](https://github.com/adaksritiman24/e-commerce-application-ui/assets/53531220/0a6169aa-ef85-4e27-a325-4b8469d4f1a8)
-![Screenshot 2024-03-08 000929](https://github.com/adaksritiman24/e-commerce-application-ui/assets/53531220/02025914-959b-48a7-a3a3-b6ad4a1951e8)
-![Screenshot 2024-03-08 001015](https://github.com/adaksritiman24/e-commerce-application-ui/assets/53531220/2e8c040b-d6b3-4e62-8770-f46060df6730)
-![Screenshot 2024-03-08 001108](https://github.com/adaksritiman24/e-commerce-application-ui/assets/53531220/635d846a-8e4f-4398-9c65-1258f8121a83)
-![Screenshot 2024-03-08 001205](https://github.com/adaksritiman24/e-commerce-application-ui/assets/53531220/e0c798c2-1219-4cda-9e4e-c5f0c19e5670)
+### Screenshots of the application
+![scr1](https://github.com/user-attachments/assets/95c06aea-22f9-4619-99f4-149011f88f72)
+![scr2](https://github.com/user-attachments/assets/41ff5ca1-fa2b-43fe-b81c-2561525be096)
+![scr3](https://github.com/user-attachments/assets/f62c6c4c-81d9-46db-a2aa-a2b2cbb5f292)
+![scr4](https://github.com/user-attachments/assets/9cc8743a-83e7-41a7-bc0c-13d2e4d8cf6c)
+![scr5](https://github.com/user-attachments/assets/f7fc9370-5ca8-4a45-8bfc-1ec35ebb7a06)
+![scr6](https://github.com/user-attachments/assets/65486c13-9849-4fd6-bd10-17ee73cdb9c1)

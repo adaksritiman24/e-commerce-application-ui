@@ -108,6 +108,9 @@ const DeliveryAddressModal = ({
   };
 
   const isValidPhoneNumber = (number)=> {
+    if(number === undefined || number === null) {
+      return false;
+    }
     if(number.length === 10) {
       return true;
     }
@@ -117,7 +120,7 @@ const DeliveryAddressModal = ({
   
   const verifyAllFieldValid = ()=> {
     if(deliveryAddress.name == "" || deliveryAddress.house == "" || deliveryAddress.locality == "" || deliveryAddress.city == "" || 
-    deliveryAddress.country == "" || deliveryAddress.pincode == "" || !isValidPhoneNumber(deliveryAddress.phone.toString()) || deliveryAddress.email == "" ) {
+    deliveryAddress.country == "" || deliveryAddress.pincode == "" || !isValidPhoneNumber(deliveryAddress.phone) || deliveryAddress.email == "" ) {
       setIsButtonEnabled(false);
     }
     else {

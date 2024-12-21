@@ -1,46 +1,46 @@
 import {
-    Box,
-    FormControl,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
-    Paper,
-    TextField,
-    keyframes,
-    styled,
-  } from "@mui/material";
-  import { grey } from "@mui/material/colors";
-  import CreditCardIcon from "@mui/icons-material/CreditCard";
-  import React, { useContext, useEffect, useState } from "react";
+  Box,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Paper,
+  TextField,
+  keyframes,
+  styled,
+} from "@mui/material";
+import { grey } from "@mui/material/colors";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import React, { useContext, useEffect, useState } from "react";
 import { PaymentContext } from "../PaymentModalProvider";
 import PaymentFormLoader from "../loaders/PaymentFormLoader";
 import { getFormattedPrice } from "../../../components/common/utils/helpers";
 
 const SubmitPaymentButton = styled("button")({
-    color: grey[200],
-    borderRadius: "8px",
-    fontFamily: "Arial",
-    padding: "14px",
-    fontSize: "20px",
-    border: "none",
-    transition: "0.45s",
-  });
+  color: grey[200],
+  borderRadius: "8px",
+  fontFamily: "Arial",
+  padding: "14px",
+  fontSize: "20px",
+  border: "none",
+  transition: "0.45s",
+});
 
 const BankCardForm = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
-  const {placeOrder, cartTotal} = useContext(PaymentContext);
+  const { placeOrder, cartTotal } = useContext(PaymentContext);
 
-  const handlePaymentSubmit = ()=> {
+  const handlePaymentSubmit = () => {
     const bankCard = {
-      cardNumber : paymentData.bankCardDetails.cardNumber,
-      cvv : paymentData.bankCardDetails.cardCVV,
+      cardNumber: paymentData.bankCardDetails.cardNumber,
+      cvv: paymentData.bankCardDetails.cardCVV,
       expDate: paymentData.bankCardDetails.cardExpiryData,
       name: paymentData.bankCardDetails.cardName,
-    }
+    };
     placeOrder(bankCard);
-  }
+  };
 
   setInterval(() => {
     setIsFormVisible(true);
@@ -61,40 +61,134 @@ const BankCardForm = () => {
   };
 
   const processNumber = (numb, maxlength) => {
-    if(!parseInt(numb)) return "";
+    if (!parseInt(numb)) return "";
     let processedNumber = new String(parseInt(numb));
-    if(processedNumber.length > maxlength) {
-        return processedNumber.slice(0,maxlength);
+    if (processedNumber.length > maxlength) {
+      return processedNumber.slice(0, maxlength);
     }
     return processedNumber;
   };
 
-  const handleFormInput = ({ target }) => {
-    switch (target.name) {
-      case "card":
+  const calculateCardEmptySlots = (element, molecule, wildCardLength) => {
+    return (Math.floor(element / molecule) - 1) * wildCardLength;
+  };
+
+  const handleforDigitPress = (
+    updatedCard,
+    wildCard,
+    totalAllowedLength,
+    clubbingSize
+  ) => {
+    let num = updatedCard.replaceAll(wildCard, ""); //replace the wildcard characters with empty strings
+
+    if (num.length >= totalAllowedLength) {
+      return updatedCard.slice(
+        0,
+        totalAllowedLength +
+          calculateCardEmptySlots(
+            totalAllowedLength,
+            clubbingSize,
+            wildCard.length
+          )
+      );
+    }
+    if (num.length > 0 && num.length % clubbingSize === 0) {
+      return updatedCard + wildCard;
+    }
+    return updatedCard;
+  };
+
+  const isKeyAllowed = (key) => {
+    return (
+      key == "1" ||
+      key == "2" ||
+      key == "3" ||
+      key == "4" ||
+      key == "5" ||
+      key == "6" ||
+      key == "7" ||
+      key == "8" ||
+      key == "9" ||
+      key == "0" ||
+      key === "Backspace"
+    );
+  };
+
+  const handleCustomKeyDownChangeForNumericField = (
+    field,
+    key,
+    totalAllowedLength,
+    clubbingSize,
+    wildCard
+  ) => {
+    if (isKeyAllowed(key)) {
+      let newData = "";
+      let length = 0;
+      let existingNumber = "";
+      if (field === "card") {
+        length = paymentData.bankCardDetails.cardNumber.length;
+        existingNumber = paymentData.bankCardDetails.cardNumber;
+      } else {
+        length = paymentData.bankCardDetails.cardExpiryData.length;
+        existingNumber = paymentData.bankCardDetails.cardExpiryData;
+      }
+
+      if (
+        key == "1" ||
+        key == "2" ||
+        key == "3" ||
+        key == "4" ||
+        key == "5" ||
+        key == "6" ||
+        key == "7" ||
+        key == "8" ||
+        key == "9" ||
+        key == "0"
+      ) {
+        newData = handleforDigitPress(
+          existingNumber + key,
+          wildCard,
+          totalAllowedLength,
+          clubbingSize
+        );
+      }
+
+      if (key === "Backspace") {
+        if (existingNumber.endsWith(wildCard)) {
+          newData = existingNumber.slice(0, length - wildCard.length - 1);
+        } else {
+          newData = existingNumber.slice(0, length - 1);
+        }
+      }
+
+      if (field == "card") {
         setPaymentData({
           ...paymentData,
           bankCardDetails: {
             ...paymentData.bankCardDetails,
-            cardNumber: processNumber(target.value, 16),
+            cardNumber: newData,
           },
         });
-        break;
+      } else {
+        setPaymentData({
+          ...paymentData,
+          bankCardDetails: {
+            ...paymentData.bankCardDetails,
+            cardExpiryData: newData,
+          },
+        });
+      }
+    }
+  };
+
+  const handleFormInput = ({ target }) => {
+    switch (target.name) {
       case "owner":
         setPaymentData({
           ...paymentData,
           bankCardDetails: {
             ...paymentData.bankCardDetails,
             cardName: target.value,
-          },
-        });
-        break;
-      case "exp":
-        setPaymentData({
-          ...paymentData,
-          bankCardDetails: {
-            ...paymentData.bankCardDetails,
-            cardExpiryData: target.value,
           },
         });
         break;
@@ -149,13 +243,26 @@ const BankCardForm = () => {
               }
               value={paymentData.bankCardDetails.cardNumber}
               inputProps={{
-                autoComplete :"cc-number",
-                inputMode : "numeric",
+                autoComplete: "cc-number",
+                inputMode: "numeric",
                 pattern: /[0-9\s]/,
+              }}
+              sx={{
+                input: {
+                  caretColor: "transparent",
+                },
               }}
               label="Card Number"
               name="card"
-              onInput={(inp) => handleFormInput(inp)}
+              onKeyDown={({ key }) =>
+                handleCustomKeyDownChangeForNumericField(
+                  "card",
+                  key,
+                  16,
+                  4,
+                  " "
+                )
+              }
             />
           </FormControl>
           <TextField
@@ -173,8 +280,8 @@ const BankCardForm = () => {
             display: "flex",
             flexDirection: {
               xs: "column",
-              md: "row"
-            }
+              md: "row",
+            },
           }}
         >
           <TextField
@@ -193,7 +300,20 @@ const BankCardForm = () => {
               label="Card Expiry Date"
               name="exp"
               value={paymentData.bankCardDetails.cardExpiryData}
-              onInput={(inp) => handleFormInput(inp)}
+              sx={{
+                input: {
+                  caretColor: "transparent",
+                },
+              }}
+              onKeyDown={({ key }) =>
+                handleCustomKeyDownChangeForNumericField(
+                  "exp",
+                  key,
+                  4,
+                  2,
+                  " / "
+                )
+              }
             />
           </FormControl>
         </Box>
@@ -232,6 +352,5 @@ const BankCardForm = () => {
     );
   } else return <PaymentFormLoader />;
 };
-
 
 export default BankCardForm;

@@ -1,11 +1,12 @@
 import { Box, Button, createTheme, FormControl, Grid, InputLabel, keyframes, Modal, OutlinedInput, Stack, styled, ThemeProvider, Typography } from '@mui/material'
-import { deepPurple, grey, red } from '@mui/material/colors';
+import { deepPurple, red } from '@mui/material/colors';
 import React, { useEffect } from 'react'
 import { useContext } from 'react';
 import { useState } from 'react';
 import AuthContext from '../../../auth/AuthContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleLoginButton from "../../../oauth/login/GoogleLoginButton";
+import { GOOGLE_OAUTH_CLIENT_ID } from '../../constants';
 const style = {
     position: 'absolute',
     top: '40%',
@@ -17,6 +18,8 @@ const style = {
     boxShadow: 24,
     zIndex : 5000,
   };
+
+const sritimanGoogleClientID = GOOGLE_OAUTH_CLIENT_ID;
 
 const HelperText = styled(`div`)({
   fontFamily : "arial",
@@ -168,7 +171,7 @@ const LoginModal =({
           </Grid>
         </form>
         <Typography fontWeight="bold" textAlign={"center"}>OR</Typography>  
-        <GoogleOAuthProvider clientId={process.env.CLIENT_ID | "default-client-id-google"}>
+        <GoogleOAuthProvider clientId={sritimanGoogleClientID}>
           <Box
             margin={3}
             marginTop={1}

@@ -33,9 +33,9 @@ const CartPageBody = () => {
     user?.username,
     anonymousAuthSessionId
   );
-
+  const router = useRouter();
+  
   if (cartData.cartEntryList == null || cartData.cartEntryList.length === 0) {
-    const router = useRouter();
     return (
       <Box
         sx={{

@@ -1,15 +1,18 @@
 import { Box, Tooltip } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { DeliveryAddressContext } from "../../../modals/DeliveryAddressModalProvider";
 
 function ShipToSection({user, isDesktop}) {
-    const { setDeliveryAddressOpen } = useContext(DeliveryAddressContext);
+    const { setDeliveryAddressOpen, setDeliveryAddress } = useContext(DeliveryAddressContext);
 
     const handleDeliveryAddressChange = () => {
       setDeliveryAddressOpen(true);
     };
     
+    useEffect(()=> {
+      setDeliveryAddress(user?.address);
+    },[user]);
 
   return (
     <Tooltip title="Change delivery address" placement="bottom-start">

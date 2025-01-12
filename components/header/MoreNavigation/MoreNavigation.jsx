@@ -9,7 +9,7 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material";
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -26,17 +26,26 @@ import {
   DeliverAddressModelProvider
 } from "../../../modals/DeliveryAddressModalProvider";
 import ShipToSection from "./ShipToSection";
+import useCart from "../../body/hooks/useCart";
 
 const MoreNavigation = ({ setLoginModalOpen }) => {
   const router = useRouter();
   const isDesktop = useMediaQuery("(min-width:1200px)");
 
 
-  const { user, handleLogout } = useContext(AuthContext);
-  const { numberOfItems } = useContext(CartContext);
+  const { user, handleLogout, anonymousAuthSessionId } = useContext(AuthContext);
+  const { numberOfItems, setNumberOfItems } = useContext(CartContext);
   const { setSignupModalOpen } = useContext(SignupModalContext);
 
-  const badgeTheme = createTheme();
+
+  const {
+    addDeliveryAddress
+  } = useCart(
+    setNumberOfItems,
+    user != null,
+    user?.username,
+    anonymousAuthSessionId
+  );
 
   const handleNavigateToCartPage = () => {
     router.push("/cart");
@@ -72,8 +81,8 @@ const MoreNavigation = ({ setLoginModalOpen }) => {
         width: "100%",
       }}
     >
-      <DeliverAddressModelProvider addDeliveryAddress={() => {}}>
-        <ShipToSection user={user} isDesktop={isDesktop} />
+      <DeliverAddressModelProvider addDeliveryAddress={addDeliveryAddress}>
+        <ShipToSection user={user} isDesktop={isDesktop}/>
       </DeliverAddressModelProvider>
 
       <Box

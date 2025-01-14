@@ -1,25 +1,21 @@
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { deepPurple, grey } from "@mui/material/colors";
-import React from "react";
-import useCart from "../hooks/useCart";
+import React, { useEffect } from "react";
 import { getFormattedPrice } from "../../common/utils/helpers";
 import { useContext } from "react";
 import { CartContext } from "../../../cart/CartProvider";
 import CartProductActions from "./CartProductActions";
 import ShhippingAndTotal from "./ShippingAndTotal";
 import CartProductImage from "./CartProductImage";
-import AuthContext from "../../../auth/AuthContext";
 import Link from "next/link";
 import { DeliverAddressModelProvider } from "../../../modals/DeliveryAddressModalProvider";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useRouter } from "next/router";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import BackHandOutlinedIcon from "@mui/icons-material/BackHandOutlined";
+import { update } from "@react-spring/web";
 
 const CartPageBody = () => {
-  const { setNumberOfItems } = useContext(CartContext);
-  const { user, anonymousAuthSessionId } = useContext(AuthContext);
   const {
     cartData,
     increaseCartQuantityBy1,
@@ -27,14 +23,15 @@ const CartPageBody = () => {
     removeFromCart,
     addDeliveryAddress,
     placeOrderUsingBankCard,
-  } = useCart(
-    setNumberOfItems,
-    user != null,
-    user?.username,
-    anonymousAuthSessionId
-  );
+    updateCartPageProducts,
+  } = useContext(CartContext);
+
   const router = useRouter();
   
+  useEffect(()=>{
+    updateCartPageProducts();
+  }, []);
+
   if (cartData.cartEntryList == null || cartData.cartEntryList.length === 0) {
     return (
       <Box

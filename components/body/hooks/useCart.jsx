@@ -249,7 +249,8 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
     decreaseCartQuantityBy1,
     removeFromCart,
     addDeliveryAddress,
-    placeOrderUsingBankCard
+    placeOrderUsingBankCard,
+    updateCartPageProducts,
   })
 }
 

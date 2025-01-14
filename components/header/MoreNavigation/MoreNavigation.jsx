@@ -26,26 +26,16 @@ import {
   DeliverAddressModelProvider
 } from "../../../modals/DeliveryAddressModalProvider";
 import ShipToSection from "./ShipToSection";
-import useCart from "../../body/hooks/useCart";
 
 const MoreNavigation = ({ setLoginModalOpen }) => {
   const router = useRouter();
   const isDesktop = useMediaQuery("(min-width:1200px)");
 
 
-  const { user, handleLogout, anonymousAuthSessionId } = useContext(AuthContext);
-  const { numberOfItems, setNumberOfItems } = useContext(CartContext);
+  const { user, handleLogout } = useContext(AuthContext);
+  const { numberOfItems, addDeliveryAddress, cartData } = useContext(CartContext);
   const { setSignupModalOpen } = useContext(SignupModalContext);
 
-
-  const {
-    addDeliveryAddress
-  } = useCart(
-    setNumberOfItems,
-    user != null,
-    user?.username,
-    anonymousAuthSessionId
-  );
 
   const handleNavigateToCartPage = () => {
     router.push("/cart");
@@ -82,7 +72,7 @@ const MoreNavigation = ({ setLoginModalOpen }) => {
       }}
     >
       <DeliverAddressModelProvider addDeliveryAddress={addDeliveryAddress}>
-        <ShipToSection user={user} isDesktop={isDesktop}/>
+        <ShipToSection user={user} isDesktop={isDesktop} deliveryAddress={cartData.deliveryAddress}/>
       </DeliverAddressModelProvider>
 
       <Box

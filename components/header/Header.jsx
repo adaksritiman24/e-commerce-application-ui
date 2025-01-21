@@ -17,6 +17,7 @@ const Header = () => {
     <Box
       sx={{
         bgcolor: deepPurple[400],
+        boxShadow: "0px -2px 12px 4px gray"
       }}
     >
       <Grid

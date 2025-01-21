@@ -19,6 +19,7 @@ const Footer = () => {
         mt: 1,
         pb: 1,
         color: grey[200],
+        boxShadow: "0px 2px 8px 4px gray",
       }}
     >
       <Box sx={{background: deepPurple[500], py: 1, mb: 1}}></Box>

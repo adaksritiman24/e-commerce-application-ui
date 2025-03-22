@@ -10,7 +10,7 @@ import {
 } from "../../components/constants";
 
 const axiosClient = axios.create({
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     "Content-Type": "application/json",
   },

@@ -1,6 +1,7 @@
 import {
   Box,
   LinearProgress,
+  Pagination,
   Stack,
   TableCell,
   Typography,
@@ -49,8 +50,12 @@ const getProgressBasedOnStatus = (status) => {
 };
 const MyOrdersPageBody = () => {
   const { user } = useContext(AuthContext);
-  const { orders } = useOrder(user?.username);
+  const { orders, requestedPage, totalPages, fetchAllOrders } = useOrder(user?.username);
   const router = useRouter();
+
+  const handlePageChange = async (_, newPage)=> {
+    fetchAllOrders(newPage-1);
+  }
   return (
     <Box
       sx={{
@@ -155,6 +160,14 @@ const MyOrdersPageBody = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Stack spacing={2} sx={{
+        display : "flex",
+        alignItems : "flex-end",
+        m: 1,
+        mt: 2,
+      }}>
+        <Pagination count={totalPages} page={requestedPage+1} onChange={handlePageChange} variant="outlined" shape="rounded" size="small"/>
+      </Stack>
     </Box>
   );
 };

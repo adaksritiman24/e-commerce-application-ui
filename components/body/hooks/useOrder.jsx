@@ -4,11 +4,14 @@ import axiosClient from "../../../oauth/client/axiosClient";
 
 const useOrder = (username) => {
   const [orders, setOrders] = useState([]);
+  const [requestedPage, setRequestedPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
-  const fetchAllOrders = async () => {
+  const fetchAllOrders = async (pageNumber) => {
     if (username != undefined && username != null) {
       const data = JSON.stringify({
         username,
+        pageNumber
       });
       const config = {
         method: "post",
@@ -21,7 +24,9 @@ const useOrder = (username) => {
 
       try {
         var response = await axiosClient(config);
-        setOrders(response.data);
+        setOrders(response.data.orders);
+        setTotalPages(response.data.totalPages);
+        setRequestedPage(pageNumber);
       } catch (exception) {
         console.log("Error in fetching order: ", exception);
       }
@@ -31,11 +36,15 @@ const useOrder = (username) => {
   };
 
   useEffect(() => {
-    fetchAllOrders();
+    fetchAllOrders(requestedPage);
   }, [username]);
 
   return {
     orders,
+    totalPages,
+    requestedPage,
+    setRequestedPage,
+    fetchAllOrders,
   };
 };
 

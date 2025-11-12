@@ -1,30 +1,22 @@
 import {
   Box,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  Divider,
+  CircularProgress,
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   Paper,
   TextField,
-  Tooltip,
-  Typography,
-  keyframes,
   styled,
 } from "@mui/material";
-import { green, grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React, { useContext, useEffect, useState } from "react";
 import { PaymentContext } from "../PaymentModalProvider";
 import PaymentFormLoader from "../loaders/PaymentFormLoader";
-import { getFormattedPrice } from "../../../components/common/utils/helpers";
+import { expansion, getFormattedPrice, handleforDigitPressForCardNumber, isNumericKey, processNumber } from "../../../components/common/utils/helpers";
 import { GiftCardsSelectorModalContext } from "../../GiftCardSelectorModalProvider";
-import CloseIcon from '@mui/icons-material/Close';
+import GiftCardSelection from "./components/GiftCardSelection";
 
 const SubmitPaymentButton = styled("button")({
   color: grey[200],
@@ -41,7 +33,9 @@ const BankCardForm = () => {
   const [disabled, setDisabled] = useState(true);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const { placeOrder, cartTotal } = useContext(PaymentContext);
+  const [amountPayable, setAmountPayable] = useState(cartTotal);
   const { setGiftCardsSelectorModalOpen, selectedGiftCard, setSelectedGiftCard } = useContext(GiftCardsSelectorModalContext);
+  const [paymentButtonLoading, setPaymentButtonLoading] = useState(false);
 
   const handlePaymentSubmit = () => {
     const bankCard = {
@@ -69,44 +63,6 @@ const BankCardForm = () => {
     } else {
       setDisabled(true);
     }
-  };
-
-  const processNumber = (numb, maxlength) => {
-    if (!parseInt(numb)) return "";
-    let processedNumber = new String(parseInt(numb));
-    if (processedNumber.length > maxlength) {
-      return processedNumber.slice(0, maxlength);
-    }
-    return processedNumber;
-  };
-
-  const calculateCardEmptySlots = (element, molecule, wildCardLength) => {
-    return (Math.floor(element / molecule) - 1) * wildCardLength;
-  };
-
-  const handleforDigitPress = (
-    updatedCard,
-    wildCard,
-    totalAllowedLength,
-    clubbingSize
-  ) => {
-    let num = updatedCard.replaceAll(wildCard, ""); //replace the wildcard characters with empty strings
-
-    if (num.length >= totalAllowedLength) {
-      return updatedCard.slice(
-        0,
-        totalAllowedLength +
-        calculateCardEmptySlots(
-          totalAllowedLength,
-          clubbingSize,
-          wildCard.length
-        )
-      );
-    }
-    if (num.length > 0 && num.length % clubbingSize === 0) {
-      return updatedCard + wildCard;
-    }
-    return updatedCard;
   };
 
   const isKeyAllowed = (key) => {
@@ -144,19 +100,8 @@ const BankCardForm = () => {
         existingNumber = paymentData.bankCardDetails.cardExpiryData;
       }
 
-      if (
-        key == "1" ||
-        key == "2" ||
-        key == "3" ||
-        key == "4" ||
-        key == "5" ||
-        key == "6" ||
-        key == "7" ||
-        key == "8" ||
-        key == "9" ||
-        key == "0"
-      ) {
-        newData = handleforDigitPress(
+      if (isNumericKey(key)) {
+        newData = handleforDigitPressForCardNumber(
           existingNumber + key,
           wildCard,
           totalAllowedLength,
@@ -219,68 +164,30 @@ const BankCardForm = () => {
     handlePaymentsButtonEnable();
   }, [paymentData]);
 
-  var expansion = keyframes`
-    0% {
-      opacity: 0;
+  useEffect(() => {
+    setAmountPayable(cartTotal)
+    if (selectedGiftCard != null) {
+      setAmountPayable(amountPayable - selectedGiftCard.amount)
     }
-    100% {
-      opacity: 1;
+    setPaymentButtonLoading(true);
+    setTimeout(() => {
+      setPaymentButtonLoading(false);
+    }, 2000)
+
+    return () => {
+      clearTimeout();
     }
-  `;
+
+  }, [selectedGiftCard])
 
   if (isFormVisible) {
     return (
       <>
-        <Box sx={{
-          mx: 5,
-          my: 3
-        }}>
-          <Typography variant="body2" color="text.secondary">
-            Select a gift card and pay the remaining amount.
-          </Typography>
-          <hr />
-          <Button variant="contained" size="large" color="primary" onClick={() => setGiftCardsSelectorModalOpen(true)}>
-            Select a gift card
-          </Button>
-          {selectedGiftCard != null &&
-            <>
-              <Divider sx={{ mt: 1 }}>
-                <Chip label="Gift Card Applied!" size="small" />
-              </Divider>
-              <Card sx={{
-                backgroundColor: green[50],
-                mt: 1
-              }}>
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Typography
-                      fontWeight="600"
-                      fontSize={20}
-                    >
-                      {getFormattedPrice(selectedGiftCard.amount)}
-                    </Typography>
-                    <Tooltip title="Remove">
-                      <CloseIcon onClick={() => setSelectedGiftCard(null)}
-                        sx={{
-                          cursor: "pointer"
-                        }}
-                      />
-                    </Tooltip>
-                  </Box>
-                  <Typography variant="body2" color="text.secondary">
-                    {selectedGiftCard.title}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </>
-          }
-        </Box>
+        <GiftCardSelection
+          selectedGiftCard={selectedGiftCard}
+          setGiftCardsSelectorModalOpen={setGiftCardsSelectorModalOpen}
+          setSelectedGiftCard={setSelectedGiftCard}
+        />
         <Paper
           elevation={4}
           sx={{
@@ -385,29 +292,32 @@ const BankCardForm = () => {
             }}
           >
             <SubmitPaymentButton
-              disabled={disabled}
+              disabled={disabled || paymentButtonLoading}
               onClick={handlePaymentSubmit}
               sx={
-                disabled
+                (disabled || paymentButtonLoading)
                   ? {
                     mx: 2,
                     mb: 2,
                     cursor: "not-allowed",
-                    background: grey[700],
+                    background: grey[600],
                   }
                   : {
                     mx: 2,
                     mb: 2,
                     cursor: "pointer",
-                    background: "black",
+                    background: grey[900],
+                    transition: "2s",
                     ":hover": {
-                      boxShadow: "1px 1px 10px 1px black",
+                      transform: "scale(1.02)",
+                      background: "black"
                     },
                     transition: "0.45s",
                   }
               }
             >
-              Pay {getFormattedPrice(cartTotal)}
+              {paymentButtonLoading ? <CircularProgress sx={{ color: "white" }} isableShrink size={22} />
+                : <>Pay {getFormattedPrice(amountPayable)}</>}
             </SubmitPaymentButton>
           </Box>
         </Paper>

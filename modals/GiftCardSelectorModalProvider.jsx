@@ -2,49 +2,39 @@ import { Box, Grid, IconButton, Modal, styled, Typography } from "@mui/material"
 import { createContext, useState } from "react"
 import GiftCard from "../components/common/giftcards/GiftCard";
 import CloseIcon from '@mui/icons-material/Close';
-import { deepPurple, grey, purple } from "@mui/material/colors";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { grey } from "@mui/material/colors";
+import { giftCards } from "./GiftCardsModalProvider";
 
 const modalValues = {
-    giftCardsModalOpen: false,
-    setGiftCardsModalOpen: () => { }
+    giftCardSelectorModalOpen: false,
+    setGiftCardsSelectorModalOpen: () => { },
+    selectedGiftCard: null,
+    setSelectedGiftCard: () => { }
 };
 
-export const GiftCardsModalContext = createContext(modalValues);
-export const giftCards = [
-    {
-        id: 1,
-        title: "Happy Birthday",
-        description: "A small gift from my side on your birthday!",
-        amount: 4000,
-        issuer: "Williams"
-    },
-    {
-        id: 2,
-        title: "Happy New Your",
-        description: "may your new year be happy and joyful",
-        amount: 6700,
-        issuer: "Parth"
-    }
-]
+export const GiftCardsSelectorModalContext = createContext(modalValues);
 
-export const GiftCardsModalProvider = ({
-    children
+export const GiftCardsSelectorModalProvider = ({
+    children,
 }) => {
-    const [giftCardsModalOpen, setGiftCardsModalOpen] = useState(false);
+    const [giftCardSelectorModalOpen, setGiftCardsSelectorModalOpen] = useState(false);
+    const [selectedGiftCard, setSelectedGiftCard] = useState(null);
 
-    const giftCardModalContextValues = {
-        giftCardsModalOpen,
-        setGiftCardsModalOpen
+    const giftCardSelectorModalContextValues = {
+        giftCardSelectorModalOpen,
+        setGiftCardsSelectorModalOpen,
+        setSelectedGiftCard,
+        selectedGiftCard
     }
     return (
-        <GiftCardsModalContext.Provider value={giftCardModalContextValues}>
+        <GiftCardsSelectorModalContext.Provider value={giftCardSelectorModalContextValues}>
             {children}
-            <GiftCardsModal
-                giftCardsModalOpen={giftCardsModalOpen}
-                setGiftCardsModalOpen={setGiftCardsModalOpen}
+            <GiftCardSelectorModal
+                giftCardsModalOpen={giftCardSelectorModalOpen}
+                setGiftCardsModalOpen={setGiftCardsSelectorModalOpen}
+                setSelectedGiftCard={setSelectedGiftCard}
             />
-        </GiftCardsModalContext.Provider>
+        </GiftCardsSelectorModalContext.Provider>
     )
 }
 
@@ -61,9 +51,10 @@ const StyledModalBox = styled(Box)({
     boxSizing: "border-box",
 })
 
-const GiftCardsModal = ({
+const GiftCardSelectorModal = ({
     giftCardsModalOpen,
-    setGiftCardsModalOpen
+    setGiftCardsModalOpen,
+    setSelectedGiftCard,
 }) => {
     return (
         <Modal
@@ -87,7 +78,7 @@ const GiftCardsModal = ({
                     sx={{
                         display: "flex",
                         justifyContent: "space-between",
-                        backgroundColor: deepPurple[200],
+                        backgroundColor: grey[400]
                     }}
                 >
                     <Typography
@@ -99,11 +90,7 @@ const GiftCardsModal = ({
                             lineHeight: 3
                         }}
                     >
-
-                        <AutoAwesomeIcon sx={{
-                            mr: 2
-                        }} />
-                        Gift Cards
+                        Select A Gift Card
                     </Typography>
                     <IconButton
                         sx={{
@@ -135,14 +122,19 @@ const GiftCardsModal = ({
                         {giftCards.map((giftCard) => (
                             <Grid item
                                 sx={{
-                                    m: 1.5
+                                    m: 1.5,
+                                    transition: 'transform 0.3s ease',
+                                    ":hover": {
+                                        cursor: "pointer",
+                                        transform: 'scale(1.02)',
+                                    }
                                 }}
                                 key={giftCard.id}
+                                onClick={() => { setSelectedGiftCard(giftCard); setGiftCardsModalOpen(false) }}
                             >
                                 <GiftCard giftcard={giftCard} />
                             </Grid>
                         ))}
-
                     </Grid>
                 </Box>
             </StyledModalBox>

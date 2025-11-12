@@ -2,55 +2,55 @@ import React, { useState } from 'react'
 import PaymentModal from './PaymentModal';
 
 const contextValues = {
-    cartTotal : 0,
-    paymentData : {
-        paymentModes : ['Credit/Debit Card', 'Buzz Giftcard'],
+    cartTotal: 0,
+    paymentData: {
+        paymentModes: ['Credit/Debit Card'],
         bankCardDetails: {
-            cardNumber : "",
+            cardNumber: "",
             cardName: "",
             cardExpiryData: "",
-            cardCVV : "",
+            cardCVV: "",
         },
         giftCardDetails: {
             giftCardName: "",
             giftCardNumber: ""
         },
     },
-    setPaymentData : ()=> {},
+    setPaymentData: () => { },
     paymentModalOpen: false,
-    setPaymentModalOpen: ()=> {},
-    placeOrder: (bankCardDetails)=> {},
+    setPaymentModalOpen: () => { },
+    placeOrder: (bankCardDetails) => { },
 }
 
 export const PaymentContext = React.createContext(contextValues);
 
-const PaymentModalProvider =({children, placeOrderForCart, cartTotal})=> {
+const PaymentModalProvider = ({ children, placeOrderForCart, cartTotal }) => {
 
     const [paymentData, setPaymentData] = useState(contextValues.paymentData);
     const [paymentModalOpen, setPaymentModalOpen] = useState(false)
 
     const paymentContextData = {
-        cartTotal : cartTotal,
+        cartTotal: cartTotal,
         paymentData,
         setPaymentData,
         paymentModalOpen,
         setPaymentModalOpen,
-        placeOrder : placeOrderForCart,
+        placeOrder: placeOrderForCart,
     }
 
-  return (
-    <PaymentContext.Provider value={paymentContextData}>
-        <>
-            {children}
-            <PaymentModal 
-                paymentModalOpen={paymentModalOpen}
-                setPaymentModalOpen={setPaymentModalOpen}
-                paymentData={paymentData}
-                setPaymentData={setPaymentData}
-            />
-        </>
-    </PaymentContext.Provider>
-  )
+    return (
+        <PaymentContext.Provider value={paymentContextData}>
+            <>
+                {children}
+                <PaymentModal
+                    paymentModalOpen={paymentModalOpen}
+                    setPaymentModalOpen={setPaymentModalOpen}
+                    paymentData={paymentData}
+                    setPaymentData={setPaymentData}
+                />
+            </>
+        </PaymentContext.Provider>
+    )
 }
 
 export default PaymentModalProvider

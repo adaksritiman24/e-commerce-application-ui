@@ -1,7 +1,8 @@
-import { Paper, Typography } from "@mui/material";
-import { useState } from "react";
+import { Button, Paper, Typography } from "@mui/material";
+import { useContext, useState } from "react";
 import PaymentFormLoader from "../loaders/PaymentFormLoader";
 import { grey } from "@mui/material/colors";
+import { GiftCardsSelectorModalContext } from "../../GiftCardSelectorModalProvider";
 
 const GiftCardForm = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -21,8 +22,7 @@ const GiftCardForm = () => {
         color: grey[700]
       }}
     >
-      <Typography variant="h6" fontWeight={600}>Coming Soon!</Typography>
-      <Typography variant="subtitle1">We are sorry for the inconvenience.</Typography>
+      Nothing
     </Paper>;
   } else return <PaymentFormLoader />;
 };

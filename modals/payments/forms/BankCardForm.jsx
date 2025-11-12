@@ -1,20 +1,30 @@
 import {
   Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Divider,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   Paper,
   TextField,
+  Tooltip,
+  Typography,
   keyframes,
   styled,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { green, grey } from "@mui/material/colors";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React, { useContext, useEffect, useState } from "react";
 import { PaymentContext } from "../PaymentModalProvider";
 import PaymentFormLoader from "../loaders/PaymentFormLoader";
 import { getFormattedPrice } from "../../../components/common/utils/helpers";
+import { GiftCardsSelectorModalContext } from "../../GiftCardSelectorModalProvider";
+import CloseIcon from '@mui/icons-material/Close';
 
 const SubmitPaymentButton = styled("button")({
   color: grey[200],
@@ -31,6 +41,7 @@ const BankCardForm = () => {
   const [disabled, setDisabled] = useState(true);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const { placeOrder, cartTotal } = useContext(PaymentContext);
+  const { setGiftCardsSelectorModalOpen, selectedGiftCard, setSelectedGiftCard } = useContext(GiftCardsSelectorModalContext);
 
   const handlePaymentSubmit = () => {
     const bankCard = {
@@ -85,11 +96,11 @@ const BankCardForm = () => {
       return updatedCard.slice(
         0,
         totalAllowedLength +
-          calculateCardEmptySlots(
-            totalAllowedLength,
-            clubbingSize,
-            wildCard.length
-          )
+        calculateCardEmptySlots(
+          totalAllowedLength,
+          clubbingSize,
+          wildCard.length
+        )
       );
     }
     if (num.length > 0 && num.length % clubbingSize === 0) {
@@ -219,121 +230,172 @@ const BankCardForm = () => {
 
   if (isFormVisible) {
     return (
-      <Paper
-        elevation={4}
-        sx={{
-          m: 2,
-          animation: `${expansion} 400ms ease-out`,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-          }}
-        >
-          <FormControl sx={{ m: 2, flex: 6 }}>
-            <InputLabel>Card Number</InputLabel>
-            <OutlinedInput
-              placeholder="XXXX XXXX XXXX XXXX"
-              id="card-no-buzz"
-              startAdornment={
-                <InputAdornment position="start">
-                  <CreditCardIcon />
-                </InputAdornment>
-              }
-              value={paymentData.bankCardDetails.cardNumber}
-              inputProps={{
-                autoComplete: "cc-number",
-                inputMode: "numeric",
-                pattern: /[0-9\s]/,
-              }}
-              sx={{
-                input: {
-                  caretColor: "transparent",
-                },
-              }}
-              label="Card Number"
-              name="card"
-              onKeyDown={({ key }) =>
-                handleCustomKeyDownChangeForNumericField(
-                  "card",
-                  key,
-                  16,
-                  4,
-                  " "
-                )
-              }
-            />
-          </FormControl>
-          <TextField
-            sx={{ m: 2, ml: 0, flex: 2 }}
-            label="CVV"
-            id="cvv-buzz"
-            name="cvv"
-            value={paymentData.bankCardDetails.cardCVV}
-            inputProps={{ type: "password" }}
-            onInput={(inp) => handleFormInput(inp)}
-          />
+      <>
+        <Box sx={{
+          mx: 5,
+          my: 3
+        }}>
+          <Typography variant="body2" color="text.secondary">
+            Select a gift card and pay the remaining amount.
+          </Typography>
+          <hr />
+          <Button variant="contained" size="large" color="primary" onClick={() => setGiftCardsSelectorModalOpen(true)}>
+            Select a gift card
+          </Button>
+          {selectedGiftCard != null &&
+            <>
+              <Divider sx={{ mt: 1 }}>
+                <Chip label="Gift Card Applied!" size="small" />
+              </Divider>
+              <Card sx={{
+                backgroundColor: green[50],
+                mt: 1
+              }}>
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Typography
+                      fontWeight="600"
+                      fontSize={20}
+                    >
+                      {getFormattedPrice(selectedGiftCard.amount)}
+                    </Typography>
+                    <Tooltip title="Remove">
+                      <CloseIcon onClick={() => setSelectedGiftCard(null)}
+                        sx={{
+                          cursor: "pointer"
+                        }}
+                      />
+                    </Tooltip>
+                  </Box>
+                  <Typography variant="body2" color="text.secondary">
+                    {selectedGiftCard.title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </>
+          }
         </Box>
-        <Box
+        <Paper
+          elevation={4}
           sx={{
-            display: "flex",
-            flexDirection: {
-              xs: "column",
-              md: "row",
-            },
+            m: 2,
+            animation: `${expansion} 400ms ease-out`,
           }}
         >
-          <TextField
-            sx={{ m: 2, mt: 0, flex: 3 }}
-            label="Card Holder's Name"
-            id="card-holder-buzz"
-            name="owner"
-            value={paymentData.bankCardDetails.cardName}
-            onInput={(inp) => handleFormInput(inp)}
-          />
-          <FormControl sx={{ m: 2, mt: 0, flex: 2 }}>
-            <InputLabel>Card Expiry Date</InputLabel>
-            <OutlinedInput
-              placeholder="MM/YY"
-              id="card-exp"
-              label="Card Expiry Date"
-              name="exp"
-              value={paymentData.bankCardDetails.cardExpiryData}
-              sx={{
-                input: {
-                  caretColor: "transparent",
-                },
-              }}
-              onKeyDown={({ key }) =>
-                handleCustomKeyDownChangeForNumericField(
-                  "exp",
-                  key,
-                  4,
-                  2,
-                  " / "
-                )
-              }
+          <Box
+            sx={{
+              display: "flex",
+            }}
+          >
+            <FormControl sx={{ m: 2, flex: 6 }}>
+              <InputLabel>Card Number</InputLabel>
+              <OutlinedInput
+                placeholder="XXXX XXXX XXXX XXXX"
+                id="card-no-buzz"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <CreditCardIcon />
+                  </InputAdornment>
+                }
+                value={paymentData.bankCardDetails.cardNumber}
+                inputProps={{
+                  autoComplete: "cc-number",
+                  inputMode: "numeric",
+                  pattern: /[0-9\s]/,
+                }}
+                sx={{
+                  input: {
+                    caretColor: "transparent",
+                  },
+                }}
+                label="Card Number"
+                name="card"
+                onKeyDown={({ key }) =>
+                  handleCustomKeyDownChangeForNumericField(
+                    "card",
+                    key,
+                    16,
+                    4,
+                    " "
+                  )
+                }
+              />
+            </FormControl>
+            <TextField
+              sx={{ m: 2, ml: 0, flex: 2 }}
+              label="CVV"
+              id="cvv-buzz"
+              name="cvv"
+              value={paymentData.bankCardDetails.cardCVV}
+              inputProps={{ type: "password" }}
+              onInput={(inp) => handleFormInput(inp)}
             />
-          </FormControl>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-          }}
-        >
-          <SubmitPaymentButton
-            disabled={disabled}
-            onClick={handlePaymentSubmit}
-            sx={
-              disabled
-                ? {
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                md: "row",
+              },
+            }}
+          >
+            <TextField
+              sx={{ m: 2, mt: 0, flex: 3 }}
+              label="Card Holder's Name"
+              id="card-holder-buzz"
+              name="owner"
+              value={paymentData.bankCardDetails.cardName}
+              onInput={(inp) => handleFormInput(inp)}
+            />
+            <FormControl sx={{ m: 2, mt: 0, flex: 2 }}>
+              <InputLabel>Card Expiry Date</InputLabel>
+              <OutlinedInput
+                placeholder="MM/YY"
+                id="card-exp"
+                label="Card Expiry Date"
+                name="exp"
+                value={paymentData.bankCardDetails.cardExpiryData}
+                sx={{
+                  input: {
+                    caretColor: "transparent",
+                  },
+                }}
+                onKeyDown={({ key }) =>
+                  handleCustomKeyDownChangeForNumericField(
+                    "exp",
+                    key,
+                    4,
+                    2,
+                    " / "
+                  )
+                }
+              />
+            </FormControl>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+            }}
+          >
+            <SubmitPaymentButton
+              disabled={disabled}
+              onClick={handlePaymentSubmit}
+              sx={
+                disabled
+                  ? {
                     mx: 2,
                     mb: 2,
                     cursor: "not-allowed",
                     background: grey[700],
                   }
-                : {
+                  : {
                     mx: 2,
                     mb: 2,
                     cursor: "pointer",
@@ -343,12 +405,13 @@ const BankCardForm = () => {
                     },
                     transition: "0.45s",
                   }
-            }
-          >
-            Pay {getFormattedPrice(cartTotal)}
-          </SubmitPaymentButton>
-        </Box>
-      </Paper>
+              }
+            >
+              Pay {getFormattedPrice(cartTotal)}
+            </SubmitPaymentButton>
+          </Box>
+        </Paper>
+      </>
     );
   } else return <PaymentFormLoader />;
 };

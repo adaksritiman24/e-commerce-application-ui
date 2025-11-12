@@ -2,22 +2,48 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { getFormattedPrice } from '../utils/helpers';
+import { Box, Divider } from '@mui/material';
+import { green, red } from '@mui/material/colors';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
-const GiftCard =()=> {
+const GiftCard =({
+  giftcard
+})=> {
   return (
     <Card sx={{
-        margin: 1.5
-    }}>
+        backgroundColor: green[50]
+    }} elevation={3}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Happy Birthday
+        <Box
+          sx={{
+              display: "flex",
+              justifyContent: "space-between",
+          }}
+        >
+          <Typography gutterBottom variant="h5" component="div" fontWeight={500}>
+            {giftcard.title}
+          </Typography>
+          <CardGiftcardIcon fontSize='large' sx={{
+            color: red[200]
+          }}/>
+        </Box>
+        <Typography sx={{ mb: 1.5 }}>
+            {getFormattedPrice(giftcard.amount)}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Rs: 4000
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This is a small present from my side.
-        </Typography>
+        <Divider />
+        <Box
+          sx={{
+            mt: 1
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            {giftcard.description}
+          </Typography>
+          <Typography variant='body1' color="text.secondary" textAlign="end">
+            - {giftcard.issuer}
+          </Typography>
+        </Box>
       </CardContent>
     </Card>
   );

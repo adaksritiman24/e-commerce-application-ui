@@ -15,9 +15,15 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React, { useState } from "react";
 import BankCardForm from "./forms/BankCardForm";
 import GiftCardForm from "./forms/GiftCardForm";
+import { GiftCardsSelectorModalProvider } from "../GiftCardSelectorModalProvider";
 const style = {
   position: "absolute",
-  top: "40%",
+  top: {
+    xl: "40%",
+    md: "40%",
+    sm: "50%",
+    xs: "50%"
+  },
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
@@ -53,16 +59,6 @@ const PaymentMethods = ({ paymentModes }) => {
         }}
       >
         <FormControl>
-          <Box
-            sx={{
-              fontSize: "16px",
-              fontFamily: "arial",
-              mt: 1,
-              mb: 1,
-            }}
-          >
-            Select Payment Type:
-          </Box>
           <RadioGroup
             aria-labelledby="paymentMethods-radioButtons"
             defaultValue={paymentModes[0]}
@@ -79,22 +75,20 @@ const PaymentMethods = ({ paymentModes }) => {
                 </div>
               }
             />
-            <FormControlLabel
-              sx={paymentFormStyles}
-              value={paymentModes[1]}
-              control={<Radio />}
-              label={
-                <div style={{ display: "flex" }}>
-                  <CardGiftcardIcon />
-                  {paymentModes[1]}
-                </div>
-              }
-            />
           </RadioGroup>
         </FormControl>
       </Box>
-      {selectedPaymentMode === "Credit/Debit Card" && <BankCardForm/>}
-      {selectedPaymentMode === "Buzz Giftcard" && <GiftCardForm />}
+      {selectedPaymentMode === "Credit/Debit Card" &&
+        <GiftCardsSelectorModalProvider>
+          <BankCardForm />
+        </GiftCardsSelectorModalProvider>
+      }
+
+      {selectedPaymentMode === "Buzz Giftcard" &&
+        <GiftCardsSelectorModalProvider>
+          <GiftCardForm />
+        </GiftCardsSelectorModalProvider>
+      }
     </>
   );
 };
@@ -158,7 +152,7 @@ const PaymentModal = ({
           >
             Add Payment Details
           </Paper>
-          <PaymentMethods paymentModes={paymentData.paymentModes}/>
+          <PaymentMethods paymentModes={paymentData.paymentModes} />
         </Typography>
       </Box>
     </Modal>

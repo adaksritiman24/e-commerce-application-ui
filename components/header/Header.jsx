@@ -5,9 +5,9 @@ import { useContext } from "react";
 import { LoginContext } from "../../modals/LoginModalProvider";
 import Logo from "../common/Logo";
 import CategoriesSection from "./CategoriesSection";
-import MobileMoreNavigation from "./MoreNavigation/MobileMoreNavigation";
-import MoreNavigation from "./MoreNavigation/MoreNavigation";
 import SearchBox from "./SearchBox";
+import MoreNavigation from "./MoreNavigation/desktop/MoreNavigation";
+import MobileMoreNavigation from "./MoreNavigation/mobile/MobileMoreNavigation";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:900px)");

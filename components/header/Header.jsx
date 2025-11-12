@@ -8,11 +8,12 @@ import CategoriesSection from "./CategoriesSection";
 import SearchBox from "./SearchBox";
 import MoreNavigation from "./MoreNavigation/desktop/MoreNavigation";
 import MobileMoreNavigation from "./MoreNavigation/mobile/MobileMoreNavigation";
+import { GiftCardsModalProvider } from "../../modals/GiftCardsModalProvider";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:900px)");
-  const {loginModalOpen, setLoginModalOpen} = useContext(LoginContext);
-  
+  const { setLoginModalOpen } = useContext(LoginContext);
+
   return (
     <Box
       sx={{
@@ -27,7 +28,7 @@ const Header = () => {
         }}
       >
         {isDesktop && (
-          <Grid item md={2} xs={0} sx={{ display: "flex", pl:2 }}>
+          <Grid item md={2} xs={0} sx={{ display: "flex", pl: 2 }}>
             <Logo variant={"h4"} />
           </Grid>
         )}
@@ -44,11 +45,13 @@ const Header = () => {
           <SearchBox />
         </Grid>
         <Grid item md={6} xs={2} sx={{ display: "flex" }}>
-          {isDesktop ? (
-            <MoreNavigation setLoginModalOpen={setLoginModalOpen} />
-          ) : (
-            <MobileMoreNavigation setLoginModalOpen={setLoginModalOpen}/>
-          )}
+          <GiftCardsModalProvider>
+            {isDesktop ? (
+              <MoreNavigation setLoginModalOpen={setLoginModalOpen} />
+            ) : (
+              <MobileMoreNavigation setLoginModalOpen={setLoginModalOpen} />
+            )}
+          </GiftCardsModalProvider>
         </Grid>
       </Grid>
       <CategoriesSection />

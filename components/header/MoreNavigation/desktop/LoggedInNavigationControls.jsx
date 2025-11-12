@@ -11,6 +11,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { grey } from "@mui/material/colors";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { getColorCoding } from "../../../common/utils/helpers";
 import Image from "next/image";
 import {
@@ -24,6 +25,7 @@ const LoggedInNavigationControls = ({
     handleLogout,
     handleNavigateToCartPage,
     handleNavigateToOrdersPage,
+    setGiftCardsModalOpen,
     numberOfItems,
     getInitials,
     addDeliveryAddress,
@@ -125,6 +127,18 @@ const LoggedInNavigationControls = ({
                         <Badge badgeContent={numberOfItems} showZero color="error">
                             <ShoppingCartIcon />
                         </Badge>
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Gift Cards">
+                    <IconButton
+                        sx={{
+                            ml: 1,
+                            color: grey[900],
+                        }}
+                        onClick={() => setGiftCardsModalOpen(true)}
+                    >
+                        <AutoAwesomeIcon />
                     </IconButton>
                 </Tooltip>
 

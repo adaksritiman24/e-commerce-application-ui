@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { SignupModalContext } from "../../../../modals/payments/SignupModalProvider";
 import LoggedInNavigationControls from "./LoggedInNavigationControls";
 import GuestNavigationControls from "./GuestNavigationControls";
+import { GiftCardsModalContext } from "../../../../modals/GiftCardsModalProvider";
 
 const MoreNavigation = ({ setLoginModalOpen }) => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const MoreNavigation = ({ setLoginModalOpen }) => {
   const { user, handleLogout } = useContext(AuthContext);
   const { numberOfItems, addDeliveryAddress, cartData } = useContext(CartContext);
   const { setSignupModalOpen } = useContext(SignupModalContext);
+  const { setGiftCardsModalOpen } = useContext(GiftCardsModalContext);
 
 
   const handleNavigateToCartPage = () => {
@@ -46,6 +48,7 @@ const MoreNavigation = ({ setLoginModalOpen }) => {
       numberOfItems={numberOfItems}
       getInitials={getInitials}
       addDeliveryAddress={addDeliveryAddress}
+      setGiftCardsModalOpen={setGiftCardsModalOpen}
       cartData={cartData}
       user={user}
     />

@@ -1,5 +1,5 @@
 import { Avatar, Badge, Box, Button, Stack, Tooltip, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import { deepPurple, grey } from '@mui/material/colors';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -7,7 +7,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Close } from '@mui/icons-material';
 import { getColorCoding } from '../../../common/utils/helpers';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import Image from 'next/image';
+import { GiftCardsModalContext } from '../../../../modals/GiftCardsModalProvider';
 
 
 const LoggedInMobileNavControls = ({
@@ -19,6 +21,7 @@ const LoggedInMobileNavControls = ({
     numberOfItemsInCart,
     setDrawerOpen,
 }) => {
+    const { setGiftCardsModalOpen } = useContext(GiftCardsModalContext);
     return (
         <>
             <Stack padding={2} color={grey[200]} borderBottom="1px solid black" bgcolor={deepPurple[800]} >
@@ -130,6 +133,21 @@ const LoggedInMobileNavControls = ({
                         </Badge>
                         <Typography variant='p'>
                             Your Cart
+                        </Typography>
+                    </Button>
+                </Tooltip>
+
+                <Tooltip title="Gift Cards">
+                    <Button
+                        sx={{
+                            ml: 1,
+                            color: grey[900]
+                        }}
+                        onClick={() => setGiftCardsModalOpen(true)}
+                    >
+                        <AutoAwesomeIcon />
+                        <Typography variant='p'>
+                            Gift Cards
                         </Typography>
                     </Button>
                 </Tooltip>

@@ -17,16 +17,9 @@ import BankCardForm from "./forms/BankCardForm";
 import GiftCardForm from "./forms/GiftCardForm";
 import { GiftCardsSelectorModalProvider } from "../GiftCardSelectorModalProvider";
 const style = {
-  position: "absolute",
-  top: {
-    xl: "40%",
-    md: "40%",
-    sm: "50%",
-    xs: "50%"
-  },
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
+  height: "fit-content",
+  marginTop : "30px",
+  marginBottom : "30px",
   bgcolor: "background.paper",
   borderRadius: "6px",
   boxShadow: 24,
@@ -119,6 +112,9 @@ const PaymentModal = ({
           textTransform: "none",
           width: "100%",
         },
+        display: "flex",
+        justifyContent: "center",
+        overflowY: "scroll"
       }}
     >
       <Box
@@ -128,9 +124,8 @@ const PaymentModal = ({
           width: {
             lg: "500px",
             sm: "500px",
-            xs: "320px",
+            xs: "94%",
           },
-          boxSizing: "border-box",
           overflow: "hidden",
         }}
       >

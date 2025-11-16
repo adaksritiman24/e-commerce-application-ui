@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Grid,
   IconButton,
   Modal,
@@ -13,6 +14,8 @@ import { deepPurple, grey } from "@mui/material/colors";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import AuthContext from "../auth/AuthContext";
 import useGiftCard from "../components/body/hooks/useGiftCard";
+import AddGiftCardModal from "./AddGiftCardModal";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const modalValues = {
   giftCardsModalOpen: false,
@@ -58,6 +61,8 @@ const StyledModalBox = styled(Box)({
 
 const GiftCardsModal = ({ giftCardsModalOpen, setGiftCardsModalOpen }) => {
   const { giftCards } = useContext(GiftCardsModalContext);
+  const [addGiftCardModalOpen, setAddGiftCardModalOpen] = useState(false);
+
   return (
     <Modal
       open={giftCardsModalOpen}
@@ -75,6 +80,10 @@ const GiftCardsModal = ({ giftCardsModalOpen, setGiftCardsModalOpen }) => {
           overflow: "hidden",
         }}
       >
+        <AddGiftCardModal
+          addGiftCardModalOpen={addGiftCardModalOpen}
+          setAddGiftCardModalOpen={setAddGiftCardModalOpen}
+        />
         <Box
           sx={{
             display: "flex",
@@ -82,13 +91,14 @@ const GiftCardsModal = ({ giftCardsModalOpen, setGiftCardsModalOpen }) => {
             backgroundColor: deepPurple[200],
           }}
         >
-          <Typography
+          <Box
             id="gift-cards-modal-title"
             fontWeight="600"
             fontSize={20}
             ml={2}
             sx={{
-              lineHeight: 3,
+              display: "flex",
+              alignItems: "center",
             }}
           >
             <AutoAwesomeIcon
@@ -96,8 +106,21 @@ const GiftCardsModal = ({ giftCardsModalOpen, setGiftCardsModalOpen }) => {
                 mr: 2,
               }}
             />
-            Gift Cards
-          </Typography>
+            <Typography
+              sx={{
+                lineHeight: 3,
+                mr: 2,
+              }}
+            >
+              Gift Cards
+            </Typography>
+            <Button
+              variant="contained"
+              onClick={() => setAddGiftCardModalOpen(true)}
+            >
+              <AddCircleOutlineIcon />
+            </Button>
+          </Box>
           <IconButton
             sx={{
               color: grey[900],
@@ -117,6 +140,10 @@ const GiftCardsModal = ({ giftCardsModalOpen, setGiftCardsModalOpen }) => {
               xs: "50vh",
             },
             overflowY: "scroll",
+            scrollbarWidth: 0,
+            "::-webkit-scrollbar": {
+              display: "none",
+            },
           }}
         >
           <Grid

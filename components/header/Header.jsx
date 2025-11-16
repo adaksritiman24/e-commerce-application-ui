@@ -8,7 +8,6 @@ import CategoriesSection from "./CategoriesSection";
 import SearchBox from "./SearchBox";
 import MoreNavigation from "./MoreNavigation/desktop/MoreNavigation";
 import MobileMoreNavigation from "./MoreNavigation/mobile/MobileMoreNavigation";
-import { GiftCardsModalProvider } from "../../modals/GiftCardsModalProvider";
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width:900px)");
@@ -18,7 +17,7 @@ const Header = () => {
     <Box
       sx={{
         bgcolor: deepPurple[400],
-        boxShadow: "0px -2px 12px 4px gray"
+        boxShadow: "0px -2px 12px 4px gray",
       }}
     >
       <Grid
@@ -45,13 +44,11 @@ const Header = () => {
           <SearchBox />
         </Grid>
         <Grid item md={6} xs={2} sx={{ display: "flex" }}>
-          <GiftCardsModalProvider>
-            {isDesktop ? (
-              <MoreNavigation setLoginModalOpen={setLoginModalOpen} />
-            ) : (
-              <MobileMoreNavigation setLoginModalOpen={setLoginModalOpen} />
-            )}
-          </GiftCardsModalProvider>
+          {isDesktop ? (
+            <MoreNavigation setLoginModalOpen={setLoginModalOpen} />
+          ) : (
+            <MobileMoreNavigation setLoginModalOpen={setLoginModalOpen} />
+          )}
         </Grid>
       </Grid>
       <CategoriesSection />

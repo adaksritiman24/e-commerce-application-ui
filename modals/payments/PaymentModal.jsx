@@ -10,12 +10,12 @@ import {
   keyframes,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import BankCardForm from "./forms/BankCardForm";
 import GiftCardForm from "./forms/GiftCardForm";
 import { GiftCardsSelectorModalProvider } from "../GiftCardSelectorModalProvider";
+import AuthContext from "../../auth/AuthContext";
 const style = {
   height: "fit-content",
   marginTop : "30px",
@@ -40,7 +40,6 @@ const PaymentMethods = ({ paymentModes }) => {
   const [selectedPaymentMode, setSelectedPaymentMode] = useState(
     paymentModes[0]
   );
-
   const handlePaymentModeChange = ({ target }) => {
     setSelectedPaymentMode(target.value);
   };
@@ -72,19 +71,28 @@ const PaymentMethods = ({ paymentModes }) => {
         </FormControl>
       </Box>
       {selectedPaymentMode === "Credit/Debit Card" &&
-        <GiftCardsSelectorModalProvider>
-          <BankCardForm />
-        </GiftCardsSelectorModalProvider>
-      }
-
-      {selectedPaymentMode === "Buzz Giftcard" &&
-        <GiftCardsSelectorModalProvider>
-          <GiftCardForm />
-        </GiftCardsSelectorModalProvider>
+        <AuthenticatedForm>
+          <BankCardForm/>
+        </AuthenticatedForm>
       }
     </>
   );
 };
+
+const AuthenticatedForm = ({
+  children
+}) => {
+  const {user} = useContext(AuthContext);
+  if(user == null) 
+    return <>
+      {children}
+    </>
+  return <>
+    <GiftCardsSelectorModalProvider>
+      {children}
+    </GiftCardsSelectorModalProvider>
+  </>
+}
 
 const PaymentModal = ({
   paymentModalOpen,

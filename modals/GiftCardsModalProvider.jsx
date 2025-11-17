@@ -21,6 +21,7 @@ const modalValues = {
   giftCardsModalOpen: false,
   setGiftCardsModalOpen: () => {},
   giftCards: [],
+  redeemGiftCard: (giftCardId) => {},
 };
 
 export const GiftCardsModalContext = createContext(modalValues);
@@ -28,12 +29,13 @@ export const GiftCardsModalContext = createContext(modalValues);
 export const GiftCardsModalProvider = ({ children }) => {
   const [giftCardsModalOpen, setGiftCardsModalOpen] = useState(false);
   const { user } = useContext(AuthContext);
-  const { giftCards } = useGiftCard(user?.username);
+  const { giftCards, redeemGiftCard } = useGiftCard(user?.username);
 
   const giftCardModalContextValues = {
     giftCardsModalOpen,
     setGiftCardsModalOpen,
     giftCards,
+    redeemGiftCard,
   };
   return (
     <GiftCardsModalContext.Provider value={giftCardModalContextValues}>
@@ -72,9 +74,9 @@ const GiftCardsModal = ({ giftCardsModalOpen, setGiftCardsModalOpen }) => {
       <StyledModalBox
         sx={{
           width: {
-            lg: "400px",
-            sm: "400px",
-            xs: "340px",
+            lg: "370px",
+            sm: "370px",
+            xs: "280px",
           },
           borderRadius: 3,
           overflow: "hidden",

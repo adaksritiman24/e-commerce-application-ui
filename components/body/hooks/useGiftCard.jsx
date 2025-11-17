@@ -22,12 +22,43 @@ const useGiftCard = (username) => {
       });
   };
 
+  const redeemGiftCard = (
+    giftCardId,
+    setErrorMessage,
+    setSuccess,
+    setShowProgressBar
+  ) => {
+    const config = {
+      method: "POST",
+      url: `${SPRING_BOOT_BASE_URL}/gift-cards/redeem`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        username: username,
+        giftCardId: giftCardId,
+      },
+    };
+    axiosClient(config)
+      .then((response) => {
+        setSuccess(true);
+        getGiftCards();
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data?.message);
+      })
+      .finally(() => {
+        setShowProgressBar(false);
+      });
+  };
+
   useEffect(() => {
     getGiftCards();
   }, [username]);
 
   return {
     giftCards,
+    redeemGiftCard,
   };
 };
 

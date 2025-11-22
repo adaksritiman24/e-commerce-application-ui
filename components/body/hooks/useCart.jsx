@@ -232,7 +232,7 @@ const useCart =(setNumberOfCartItems, isRegisteredUser, username, anonymousAuthS
         return {status: true, orderId: response.data.orderId};
       }
       catch(e) {
-        console.log("Unable to place order: ", e.response.data);
+        console.log("Unable to place order: ", e.response?.data);
         return {status: false};
       }
     }

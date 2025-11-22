@@ -14,7 +14,13 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React, { useContext, useEffect, useState } from "react";
 import { PaymentContext } from "../PaymentModalProvider";
 import PaymentFormLoader from "../loaders/PaymentFormLoader";
-import { expansion, getFormattedPrice, handleforDigitPressForCardNumber, isNumericKey, processNumber } from "../../../components/common/utils/helpers";
+import {
+  expansion,
+  getFormattedPrice,
+  handleforDigitPressForCardNumber,
+  isNumericKey,
+  processNumber,
+} from "../../../components/common/utils/helpers";
 import { GiftCardsSelectorModalContext } from "../../GiftCardSelectorModalProvider";
 import GiftCardSelection from "./components/GiftCardSelection";
 
@@ -34,7 +40,11 @@ const BankCardForm = () => {
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const { placeOrder, cartTotal } = useContext(PaymentContext);
   const [amountPayable, setAmountPayable] = useState(cartTotal);
-  const { setGiftCardsSelectorModalOpen, selectedGiftCard, setSelectedGiftCard } = useContext(GiftCardsSelectorModalContext);
+  const {
+    setGiftCardsSelectorModalOpen,
+    selectedGiftCard,
+    setSelectedGiftCard,
+  } = useContext(GiftCardsSelectorModalContext);
   const [paymentButtonLoading, setPaymentButtonLoading] = useState(false);
 
   const handlePaymentSubmit = () => {
@@ -44,7 +54,14 @@ const BankCardForm = () => {
       expDate: paymentData.bankCardDetails.cardExpiryData,
       name: paymentData.bankCardDetails.cardName,
     };
-    placeOrder(bankCard);
+    if (selectedGiftCard == null) {
+      placeOrder(bankCard);
+    } else {
+      placeOrder(bankCard, true, {
+        giftCardId: selectedGiftCard.id,
+        amount: selectedGiftCard.amount,
+      });
+    }
   };
 
   setInterval(() => {
@@ -165,20 +182,19 @@ const BankCardForm = () => {
   }, [paymentData]);
 
   useEffect(() => {
-    setAmountPayable(cartTotal)
+    setAmountPayable(cartTotal);
     if (selectedGiftCard != null) {
-      setAmountPayable(amountPayable - selectedGiftCard.amount)
+      setAmountPayable(amountPayable - selectedGiftCard.amount);
     }
     setPaymentButtonLoading(true);
     setTimeout(() => {
       setPaymentButtonLoading(false);
-    }, 2000)
+    }, 2000);
 
     return () => {
       clearTimeout();
-    }
-
-  }, [selectedGiftCard])
+    };
+  }, [selectedGiftCard]);
 
   if (isFormVisible) {
     return (
@@ -295,29 +311,36 @@ const BankCardForm = () => {
               disabled={disabled || paymentButtonLoading}
               onClick={handlePaymentSubmit}
               sx={
-                (disabled || paymentButtonLoading)
+                disabled || paymentButtonLoading
                   ? {
-                    mx: 2,
-                    mb: 2,
-                    cursor: "not-allowed",
-                    background: grey[600],
-                  }
+                      mx: 2,
+                      mb: 2,
+                      cursor: "not-allowed",
+                      background: grey[600],
+                    }
                   : {
-                    mx: 2,
-                    mb: 2,
-                    cursor: "pointer",
-                    background: grey[900],
-                    transition: "2s",
-                    ":hover": {
-                      transform: "scale(1.02)",
-                      background: "black"
-                    },
-                    transition: "0.45s",
-                  }
+                      mx: 2,
+                      mb: 2,
+                      cursor: "pointer",
+                      background: grey[900],
+                      transition: "2s",
+                      ":hover": {
+                        transform: "scale(1.02)",
+                        background: "black",
+                      },
+                      transition: "0.45s",
+                    }
               }
             >
-              {paymentButtonLoading ? <CircularProgress sx={{ color: "white" }} isableShrink size={22} />
-                : <>Pay {getFormattedPrice(amountPayable)}</>}
+              {paymentButtonLoading ? (
+                <CircularProgress
+                  sx={{ color: "white" }}
+                  isableShrink
+                  size={22}
+                />
+              ) : (
+                <>Pay {getFormattedPrice(amountPayable)}</>
+              )}
             </SubmitPaymentButton>
           </Box>
         </Paper>

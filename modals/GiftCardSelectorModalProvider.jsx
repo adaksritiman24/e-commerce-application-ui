@@ -64,6 +64,17 @@ const StyledModalBox = styled(Box)({
   boxSizing: "border-box",
 });
 
+const getGiftItemHoverState = (active) => {
+  return active
+    ? {
+        cursor: "pointer",
+        transform: "scale(1.02)",
+      }
+    : {
+        cursor: "not-allowed",
+      };
+};
+
 const GiftCardSelectorModal = ({
   giftCardsModalOpen,
   setGiftCardsModalOpen,
@@ -123,7 +134,11 @@ const GiftCardSelectorModal = ({
               sm: "50vh",
               xs: "50vh",
             },
-            overflow: "scroll",
+            overflowY: "scroll",
+            scrollbarWidth: 0,
+            "::-webkit-scrollbar": {
+              display: "none",
+            },
           }}
         >
           <Grid
@@ -141,15 +156,14 @@ const GiftCardSelectorModal = ({
                 sx={{
                   m: 1.5,
                   transition: "transform 0.3s ease",
-                  ":hover": {
-                    cursor: "pointer",
-                    transform: "scale(1.02)",
-                  },
+                  ":hover": getGiftItemHoverState(giftCard.active),
                 }}
                 key={giftCard.id}
                 onClick={() => {
-                  setSelectedGiftCard(giftCard);
-                  setGiftCardsModalOpen(false);
+                  if (giftCard.active) {
+                    setSelectedGiftCard(giftCard);
+                    setGiftCardsModalOpen(false);
+                  }
                 }}
               >
                 <GiftCard giftcard={giftCard} />

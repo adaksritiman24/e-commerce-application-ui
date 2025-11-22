@@ -109,11 +109,17 @@ const ShhippingAndTotal = ({
     setDeliveryAddressOpen(true);
   };
 
-  const handlePlaceOrder = (bankCardDetails) => {
+  const handlePlaceOrder = (
+    bankCardDetails,
+    isGiftCardApplied = false,
+    giftCardDetails = null
+  ) => {
     setLoading(true);
     setTimeout(async () => {
       const { status, orderId } = await placeOrderUsingBankCard(
-        bankCardDetails
+        bankCardDetails,
+        (isGiftCardApplied = isGiftCardApplied),
+        (giftCardDetails = giftCardDetails)
       );
       if (status) {
         removeCookie(REMEMBER_ME, { path: "/" });

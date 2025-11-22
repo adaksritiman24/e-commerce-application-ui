@@ -47,9 +47,7 @@ const OrderShippingAndTotal = ({ totalAmount, deliveryAddress }) => {
               />
               <Box>
                 <Typography>
-                  {deliveryAddress.house}, {deliveryAddress.locality}
-                </Typography>
-                <Typography>
+                  {deliveryAddress.house}, {deliveryAddress.locality},{" "}
                   {deliveryAddress.city}, {deliveryAddress.country}
                 </Typography>
                 <Typography>Pin code: {deliveryAddress.pincode}</Typography>
@@ -82,17 +80,6 @@ const OrderShippingAndTotal = ({ totalAmount, deliveryAddress }) => {
               {deliveryAddress.email}
             </Typography>
           </Box>
-        </Box>
-
-        <Box
-          sx={{
-            mt: {
-              md: "0",
-              xs: "14px",
-            },
-          }}
-        >
-          <Summary total={totalAmount} subtotal={totalAmount} tax={0} shippingCost={0}/>
         </Box>
       </Box>
     </>

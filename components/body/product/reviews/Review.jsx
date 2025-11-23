@@ -8,11 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import ReviewItem from "./ReviewItem";
 import useReviews from "../../hooks/useReviews";
 import AuthContext from "../../../../auth/AuthContext";
+import ChatIcon from "@mui/icons-material/Chat";
 
 const Review = ({ productId }) => {
   const [rating, setRating] = useState(1);
@@ -59,7 +60,12 @@ const Review = ({ productId }) => {
               mr: 1,
             }}
           >
-            <Rating value={globalRating} precision={0.5} sx={{ fontSize: "30px" }} readOnly />
+            <Rating
+              value={globalRating}
+              precision={0.5}
+              sx={{ fontSize: "30px" }}
+              readOnly
+            />
           </Box>
 
           <Typography variant="h6" fontWeight={400}>
@@ -133,9 +139,26 @@ const Review = ({ productId }) => {
           ml: 2,
         }}
       >
-        <Typography variant="h5" fontWeight={600} mb={2}>
-          Customer Reviews
+        <Typography
+          variant="h5"
+          fontWeight={600}
+          fontFamily={"Trebuchet Ms"}
+          mb={2}
+          sx={{
+            display: "flex",
+            flexDirection: "row-reverse",
+            justifyContent: "space-between",
+          }}
+        >
+          <ChatIcon
+            fontSize="large"
+            sx={{
+              fontSize: "70",
+            }}
+          />
+          <p style={{ margin: "0" }}>Customer Reviews</p>
         </Typography>
+        <hr color={grey[400]} style={{ marginBottom: "25px" }} />
         <Box>
           {reviews.length === 0 ? (
             <Typography variant="subtitle1">No Reviews</Typography>

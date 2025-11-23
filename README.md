@@ -1,7 +1,7 @@
 ## Buzz Ecommerce Application
 This Front-end application works together with https://github.com/adaksritiman24/e-commerce-application-backend (back-end) and https://github.com/adaksritiman24/e-commerce-application-image-server (image server).
 
-The application is built on NextJS
+The application is built with Next.js
 - build this app using `npm build`
 - start the app using `npm start`
 
@@ -12,3 +12,4 @@ The application is built on NextJS
 ![scr4](https://github.com/user-attachments/assets/9cc8743a-83e7-41a7-bc0c-13d2e4d8cf6c)
 ![scr5](https://github.com/user-attachments/assets/f7fc9370-5ca8-4a45-8bfc-1ec35ebb7a06)
 ![scr6](https://github.com/user-attachments/assets/65486c13-9849-4fd6-bd10-17ee73cdb9c1)
+![scr7](https://github.com/user-attachments/assets/7f792e27-9be9-47f2-b597-b326b85cdb11)

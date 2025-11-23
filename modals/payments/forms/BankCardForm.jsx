@@ -1,28 +1,18 @@
-import {
-  Box,
-  CircularProgress,
-  FormControl,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Paper,
-  TextField,
-  styled,
-} from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
 import React, { useContext, useEffect, useState } from "react";
 import { PaymentContext } from "../PaymentModalProvider";
 import PaymentFormLoader from "../loaders/PaymentFormLoader";
 import {
   expansion,
-  getFormattedPrice,
   handleforDigitPressForCardNumber,
+  isKeyAllowedForNumericField,
   isNumericKey,
   processNumber,
 } from "../../../components/common/utils/helpers";
 import { GiftCardsSelectorModalContext } from "../../GiftCardSelectorModalProvider";
 import GiftCardSelection from "./components/GiftCardSelection";
+import BankCardIFrame from "./BankCardIFrame";
 
 const SubmitPaymentButton = styled("button")({
   color: grey[200],
@@ -82,22 +72,6 @@ const BankCardForm = () => {
     }
   };
 
-  const isKeyAllowed = (key) => {
-    return (
-      key == "1" ||
-      key == "2" ||
-      key == "3" ||
-      key == "4" ||
-      key == "5" ||
-      key == "6" ||
-      key == "7" ||
-      key == "8" ||
-      key == "9" ||
-      key == "0" ||
-      key === "Backspace"
-    );
-  };
-
   const handleCustomKeyDownChangeForNumericField = (
     field,
     key,
@@ -105,7 +79,7 @@ const BankCardForm = () => {
     clubbingSize,
     wildCard
   ) => {
-    if (isKeyAllowed(key)) {
+    if (isKeyAllowedForNumericField(key)) {
       let newData = "";
       let length = 0;
       let existingNumber = "";
@@ -204,146 +178,45 @@ const BankCardForm = () => {
           setGiftCardsSelectorModalOpen={setGiftCardsSelectorModalOpen}
           setSelectedGiftCard={setSelectedGiftCard}
         />
-        <Paper
-          elevation={4}
-          sx={{
-            m: 2,
-            animation: `${expansion} 400ms ease-out`,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-            }}
-          >
-            <FormControl sx={{ m: 2, flex: 6 }}>
-              <InputLabel>Card Number</InputLabel>
-              <OutlinedInput
-                placeholder="XXXX XXXX XXXX XXXX"
-                id="card-no-buzz"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <CreditCardIcon />
-                  </InputAdornment>
-                }
-                value={paymentData.bankCardDetails.cardNumber}
-                inputProps={{
-                  autoComplete: "cc-number",
-                  inputMode: "numeric",
-                  pattern: /[0-9\s]/,
-                }}
-                sx={{
-                  input: {
-                    caretColor: "transparent",
-                  },
-                }}
-                label="Card Number"
-                name="card"
-                onKeyDown={({ key }) =>
-                  handleCustomKeyDownChangeForNumericField(
-                    "card",
-                    key,
-                    16,
-                    4,
-                    " "
-                  )
-                }
-              />
-            </FormControl>
-            <TextField
-              sx={{ m: 2, ml: 0, flex: 2 }}
-              label="CVV"
-              id="cvv-buzz"
-              name="cvv"
-              value={paymentData.bankCardDetails.cardCVV}
-              inputProps={{ type: "password" }}
-              onInput={(inp) => handleFormInput(inp)}
-            />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: {
-                xs: "column",
-                md: "row",
-              },
-            }}
-          >
-            <TextField
-              sx={{ m: 2, mt: 0, flex: 3 }}
-              label="Card Holder's Name"
-              id="card-holder-buzz"
-              name="owner"
-              value={paymentData.bankCardDetails.cardName}
-              onInput={(inp) => handleFormInput(inp)}
-            />
-            <FormControl sx={{ m: 2, mt: 0, flex: 2 }}>
-              <InputLabel>Card Expiry Date</InputLabel>
-              <OutlinedInput
-                placeholder="MM/YY"
-                id="card-exp"
-                label="Card Expiry Date"
-                name="exp"
-                value={paymentData.bankCardDetails.cardExpiryData}
-                sx={{
-                  input: {
-                    caretColor: "transparent",
-                  },
-                }}
-                onKeyDown={({ key }) =>
-                  handleCustomKeyDownChangeForNumericField(
-                    "exp",
-                    key,
-                    4,
-                    2,
-                    " / "
-                  )
-                }
-              />
-            </FormControl>
-          </Box>
+
+        {amountPayable > 0 ? (
+          <BankCardIFrame
+            expansion={expansion}
+            paymentData={paymentData}
+            handleCustomKeyDownChangeForNumericField={
+              handleCustomKeyDownChangeForNumericField
+            }
+            handleFormInput={handleFormInput}
+            handlePaymentSubmit={handlePaymentSubmit}
+            paymentButtonLoading={paymentButtonLoading}
+            disabled={disabled}
+            amountPayable={amountPayable}
+          />
+        ) : (
           <Box
             sx={{
               display: "flex",
             }}
           >
             <SubmitPaymentButton
-              disabled={disabled || paymentButtonLoading}
               onClick={handlePaymentSubmit}
-              sx={
-                disabled || paymentButtonLoading
-                  ? {
-                      mx: 2,
-                      mb: 2,
-                      cursor: "not-allowed",
-                      background: grey[600],
-                    }
-                  : {
-                      mx: 2,
-                      mb: 2,
-                      cursor: "pointer",
-                      background: grey[900],
-                      transition: "2s",
-                      ":hover": {
-                        transform: "scale(1.02)",
-                        background: "black",
-                      },
-                      transition: "0.45s",
-                    }
-              }
+              sx={{
+                mx: 4,
+                mb: 4,
+                cursor: "pointer",
+                background: grey[900],
+                transition: "2s",
+                ":hover": {
+                  transform: "scale(1.02)",
+                  background: "black",
+                },
+                transition: "0.45s",
+              }}
             >
-              {paymentButtonLoading ? (
-                <CircularProgress
-                  sx={{ color: "white" }}
-                  isableShrink
-                  size={22}
-                />
-              ) : (
-                <>Pay {getFormattedPrice(amountPayable)}</>
-              )}
+              Place Order
             </SubmitPaymentButton>
           </Box>
-        </Paper>
+        )}
       </>
     );
   } else return <PaymentFormLoader />;

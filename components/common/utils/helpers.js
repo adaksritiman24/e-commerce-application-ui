@@ -64,6 +64,15 @@ export const isNumericKey = (key) => {
     key == "0";
 }
 
+export const isKeyAllowedForNumericField = (key) => {
+  return (
+    key == "1" || key == "2" || key == "3" ||
+    key == "4" || key == "5" || key == "6" ||
+    key == "7" || key == "8" || key == "9" ||
+    key == "0" || key === "Backspace"
+  );
+};
+
 export const expansion = keyframes`
   0% {
     opacity: 0;

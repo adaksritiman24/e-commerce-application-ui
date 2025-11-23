@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { ColorRing } from "react-loader-spinner";
+import { ProgressBar } from "react-loader-spinner";
 
 const PaymentFormLoader = () => {
   return (
@@ -13,11 +13,12 @@ const PaymentFormLoader = () => {
           alignItems: "center",
         }}
       >
-        <ColorRing
+        <ProgressBar
           visible={true}
           height="70"
           width="70"
-          colors={[grey[700], grey[400], grey[500], grey[600], grey[700]]}
+          borderColor={grey[900]}
+          barColor={grey[700]}
         />
       </Box>
     </>
